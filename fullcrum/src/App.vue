@@ -1,40 +1,57 @@
 <template>
   <div id="app">
-    <!-- <img src="./assets/logo.png"> -->
-    <HelloWorld/>
-    <el-carousel indicator-position="outside">
-      <el-carousel-item v-for="item in 4" :key="item">
-        <h3>{{ item }}</h3>
-      </el-carousel-item>
-    </el-carousel>
+    <transition :name="transitionName">
+      <router-view class="trans-view"></router-view>
+    </transition>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld'
 
+// import Banner from './components/banner-wapper'
 export default {
   name: 'App',
-  components: {
-    HelloWorld
+  data(){
+    return{
+      transitionName:'slide-left'
+    }
+  },
+  method(){
+
+  },
+  watch:{
+    '$route'(to,from){
+      if(to.path=='/'){
+        this.transitionName='slide-right';
+      }else{
+        this.transitionName='slide-left';
+      }
+    }
   }
 }
 </script>
 
 <style>
-.el-carousel__item h3 {
-    color: #475669;
-    font-size: 18px;
-    opacity: 0.75;
-    line-height: 300px;
-    margin: 0;
+  #app{
+    margin:0;
+    padding:0;
   }
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+  .trans-view{
+    position: absolute;
+    left: 0;
+    top: 0;
+    width:100%;
+    height:100%;
+    transition: all .8s cubic-bezier(.55,0,.5,1)
+  }
+  .slide-left-enter,.slide-right-leave-active{
+    opacity:0;
+    -webkit-transfrom:translate(0,20px);
+    transform:translate(0,20px);
+  }
+  .slide-left-leave-active, .slide-right-enter {
+  opacity: 0;
+  -webkit-transform: translate(0,20px);
+  transform: translate(0,20px);
 }
 </style>
