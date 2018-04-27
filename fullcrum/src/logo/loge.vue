@@ -1,6 +1,6 @@
 <template lang="html">
   <div class="loge-wapper">
-    <router-link to='/' name='Page' tag='p' class="loge-img">这是Logo</router-link>
+    <router-link to='/' name='Page' tag='p' class="loge-img">Logo</router-link>
   </div>
 </template>
 
@@ -16,12 +16,14 @@ export default {
     position: absolute;
     left:50%;
     margin-left: -100px;
-    background: black;
     top:10px;
     text-align: center;
-    line-height: 30px;
-    p{
-      color:white;
+    box-sizing: border-box;
+    line-height: 10px;
+    .loge-img{
+      color:red;
+      cursor: pointer;
+      font-size: 2.6rem;
     }
   }
 </style>

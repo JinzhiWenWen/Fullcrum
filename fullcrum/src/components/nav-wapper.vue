@@ -20,7 +20,7 @@ export default {
   .nav-wapper{
     width:100%;
     height:80px;
-    background: linear-gradient(#000,#ccc);
+    border-bottom: 1px solid black;
     position: absolute;
     top: 0;
     left:0;
