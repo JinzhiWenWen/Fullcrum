@@ -16,7 +16,7 @@ export default {
     top:22px;
     i{
       font-size: 34px;
-      color:red;
+      color:white;
       cursor:pointer;
     }
   }

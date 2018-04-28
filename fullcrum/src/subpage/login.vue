@@ -1,22 +1,25 @@
 <template lang="html">
   <div class="login-wapper">
-    <Loge/>
-    <h3>这是登陆页面</h3>
+    <Navg/>
+    <div class="login">
+      <h1>这是登陆页面</h1>
+    </div>
   </div>
 </template>
 
 <script>
-import Loge from '../logo/loge'
+import Navg from '../components/nav_global'
 export default {
   components:{
-    Loge
+    Navg
   }
 }
 </script>
 
 <style lang="scss" scoped>
-  .login-wapper{
+  .login{
     line-height: 300px;
     text-align: center;
+    font-size: 2rem;
   }
 </style>

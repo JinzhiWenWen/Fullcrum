@@ -25,29 +25,27 @@ export default {
   .vendor{
     display: inline-block;
     width:70px;
-    // background: black;
     text-align: center;
-    color:red;
     position: absolute;
-    right:50%;
-    margin-right:-28%;
+    left:50%;
+    margin-left:-28%;
     top:30px;
     z-index:99;
     font-size:1.6rem;
     cursor:pointer;
+    color:white;
   }
   .buyer{
     display: inline-block;
     width:70px;
-    // background: black;
     text-align: center;
-    color:red;
     position: absolute;
-    left:50%;
-    margin-left: -28%;
+    right:50%;
+    margin-right: -28%;
     top: 30px;
     z-index: 99;
     font-size:1.6rem;
     cursor: pointer;
+    color:white;
   }
 </style>

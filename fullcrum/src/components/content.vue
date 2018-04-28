@@ -30,7 +30,7 @@
           </span>
         </div>
       </div>
-      <div class="content_bottom">
+      <div class="content_bottom"><!-- 需要挪用 -->
         <p class="about_fulcrum">FULCRUM提供什么？</p>
         <ul class="uls_icon">
           <li>
@@ -90,7 +90,7 @@
           <p>票据购买者</p>
         </div>
       </div>
-      <div class="about_us">
+      <div class="about_us"><!-- 需要挪用 -->
         <p class="regard">关于FULCRUM</p>
         <p class="what_to_do">FULCRUM在做什么？</p>
         <span class="explain">

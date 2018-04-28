@@ -31,10 +31,12 @@ export default {
     height:auto;
     text-align: center;
     position: relative;
+    box-sizing: border-box;
+    margin-bottom:-3px;
     .img-responsive{
       display: inline-block;
       width:100%;
-      height:auto;
+      height:100%;
     }
     .title{
       text-align: center;
@@ -62,17 +64,15 @@ export default {
   }
   @media screen and (max-width:1366px){
     .title{
-      // position: absolute;
-      // left:50%;
       margin-left:-260px!important;
     }
     .alt_1{
       font-size: 4rem!important;
-      color:red;
+      // color:red!important;
     }
     .alt_2{
       font-size: 1rem!important;
-      color:red;
+      // color:red!important;
     }
     .login_btn{
       max-width: 100px;
