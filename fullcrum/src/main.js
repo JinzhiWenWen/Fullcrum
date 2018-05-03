@@ -5,6 +5,7 @@ import App from './App'
 import ElementUI from 'element-ui'
 import VueResource from 'vue-resource'
 import 'element-ui/lib/theme-chalk/index.css'
+import './assets/icon/iconfont.css'
 import router from './index.js'
 import 'jquery'
 

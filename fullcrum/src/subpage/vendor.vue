@@ -51,7 +51,18 @@
 
       </div>
       <div class="center_right">
-
+        <p class="center_title">票据融资凭条</p>
+        <span class="center_tions">
+          FULCRUM使来自世界各地的票据买家能够参与全球票<br/><br/>
+          据市场。票据购买者讲竞争购买他们认为合适的利率的<br/><br/>
+          票据，并且如果出价成功，当票据由票据销售者结算时<br/><br/>
+          将收取本金和利息。<br/><br/><br/><br/>
+          票据买家还可以购买票据，风险及小，因为Populous为<br/><br/>
+          保护买家在延迟付款甚至违约情况下采取独特保障措施。
+        </span>
+        <p class="fulcrum_more">
+          更多关于FULCRUM的信息
+        </p>
       </div>
     </div>
     <div class="content_bottom"><!-- 需要挪用 -->
@@ -185,6 +196,7 @@ export default {
     }
       .num{
         font-size:7rem;
+        color: #353bf7;
       }
       .alt_1{
         font-size: 2rem;
@@ -217,6 +229,25 @@ export default {
   .center_right{
     width: 50%;
     height:843px;
+    box-sizing: border-box;
+    padding-top:156px;
+    padding-left:80px;
+    p{
+      margin: 0;
+    }
+    .center_title{
+      font-size: 3.5rem;
+      margin-bottom:100px;
+    }
+    .center_tions{
+      font-size: 1.6rem;
+      color:#6d6d6d;
+    }
+    .fulcrum_more{
+      margin-top:64px;
+      color:#6e71f8;
+      cursor:pointer;
+    }
   }
 }
 .content_bottom{
