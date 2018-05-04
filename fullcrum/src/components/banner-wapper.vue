@@ -157,7 +157,7 @@ export default {
     .login_fill{
         width: 500px;
         height:400px;
-        position: absolute;
+        position: fixed;
         top: -400px;
         left:50%;
         margin-left:-250px;

@@ -12,7 +12,7 @@
       </el-form-item>
     </el-form>
 <p class="more_way">没有账号？<span>注册</span></p>
-<button class="obtian" ref="obtian" :disabled="disabled" type="button" name="button" @click=timer>{{btnText}}</button>
+<button class="obtian" ref="obtian" :disabled="disabled" type="button" name="button" @click="timer">{{btnText}}</button>
 <p class="title_stop">读秒结束后可从新获取</p>
 </div>
 </template>
@@ -107,21 +107,11 @@ export default {
         color:#999;
         font-size: 1.6rem;
       }
-      .el-input__inner{
-        border:0 none;
-        border-bottom:1px solid #eee;
-        color:999;
-      }
     }
     .password{
       input::-webkit-input-placeholder{
         color:#999;
         font-size: 1.6rem;
-      }
-      .el-input__inner{
-        border:0 none;
-        border-bottom:1px solid #eee;
-        color:999;
       }
     }
     .more_way{
@@ -148,7 +138,7 @@ export default {
     }
     .title_stop{
       position: absolute;
-      top: 53%;
+      top: 57%;
       right:18%;
       color:#409eff;
     }

@@ -11,8 +11,12 @@
         <el-button  style="font-size:1.8rem;margin-top:18px;width:112px;height:54px;" type="primary" @click="submitForm('ruleForm2')">登录</el-button>
         <!-- <el-button style="width:112px;height:54px;" @click="resetForm('ruleForm2')">重置</el-button> -->
       </el-form-item>
-</el-form>
-<p class="more_way">没有账号？<span>注册</span>/<span>忘记密码？</span>  </p>
+    </el-form>
+<p class="more_way">
+  没有账号？
+  <router-link to='/logiup' tag="span">注册</router-link>
+  /<span>忘记密码？</span>
+  </p>
 </div>
 </template>
 
@@ -82,7 +86,7 @@ export default {
   }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
   .password_login{
     width:80%;
     height:320px;
@@ -92,21 +96,11 @@ export default {
         color:#999;
         font-size: 1.6rem;
       }
-      .el-input__inner{
-        border:0 none;
-        border-bottom:1px solid #eee;
-        color:999;
-      }
     }
     .password{
       input::-webkit-input-placeholder{
         color:#999;
         font-size: 1.6rem;
-      }
-      .el-input__inner{
-        border:0 none;
-        border-bottom:1px solid #eee;
-        color:999;
       }
     }
     .more_way{

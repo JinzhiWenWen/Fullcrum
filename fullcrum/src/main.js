@@ -8,6 +8,7 @@ import 'element-ui/lib/theme-chalk/index.css'
 import './assets/icon/iconfont.css'
 import router from './index.js'
 import 'jquery'
+import './index.css'
 
 Vue.config.productionTip = false
 Vue.use(ElementUI)
