@@ -103,7 +103,9 @@
           将提供更低成本、更高效率、更安全的解决方案，帮助企业补充资金流动性，更好的发展商业。
         </span>
         <br>
-        <el-button type="primary" plain class="load_more">更多</el-button>
+        <router-link to='/about' tag='p'>
+          <el-button type="primary" plain class="load_more">更多</el-button>
+        </router-link>
       </div>
   </div>
 </template>

@@ -6,7 +6,11 @@
       <More/>
     </div>
     <div class="banner">
-      <p>注册FULCRUM</p>
+      <p class="myComponent">
+        <slot>
+          注册FULCRUM
+        </slot>
+      </p>
     </div>
   </div>
 </template>

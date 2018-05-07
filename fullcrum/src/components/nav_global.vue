@@ -24,7 +24,6 @@ export default {
     position: absolute;
     top: 0;
     left:0;
-    // border-bottom:1px solid #000;
     background: -webkit-linear-gradient(blue, black); /* Safari 5.1 - 6.0 */
     background: -o-linear-gradient(blue, black); /* Opera 11.1 - 12.0 */
     background: -moz-linear-gradient(blue, black); /* Firefox 3.6 - 15 */

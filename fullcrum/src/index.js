@@ -4,10 +4,14 @@ import Page from '@/subpage/page'
 import Vendor from '@/subpage/vendor'
 import Buyer from '@/subpage/buyer'
 import LogiUp from '@/subpage/logiup'
+import LogiUoSuccess from '@/subpage/logiup_successful'
+import Personal from '@/subpage/personal_center'
+import About from '@/subpage/about_ful'
 import Pass from '@/components/password-login'
 import Auth from '@/components/auth-login'
 import Boor from '@/components/boor-man'
 import Inve from '@/components/inve-man'
+
 Vue.use(Router)
 export default new Router({
     routes:[
@@ -54,6 +58,21 @@ export default new Router({
             component:Inve
           }
         ]
+      },
+      {
+        path:'/logiupsuss',
+        name:'LogiUoSuccess',
+        component:LogiUoSuccess
+      },
+      {
+        path:'/person',
+        name:'Personal',
+        component:Personal
+      },
+      {
+        path:'/about',
+        name:'About',
+        component:About
       }
     ]
 })

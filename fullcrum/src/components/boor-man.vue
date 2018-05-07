@@ -22,9 +22,11 @@
           <span>确认密码</span>
           <el-input type="password" v-model="ruleForm2.turnpass" auto-complete="off" class=""></el-input>
         </el-form-item>
-        <el-form-item>
-          <el-button label-position="right" class="next" style="font-size:1.8rem;margin-top:18px;width:112px;height:54px;" type="primary" @click="submitForm('ruleForm2')">下一步</el-button>
-        </el-form-item>
+        <router-link to='/logiupsuss' tag='div' class="next_btn">
+          <el-form-item>
+            <el-button style="font-size:2.2rem;width:286px;height:60px;" type="primary" @click="submitForm('ruleForm2')">下一步</el-button>
+          </el-form-item>
+        </router-link>
       </el-form>
       <button class="obtain" @click="obtain" :disabled="disabled" ref="obtain" type="button" name="button">{{btnTxt}}</button>
     </div>
@@ -55,15 +57,15 @@ export default {
     var validatePass = (rule, value, callback) => {
       if (value === '') {
         callback(new Error('请输入密码'));
-      }else{
-        callback();
+      }else if(value!=='123'){
+        callback(new Error('密码必须至少包含8个字符,且至少包含一个大写字母'))
       }
     };
     var validatePass2=(rule,value,callback)=>{
         if(value===''){
           callback(new Error('请再次输入密码'))
         }else if(value!==this.ruleForm2.pass){
-          callback(new Error('两次输入的密码不一致'))
+          callback(new Error('密码不匹配'))
         }else{
           callback()
         }
@@ -137,6 +139,7 @@ export default {
   width: 100%;
   padding-top:20px;
   height:740px;
+  position: relative;
   .title{
     font-size:1.4rem;
     color:#6d6d6d;
@@ -144,22 +147,22 @@ export default {
     text-align: center;
   }
   .form{
-    position: relative;
+
     span{
       font-size: 1.4rem;
       color:#333;
     }
-    .next{
-      .el-button__inner{
+    .next_btn{
         position: absolute;
-        top:0;
-      }
+        top:80%;
+        left:50%;
+        margin-left: -143px;
     }
     .obtain{
       width: 92px;
       height:40px;
       position: absolute;
-      top:28%;
+      top:33%;
       right:0;
       font-size: 1.7rem;
       background: #4f8ef3;

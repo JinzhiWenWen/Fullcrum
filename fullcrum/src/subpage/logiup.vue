@@ -45,6 +45,7 @@ export default {
   width: 100;
   height:auto;
   box-sizing: border-box;
+  position: relative;
   .for{
     width:100%;
     font-size: 1.6rem;
@@ -57,7 +58,9 @@ export default {
   .matter{
     width: 684px;
     height:800px;
-    margin-left:34.2%;
+    position: absolute;
+    left:50%;
+    margin-left:-342px;
     box-sizing: border-box;
     padding-left:56px;
     padding-right:56px;
