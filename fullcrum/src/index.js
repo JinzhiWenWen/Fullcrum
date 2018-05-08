@@ -6,6 +6,7 @@ import Buyer from '@/subpage/buyer'
 import LogiUp from '@/subpage/logiup'
 import LogiUoSuccess from '@/subpage/logiup_successful'
 import Personal from '@/subpage/personal_center'
+import Seller from '@/subpage/seller_center'
 import About from '@/subpage/about_ful'
 import Pass from '@/components/password-login'
 import Auth from '@/components/auth-login'
@@ -73,6 +74,11 @@ export default new Router({
         path:'/about',
         name:'About',
         component:About
+      },
+      {
+        path:'/seller',
+        name:'Seller',
+        component:Seller
       }
     ]
 })

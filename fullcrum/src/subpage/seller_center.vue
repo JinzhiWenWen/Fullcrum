@@ -69,7 +69,7 @@
             <span class="nick_mod">修改</span>
           </p>
           <p class="user_senior">
-            <span class="nick_senior">高级认证</span>
+            <span class="nick_senior">商家认证</span>
             <span class="nick_senior_last" ref="nick_senior">{{userMessage.userCation}}</span>
             <span class="nick_mod">认证</span>
           </p>
@@ -77,27 +77,53 @@
       </div>
       <div class="account_colle">
         <p class="account_title">
-          <span class="title_left">收款方式<br/>
-            <span style="color:#a1a1a1;font-size:1.2rem;">请务必使用您本人的实名账户，被激活的账户会在交易时向买方展示。</span>
+          <span class="title_left">企业认证<br/>
+            <span style="color:#a1a1a1;font-size:1.2rem;">请务必使用真实的企业账户，被激活的部分账户信息会在交易时向买方展示。 </span>
           </span>
         </p>
-        <div class="account_message">
-          <p class="user_colle">
-            <span class="nick_colle">银行卡</span>
-            <span class="nick_colle_last" ref="nick_colle">{{userMessage.userBank}}</span>
-            <span class="nick_collenum">{{userMessage.userBankNum}}</span>
-            <span class="nick_mod">修改</span>
+        <div class="company_message">
+          <p class="company">
+            <span class="company_name">公司名称</span>
+            <span class="company_name_last">{{userMessage.userInit}}</span>
+            <span class="push_btn">添加</span>
           </p>
-          <p class="user_trepay">
-            <span class="nick_trepay">支付宝</span>
-            <span class="nick_trepay_last" ref="nick_trepay">{{userMessage.userTrePay}}</span>
-            <span class="nick_mod">修改</span>
+          <p class="company">
+            <span class="company_name">企业固话</span>
+            <span class="company_name_last">{{userMessage.userInit}}</span>
+            <span class="push_btn">添加</span>
           </p>
-          <p class="user_wecpay">
-            <span class="nick_wecpay">微信</span>
-            <span class="nick_wecpay_last" ref="nick_wecpay">{{userMessage.userWecPay}}</span>
-            <span class="nick_mod">添加</span>
+          <p class="company">
+            <span class="company_name">企业银行账号</span>
+            <span class="cor_banknum">{{userMessage.userInit}}</span>
+            <span class="push_btn">添加</span>
           </p>
+          <p class="company">
+            <span class="company_name">大额行号</span>
+            <span class="company_name_last">{{userMessage.userInit}}</span>
+            <span class="push_btn">添加</span>
+          </p>
+          <p class="company">
+            <span class="company_name">手机号</span>
+            <span class="phone_num">{{userMessage.userInit}}</span>
+            <span class="push_btn">添加</span>
+          </p>
+          <p class="company">
+            <span class="company_name">邮箱</span>
+            <span class="email_num">{{userMessage.userInit}}</span>
+            <span class="push_btn">添加</span>
+          </p>
+          <div class="verify">
+            <div class="busi">
+              <span></span>
+              <p>营业执照</p>
+            </div>
+            <div class="idc">
+              <span class="top"></span>
+              <p>法人身份证正面</p>
+              <span class="bot"></span>
+              <p>法人身份证背面</p>
+            </div>
+          </div>
         </div>
       </div>
       <div class="account_wallt">
@@ -127,10 +153,7 @@ export default {
         userTrade:'未绑定',
         userCation:'未认证',
         userNum:'1001**********3012',
-        userBank:'广发银行',
-        userBankNum:'6225684********1337',
-        userTrePay:'132****1337',
-        userWecPay:'未添加'
+        userInit:'未添加'
       }
     }
   },
@@ -410,7 +433,7 @@ export default {
     }
     .account_colle{
       width: 100%;
-      height:252px;
+      height:774px;
       border-radius:12px;
       border:1px solid #f5f5f5;
       box-shadow: 3px 3px 3px #eee;
@@ -425,68 +448,74 @@ export default {
           color:#333;
         }
       }
-      .account_message{
+      .company_message{
+        width: 100%;
         padding-left:32px;
-        .user_colle{
-          width:100%;
+        .company{
+          width: 100%;
           height:50px;
-          border-bottom:1px solid #eee;
           line-height: 50px;
+          border-bottom:1px solid #eee;
           position: relative;
-          .nick_colle{
-            font-size: 1.4rem;
-            color:#a1a1a1;
-          }
-          .nick_colle_last{
-            margin-left:138px;
+          .company_name{
             font-size: 1.2rem;
-            color:#333;
+            color:#999;
           }
-          .nick_collenum{
-            width: 286px;
-            position: absolute;
-            right:4%;
+          .company_name_last{
+            margin-left: 124px;
+            color:#999;
           }
-          .nick_mod{
+          .push_btn{
             @include public-btn;
+          }
+          .cor_banknum{
+            margin-left:99px;
+            color:#999;
+          }
+          .phone_num{
+            margin-left: 136px;
+            color:#999;
+          }
+          .email_num{
+            margin-left:148px;
+            color:#999;
           }
         }
-        .user_trepay{
-          width:100%;
-          height:50px;
-          line-height: 50px;
-          border-bottom:1px solid #eee;
-          position: relative;
-          .nick_trepay{
+        .verify{
+          width: 100%;
+          height:auto;
+          display: flex;
+          margin-top: 26px;
+          p{
+            width: 66%;
+            text-align: center;
+            padding-top:8px;
             font-size: 1.4rem;
-            color:#a1a1a1;
           }
-          .nick_trepay_last{
-            margin-left:138px;
-            font-size: 1.2rem;
-            color:#333;
+          .busi{
+            width: 50%;
+            height:304px;
+            padding-left:90px;
+            span{
+              width: 200px;
+              height:272px;
+              background: #999;
+              border-radius: 3px;
+            }
           }
-          .nick_mod{
-            @include public-btn;
-          }
-        }
-        .user_wecpay{
-          width:100%;
-          height:50px;
-          line-height: 50px;
-          border-bottom:1px solid #eee;
-          position: relative;
-          .nick_wecpay{
-            font-size: 1.4rem;
-            color:#a1a1a1;
-          }
-          .nick_wecpay_last{
-            margin-left:152px;
-            font-size: 1.2rem;
-            color:#a1a1a1;
-          }
-          .nick_mod{
-            @include public-btn;
+          .idc{
+            width: 50%;
+            height:304px;
+            padding-left:70px;
+            span{
+              width: 192px;
+              height:118px;
+              background: #999;
+              border-radius:5px;
+            }
+            .bot{
+              margin-top: 6px;
+            }
           }
         }
       }
