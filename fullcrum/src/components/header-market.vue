@@ -20,7 +20,7 @@
       </div>
       <div class="banner">
         <p>
-          个人中心
+          票据市场
         </p>
       </div>
   </div>

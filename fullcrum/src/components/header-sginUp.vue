@@ -1,6 +1,5 @@
 <template lang="html">
   <div class="sgin_up">
-
     <div class="loge">
       <Loge/>
       <More/>

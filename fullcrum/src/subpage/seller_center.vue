@@ -114,14 +114,62 @@
           </p>
           <div class="verify">
             <div class="busi">
-              <span></span>
+              <span @mouseenter="show" @mouseleave="hide">
+                <div class="uploader" v-show="isShow">
+                  <el-upload
+                    action="https://jsonplaceholder.typicode.com/posts/"
+                    list-type="picture-card"
+                    class="uploader-btn"
+                    :on-preview="handlePictureCardPreview"
+                    :on-remove="handleRemove"
+                    :limit="1">
+                    <i class="el-icon-plus"></i>
+                    <span class="el-title">点击添加图片</span>
+                  </el-upload>
+                  <el-dialog :visible.sync="dialogVisible">
+                    <img width="100%" :src="dialogImageUrl" alt="">
+                  </el-dialog>
+                </div>
+              </span>
               <p>营业执照</p>
             </div>
             <div class="idc">
-              <span class="top"></span>
-              <p>法人身份证正面</p>
-              <span class="bot"></span>
-              <p>法人身份证背面</p>
+              <span class="top" @mouseenter="showTive" @mouseleave="hideTive">
+                <el-upload
+                  action="https://jsonplaceholder.typicode.com/posts/"
+                  list-type="picture-card"
+                  class="uploader-btn"
+                  :on-preview="handlePictureCardPreview"
+                  :on-remove="handleRemove"
+                  :limit="1"
+                  v-show="isShowTive"
+                  >
+                  <i class="el-icon-plus"></i>
+                  <span class="el-title">点击上传</span>
+                </el-upload>
+                <el-dialog :visible.sync="dialogVisible">
+                  <img width="100%" :src="dialogImageUrl" alt="">
+                </el-dialog>
+              </span>
+              <p class="tive_title">法人身份证正面</p>
+              <span class="bot" @mouseenter="showReve" @mouseleave="hideReve">
+                <el-upload
+                  action="https://jsonplaceholder.typicode.com/posts/"
+                  list-type="picture-card"
+                  class="uploader-btn"
+                  :on-preview="handlePictureCardPreview"
+                  :on-remove="handleRemove"
+                  :limit="1"
+                  v-show="isShowRever"
+                  >
+                  <i class="el-icon-plus"></i>
+                  <span class="el-title">点击上传</span>
+                </el-upload>
+                <el-dialog :visible.sync="dialogVisible">
+                  <img width="100%" :src="dialogImageUrl" alt="">
+                </el-dialog>
+              </span>
+              <p class="reve_title">法人身份证背面</p>
             </div>
           </div>
         </div>
@@ -145,6 +193,11 @@ export default {
       isShowPhone:false,
       isShowPass:false,
       isShowTrade:false,
+      dialogImageUrl: '',
+      dialogVisible: false,
+      isShow:false,
+      isShowTive:false,
+      isShowRever:false,
       userMessage:{
         userName:'海绵海绵我是大星',
         userEmail:'未绑定',
@@ -180,6 +233,31 @@ export default {
         this.isShowTrade=!this.isShowTrade;
         this.$refs.change_trade.value=this.userTrade;
         this.$refs.nick_trade.style.color="#333";
+    },
+    handleRemove(file, fileList) {
+        console.log(file, fileList);
+    },
+    handlePictureCardPreview(file) {
+        this.dialogImageUrl = file.url;
+        this.dialogVisible = true;
+    },
+    show(){
+      this.isShow=true;
+    },
+    hide(){
+      this.isShow=false;
+    },
+    showTive(){
+      this.isShowTive=true;
+    },
+    hideTive(){
+      this.isShowTive=false;
+    },
+    showReve(){
+      this.isShowRever=true;
+    },
+    hideReve(){
+      this.isShowRever=false;
     }
   },
   components:{
@@ -188,7 +266,7 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .personal_center{
   width: 100%;
   height:100%;
@@ -501,20 +579,121 @@ export default {
               height:272px;
               background: #999;
               border-radius: 3px;
+              position: relative;
+              color:white;
+              .uploader{
+                position:absolute;
+                top:0;
+                left:0;
+                .el-title{
+                  width: 100px;
+                  height:100px;
+                  position: absolute;
+                  top:20%;
+                  background: black;
+                  left:25%;
+                  font-size: 1.4rem;
+                  z-index: -1;
+                }
+                .uploader-btn{
+                  .el-upload--picture-card{
+                    width: 200px;
+                    height:272px;
+                    border:0;
+                    line-height: 272px;
+                    border-radius: 3px;
+                    background: black;
+                    opacity: .5;
+                    .el-icon-plus{
+                      color:white;
+                      font-size: 11rem;
+                    }
+                  }
+                }
+              }
             }
           }
           .idc{
             width: 50%;
             height:304px;
             padding-left:70px;
+            position: relative;
             span{
               width: 192px;
               height:118px;
               background: #999;
               border-radius:5px;
             }
+            .top{
+              .uploader-btn{
+                position: relative;
+                .el-upload--picture-card{
+                  width: 192px;
+                  height:118px;
+                  border:0;
+                  line-height: 118px;
+                  border-radius: 3px;
+                  background: black;
+                  opacity: .5;
+                  .el-icon-plus{
+                    color:white;
+                    font-size: 6rem;
+                  }
+                  .el-title{
+                    width: 60px;
+                    height:50px;
+                    position: absolute;
+                    left:34%;
+                    top:28%;
+                    z-index: -1;
+                    background: black;
+                    color:white;
+                    font-size: 1.4rem;
+                  }
+                }
+              }
+            }
             .bot{
-              margin-top: 6px;
+              position: absolute;
+              left:70px;
+              top:51%;
+              .uploader-btn{
+                position: relative;
+                .el-upload--picture-card{
+                  width: 192px;
+                  height:118px;
+                  border:0;
+                  line-height: 118px;
+                  border-radius: 3px;
+                  background: black;
+                  opacity: .5;
+                  .el-icon-plus{
+                    color:white;
+                    font-size: 6rem;
+                  }
+                  .el-title{
+                    width: 60px;
+                    height:50px;
+                    position: absolute;
+                    left:34%;
+                    top:28%;
+                    z-index: -1;
+                    background: black;
+                    color:white;
+                    font-size: 1.4rem;
+                  }
+                }
+              }
+            }
+            .tive_title{
+              position: absolute;
+              top: 38%;
+              left:12%;
+            }
+            .reve_title{
+              position: absolute;
+              top: 90%;
+              left:12%;
             }
           }
         }

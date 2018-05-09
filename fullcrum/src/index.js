@@ -8,6 +8,7 @@ import LogiUoSuccess from '@/subpage/logiup_successful'
 import Personal from '@/subpage/personal_center'
 import Seller from '@/subpage/seller_center'
 import About from '@/subpage/about_ful'
+import Market from '@/subpage/market'
 import Pass from '@/components/password-login'
 import Auth from '@/components/auth-login'
 import Boor from '@/components/boor-man'
@@ -79,6 +80,11 @@ export default new Router({
         path:'/seller',
         name:'Seller',
         component:Seller
+      },
+      {
+        path:'/mark',
+        name:'Mark',
+        component:Market
       }
     ]
 })
