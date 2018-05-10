@@ -9,6 +9,7 @@ import Personal from '@/subpage/personal_center'
 import Seller from '@/subpage/seller_center'
 import About from '@/subpage/about_ful'
 import Market from '@/subpage/market'
+import Tarding from '@/subpage/tarding'
 import Pass from '@/components/password-login'
 import Auth from '@/components/auth-login'
 import Boor from '@/components/boor-man'
@@ -85,6 +86,11 @@ export default new Router({
         path:'/mark',
         name:'Mark',
         component:Market
+      },
+      {
+        path:'/tard',
+        name:'Tard',
+        component:Tarding
       }
     ]
 })

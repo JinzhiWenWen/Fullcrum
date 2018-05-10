@@ -23,8 +23,13 @@ span{
 div{
   box-sizing: border-box;
 }
-input,button{
+input{
   border:0;
+  outline: none;
+}
+button{
+  border: 0;
+  cursor: pointer;
   outline: none;
 }
 .el-input__inner{

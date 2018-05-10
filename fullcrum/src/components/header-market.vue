@@ -4,7 +4,7 @@
         <Loge/>
         <More/>
         <router-link to="/mark" tag='p'>票据市场</router-link>
-        <p>FUL（CNY）市场</p>
+        <p>FC市场</p>
         <div class="left">
           <p>订单</p>
           <p>资产</p>

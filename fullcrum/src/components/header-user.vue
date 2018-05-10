@@ -4,7 +4,7 @@
         <Loge/>
         <More/>
         <router-link to="/mark" tag='p'>票据市场</router-link>
-        <p>FUL（CNY）市场</p>
+        <p>FC市场</p>
         <div class="left">
           <p>订单</p>
           <p>资产</p>
@@ -19,9 +19,9 @@
         </div>
       </div>
       <div class="banner">
-        <p>
-          个人中心
-        </p>
+        <slot>
+          <p class="slot-mine">个人中心</p>
+        </slot>
       </div>
   </div>
 </template>
@@ -106,7 +106,8 @@ export default {
     color:white;
     text-align: center;
     box-sizing: border-box;
-    p{
+    .slot-mine{
+      display: inline-block;
       margin-top: 70px;
       font-size: 4.6rem;
     }
