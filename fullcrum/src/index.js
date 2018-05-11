@@ -10,6 +10,7 @@ import Seller from '@/subpage/seller_center'
 import About from '@/subpage/about_ful'
 import Market from '@/subpage/market'
 import Tarding from '@/subpage/tarding'
+import PersonalAss from '@/subpage/personal_assets'
 import Pass from '@/components/password-login'
 import Auth from '@/components/auth-login'
 import Boor from '@/components/boor-man'
@@ -91,6 +92,11 @@ export default new Router({
         path:'/tard',
         name:'Tard',
         component:Tarding
+      },
+      {
+        path:'/personass',
+        name:'Personass',
+        component:PersonalAss
       }
     ]
 })

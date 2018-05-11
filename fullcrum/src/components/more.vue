@@ -14,15 +14,23 @@ export default {
   methods:{
     Deg(){
       this.$refs.icon.style.transform='rotate(45deg)';
+      this.$refs.icon_close.style.transform='rotate(0)';
       setTimeout(()=>{
         this.$refs.icon.style.display='none';
-      },500);
+      },301);
       setTimeout(()=>{
         this.$refs.icon_close.style.display='block';
-      },510)
+      },302)
     },
     DegBack(){
       this.$refs.icon_close.style.transform='rotate(-45deg)';
+      this.$refs.icon.style.transform='rotate(0)';
+      setTimeout(()=>{
+        this.$refs.icon_close.style.display='none';
+      },303)
+      setTimeout(()=>{
+        this.$refs.icon.style.display='block';
+      },304)
     }
   }
 }
@@ -33,7 +41,7 @@ export default {
     position: fixed;
     right:22px;
     top:16px;
-    transition: .5s;
+    transition: .3s;
     font-size: 3.4rem;
     color:white;
     cursor:pointer;

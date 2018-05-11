@@ -1,6 +1,6 @@
 <template lang="html">
   <div class="banner-wapper">
-    <img src='../img/Background.png' alt='你好啊' class='img-responsive'>
+    <img ref="aaa" src='../img/Background.png' alt='你好啊' class='img-responsive'>
     <div class="title">
       <p class='alt_1'>
         <span>区块链时代全球首个</span>
@@ -52,7 +52,8 @@
 export default {
   data(){
     return{
-      color:1
+      color:1,
+      aaa:'nima'
     }
   },
   methods:{
@@ -71,8 +72,14 @@ export default {
     },
     auth(){
       this.color=2;
+    },
+    change(){
+      // this.$refs.aaa.style.transform='translateX(-50%)'
     }
-  }
+  },
+  mounted(){
+    this.change()
+  },
 }
 </script>
 
@@ -88,11 +95,11 @@ export default {
     position: relative;
     box-sizing: border-box;
     margin-bottom:-3px;
-
     .img-responsive{
       display: inline-block;
       width:100%;
       height:100%;
+      transition: 10s;
     }
     .title{
       text-align: center;

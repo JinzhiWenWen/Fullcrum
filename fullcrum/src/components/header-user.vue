@@ -5,9 +5,9 @@
         <More/>
         <router-link to="/mark" tag='p'>票据市场</router-link>
         <p>FC市场</p>
-        <div class="left">
+        <div class="right">
           <p>订单</p>
-          <p>资产</p>
+          <router-link to='/personass' tag='p'>资产</router-link>
           <span class="user_pic" @click="lists"></span>
         </div>
         <div class="chose_lists" v-show="isShow">
@@ -66,7 +66,7 @@ export default {
       padding-left:48px;
       cursor:pointer;
     }
-    .left{
+    .right{
       position:absolute;
       right:5%;
       top:.5%;

@@ -76,18 +76,18 @@ export default {
         disabled:true,
         much:'',
         options: [{
-          value: '选项1',
-          label: '海绵宝宝'
-        }, {
-          value: '选项2',
-          label: '派大星'
-        }, {
-          value: '选项3',
-          label: '章鱼哥'
-        }, {
-          value: '选项4',
-          label: '蟹老板'
-        }],
+            value: '选项1',
+            label: '海绵宝宝'
+          }, {
+            value: '选项2',
+            label: '派大星'
+          }, {
+            value: '选项3',
+            label: '章鱼哥'
+          }, {
+            value: '选项4',
+            label: '蟹老板'
+          }],
         value: '',
         roteList:[
           {
