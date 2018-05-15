@@ -1,17 +1,19 @@
 <template lang="html">
   <div class="password_login">
-    <el-form :model="ruleForm2" status-icon :rules="rules2" ref="ruleForm2" class="demo-ruleForm">
-      <el-form-item prop="phoneNum">
-        <el-input  placeholder="请输入手机号/邮箱" v-model="ruleForm2.phoneNum" auto-complete="on" class="phonenum"></el-input>
-      </el-form-item>
-      <el-form-item prop="pass">
-        <el-input placeholder="请输入密码" type="password" v-model="ruleForm2.pass" auto-complete="on" class="password"></el-input>
-      </el-form-item>
-      <el-form-item>
-        <el-button  style="font-size:1.8rem;margin-top:18px;width:112px;height:54px;" type="primary" @click="submitForm('ruleForm2')">登录</el-button>
-        <!-- <el-button style="width:112px;height:54px;" @click="resetForm('ruleForm2')">重置</el-button> -->
-      </el-form-item>
-    </el-form>
+    <div class="elForm">
+      <el-form :model="ruleForm2" status-icon :rules="rules2" ref="ruleForm2" class="demo-ruleForm">
+        <el-form-item prop="phoneNum">
+          <el-input  placeholder="请输入手机号/邮箱" type="text" v-model="ruleForm2.phoneNum" auto-complete="off" class="phonenum"></el-input>
+        </el-form-item>
+        <el-form-item prop="pass">
+          <el-input  placeholder="请输入密码" type="password" v-model="ruleForm2.pass" auto-complete="off" class="password"></el-input>
+        </el-form-item>
+        <el-form-item>
+          <el-button class="elBtn_one"  style="font-size:1.8rem;margin-top:18px;width:112px;height:54px;" type="primary" @click="submitForm('ruleForm2')">登录</el-button>
+          <el-button class="elBtn_two"  style="font-size:1.2rem;margin-top:-18px;width:70px;height:36px;" type="primary" @click="submitForm('ruleForm2')">登录</el-button>
+        </el-form-item>
+      </el-form>
+    </div>
 <p class="more_way">
   没有账号？
   <router-link to='/logiup' tag="span">注册</router-link>
@@ -86,7 +88,29 @@ export default {
   }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
+@media screen and(max-width:1366px){
+  .elBtn_one{
+    display: none;
+  }
+  .elBtn_two{
+    display: block!important;
+    margin-left: 34%;
+    margin-top: 15px!important;
+  }
+  .phonenum{
+    margin-top:5px!important;
+
+  }
+
+  .more_way{
+    margin-top: -18px;
+    font-size: 1rem!important;
+  }
+}
+.el-button{
+  padding:0!important;
+}
   .password_login{
     width:80%;
     height:320px;
@@ -94,14 +118,17 @@ export default {
       margin-top: 60px;
       input::-webkit-input-placeholder{
         color:#999;
-        font-size: 1.6rem;
+        font-size: 1.4rem;
       }
     }
     .password{
       input::-webkit-input-placeholder{
         color:#999;
-        font-size: 1.6rem;
+        font-size: 1.4rem;
       }
+    }
+    .elBtn_two{
+      display: none;
     }
     .more_way{
       color:#999;

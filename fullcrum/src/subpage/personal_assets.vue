@@ -40,11 +40,19 @@
         <p class="spec_fc">USDT</p>
         <p class="blance">
           <span class="num">账户余额：233333.00USDT</span>
-          <button type="button" name="button" class="buy">充值</button>
+          <button type="button" name="button" class="buy" @click="topUp">充值</button>
           <button type="button" name="button" class="sell">兑换</button>
           <button type="button" name="button" class="sell">提币</button>
         </p>
       </div>
+    </div>
+    <div class="mask" @click="closeQr" v-show="isShowMask">
+
+    </div>
+    <div class="topUp_qr" ref="TopUp">
+      <span class="close" @click="closeQr">
+        <i class="el-icon-close"></i>
+      </span>
     </div>
   </div>
 </template>
@@ -55,7 +63,8 @@ export default {
   data(){
     return{
       isShow:false,
-      num:0
+      num:0,
+      isShowMask:false
     }
   },
   methods:{
@@ -68,8 +77,15 @@ export default {
     },
     close(){
       this.isShow=false;
-
       this.num=0;
+    },
+    topUp(){
+      this.isShowMask=true;
+      this.$refs.TopUp.style.top="22%";
+    },
+    closeQr(){
+      this.isShowMask=false;
+      this.$refs.TopUp.style.top="-560px"
     }
   },
   components:{
@@ -79,9 +95,44 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.slot-mine{
-  margin-top: 70px;
-  font-size: 4.6rem;
+.mask{
+  width:100%;
+  height:3400px;
+  position: fixed;
+  top:0;
+  left:0;
+  background: black;
+  opacity: .5;
+}
+.topUp_qr{
+  // width: 400px;  1366
+  // height:400px;  1366
+  width: 560px;
+  height:560px;
+  border-radius: 5px;
+  background: white;
+  position: fixed;
+  top:-560px;
+  left:50%;
+  margin-left: -280px;
+  transition: .3s;
+  .close{
+    width: 40px;
+    height:40px;
+    background: #5277cc;
+    color:white;
+    border-radius: 50%;
+    text-align: center;
+    line-height: 48px;
+    border:2px solid #eee;
+    position: absolute;
+    top: -4%;
+    left:96%;
+    cursor: pointer;
+    .el-icon-close{
+      font-size: 2.4rem;
+    }
+  }
 }
 .active{
   margin-top: 200px!important;

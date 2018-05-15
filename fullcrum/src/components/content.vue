@@ -127,9 +127,7 @@ export default {
       padding-top:114px;
       padding-bottom: 96px;
       position: relative;
-      // background: #ccc;
       box-sizing: border-box;
-      // padding-left:20%;
       .title{
         width: 50%;
         text-align: center;

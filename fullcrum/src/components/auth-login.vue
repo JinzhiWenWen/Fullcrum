@@ -8,7 +8,8 @@
         <el-input placeholder="请输入验证码" type="password" v-model="ruleForm2.pass" auto-complete="on" class="password"></el-input>
       </el-form-item>
       <el-form-item>
-        <el-button  style="font-size:1.8rem;margin-top:18px;width:112px;height:54px;" type="primary" @click="submitForm('ruleForm2')">登录</el-button>
+        <el-button class="elBtn_one"  style="font-size:1.8rem;margin-top:18px;width:112px;height:54px;" type="primary" @click="submitForm('ruleForm2')">登录</el-button>
+        <el-button class="elBtn_two"  style="font-size:1.2rem;margin-top:-18px;width:70px;height:36px;" type="primary" @click="submitForm('ruleForm2')">登录</el-button>
       </el-form-item>
     </el-form>
 <p class="more_way">没有账号？<span>注册</span></p>
@@ -98,21 +99,25 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@media screen and (max-width:1366px){
+  .obtian{
+    width: 42px!important;
+    height:30px!important;
+    font-size: 1.4rem!important;
+    top:48%!important;
+  }
+  .title_stop{
+    top:61%!important;
+  }
+}
   .password_login{
     width:80%;
     height:320px;
     .phonenum {
       margin-top: 60px;
-      input::-webkit-input-placeholder{
-        color:#999;
-        font-size: 1.6rem;
-      }
     }
-    .password{
-      input::-webkit-input-placeholder{
-        color:#999;
-        font-size: 1.6rem;
-      }
+    .elBtn_two{
+      display: none;
     }
     .more_way{
       color:#999;

@@ -60,7 +60,7 @@ export default {
     login(){
       this.$refs.layer_box.style.display="block";
       setTimeout(()=>{
-        this.$refs.login_fill.style.top="330px";
+        this.$refs.login_fill.style.top="30%";
       },200)
     },
     close(){
@@ -128,10 +128,9 @@ export default {
     .icon_share{
       width: 200px;
       height:20px;
-      // background: red;
       position: absolute;
       left:16.4%;
-      bottom: 3.8%;
+      bottom: 18.8%;
       i{
         font-size: 2.8rem;
         color:white;
@@ -141,7 +140,7 @@ export default {
     }
     .icon_deco{
       position:absolute;
-      bottom:3.8%;
+      bottom:17.4%;
       margin:0;
       left:50%;
       margin-left:-25px;
@@ -165,7 +164,7 @@ export default {
         width: 500px;
         height:400px;
         position: fixed;
-        top: -400px;
+        top: -100%;
         left:50%;
         margin-left:-250px;
         background: white;
@@ -173,7 +172,6 @@ export default {
         z-index: 101;
         transition: .3s;
         box-sizing: border-box;
-        // padding-left:10%;
         .view_input{
           width: 100%;
           box-sizing: border-box;
@@ -217,16 +215,29 @@ export default {
     }
   }
   @media screen and (max-width:1366px){
+    .login_fill{
+      width: 350px!important;
+      height:280px!important;
+      margin-left:-175px!important;
+      .table{
+        .chose_table{
+          li{
+            font-size: 1.6rem!important;
+          }
+        }
+      }
+    }
+    .view_input{
+      padding-left:18%!important;
+    }
     .title{
       margin-left:-260px!important;
     }
     .alt_1{
       font-size: 4rem!important;
-      // color:red!important;
     }
     .alt_2{
       font-size: 1rem!important;
-      // color:red!important;
     }
     .login_btn{
       max-width: 100px;

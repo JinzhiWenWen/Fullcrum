@@ -10,12 +10,17 @@ import Seller from '@/subpage/seller_center'
 import About from '@/subpage/about_ful'
 import Market from '@/subpage/market'
 import Tarding from '@/subpage/tarding'
+import Fcmarket from '@/subpage/fcmarket'
 import PersonalAss from '@/subpage/personal_assets'
+import SellerAss from '@/subpage/seller_assets'
+import WithDrawal from '@/subpage/withdrawal'
+import Release from '@/subpage/release'
 import Pass from '@/components/password-login'
 import Auth from '@/components/auth-login'
 import Boor from '@/components/boor-man'
 import Inve from '@/components/inve-man'
-
+import Purchase from '@/components/purchase'
+import Sell from '@/components/sell'
 Vue.use(Router)
 export default new Router({
     routes:[
@@ -97,6 +102,38 @@ export default new Router({
         path:'/personass',
         name:'Personass',
         component:PersonalAss
+      },
+      {
+        path:'/fcshop',
+        name:'Fcshop',
+        component:Fcmarket,
+        children:[
+          {
+            path:'/',
+            name:'Purchase',
+            component:Purchase
+          },
+          {
+            path:'/sell',
+            name:'Sell',
+            component:Sell
+          }
+        ]
+      },
+      {
+        path:'/sellerass',
+        name:'SellerAss',
+        component:SellerAss
+      },
+      {
+        path:'/with',
+        name:'WithDrawal',
+        component:WithDrawal
+      },
+      {
+        path:'/rele',
+        name:'Release',
+        component:Release
       }
     ]
 })

@@ -184,7 +184,7 @@
 </template>
 
 <script>
-import HeaderUser from '@/components/header-user'
+import HeaderUser from '@/components/header-seller'
 export default {
   data(){
     return{
