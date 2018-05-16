@@ -2,10 +2,10 @@
   <div class="password_login">
     <el-form :model="ruleForm2" status-icon :rules="rules2" ref="ruleForm2" class="demo-ruleForm">
       <el-form-item prop="phoneNum">
-        <el-input  placeholder="请输入手机号" v-model="ruleForm2.phoneNum" auto-complete="on" class="phonenum"></el-input>
+        <el-input  placeholder="请输入手机号" v-model="ruleForm2.phoneNum" auto-complete="off" class="phonenum"></el-input>
       </el-form-item>
       <el-form-item prop="pass">
-        <el-input placeholder="请输入验证码" type="password" v-model="ruleForm2.pass" auto-complete="on" class="password"></el-input>
+        <el-input placeholder="请输入验证码" type="password" v-model="ruleForm2.pass" auto-complete="off" class="password"></el-input>
       </el-form-item>
       <el-form-item>
         <el-button class="elBtn_one"  style="font-size:1.8rem;margin-top:18px;width:112px;height:54px;" type="primary" @click="submitForm('ruleForm2')">登录</el-button>

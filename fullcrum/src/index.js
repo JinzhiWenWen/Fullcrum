@@ -15,12 +15,18 @@ import PersonalAss from '@/subpage/personal_assets'
 import SellerAss from '@/subpage/seller_assets'
 import WithDrawal from '@/subpage/withdrawal'
 import Release from '@/subpage/release'
+import Fcbuy from '@/subpage/fcbuy'
+import Fcsell from '@/subpage/fcsell'
+import Personalor from '@/subpage/personal_order'
+import Sellerma from '@/subpage/seller_market'
 import Pass from '@/components/password-login'
 import Auth from '@/components/auth-login'
 import Boor from '@/components/boor-man'
 import Inve from '@/components/inve-man'
 import Purchase from '@/components/purchase'
 import Sell from '@/components/sell'
+import Fcorder from '@/components/fc-order'
+import Paperorder from '@/components/paper-order'
 Vue.use(Router)
 export default new Router({
     routes:[
@@ -41,16 +47,8 @@ export default new Router({
           }
         ]
       },
-      {
-        path:'/vendor',
-        name:'Vendor',
-        component:Vendor
-      },
-      {
-        path:'/buyer',
-        name:'Buyer',
-        component:Buyer
-      },
+      {path:'/vendor',name:'Vendor',component:Vendor},
+      {path:'/buyer',name:'Buyer',component:Buyer},
       {
         path:'/logiup',
         name:'LogiUp',
@@ -68,41 +66,13 @@ export default new Router({
           }
         ]
       },
-      {
-        path:'/logiupsuss',
-        name:'LogiUoSuccess',
-        component:LogiUoSuccess
-      },
-      {
-        path:'/person',
-        name:'Personal',
-        component:Personal
-      },
-      {
-        path:'/about',
-        name:'About',
-        component:About
-      },
-      {
-        path:'/seller',
-        name:'Seller',
-        component:Seller
-      },
-      {
-        path:'/mark',
-        name:'Mark',
-        component:Market
-      },
-      {
-        path:'/tard',
-        name:'Tard',
-        component:Tarding
-      },
-      {
-        path:'/personass',
-        name:'Personass',
-        component:PersonalAss
-      },
+      {path:'/logiupsuss',name:'LogiUoSuccess',component:LogiUoSuccess},
+      {path:'/person',name:'Personal',component:Personal},
+      {path:'/about',name:'About',component:About},
+      {path:'/seller',name:'Seller',component:Seller},
+      {path:'/mark',name:'Mark',component:Market},
+      {path:'/tard',name:'Tard',component:Tarding},
+      {path:'/personass',name:'Personass',component:PersonalAss},
       {
         path:'/fcshop',
         name:'Fcshop',
@@ -120,20 +90,20 @@ export default new Router({
           }
         ]
       },
+      {path:'/sellerass',name:'SellerAss',component:SellerAss},
+      {path:'/with',name:'WithDrawal',component:WithDrawal},
+      {path:'/rele',name:'Release',component:Release},
+      {path:'/fcbuy',name:'Fcbuy',component:Fcbuy},
+      {path:'/fcsell',name:'Fcsell',component:Fcsell},
       {
-        path:'/sellerass',
-        name:'SellerAss',
-        component:SellerAss
+        path:'/personalor',
+        name:'Personalor',
+        component:Personalor,
+        children:[
+          {path:'/',name:'Fcorder',component:Fcorder},
+          {path:'/paperor',name:'Paperorder',component:Paperorder}
+        ]
       },
-      {
-        path:'/with',
-        name:'WithDrawal',
-        component:WithDrawal
-      },
-      {
-        path:'/rele',
-        name:'Release',
-        component:Release
-      }
+      {path:'/sellerma',name:'Sellerma',component:Sellerma}
     ]
 })

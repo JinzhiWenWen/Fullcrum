@@ -3,7 +3,7 @@
       <div class="loge">
         <Loge/>
         <More/>
-        <router-link to="/mark" tag='p'>票据市场</router-link>
+        <router-link to="/sellerma" tag='p'>票据市场</router-link>
         <div class="right">
           <p @click="malists()">票据管理</p>
           <div class="ma_lists" v-show="isShowMa">
@@ -13,14 +13,7 @@
             </ul>
           </div>
           <router-link to='/sellerass' tag='p'>资产</router-link>
-          <span class="user_pic" @click="lists"></span>
-        </div>
-        <div class="chose_lists" v-show="isShow">
-          <ul>
-            <router-link to='/seller' tag='li'>个人中心</router-link>
-            <li>我的发布</li>
-            <li>商家申请</li>
-          </ul>
+          <span class="user_pic" @click="backCenter()"></span>
         </div>
       </div>
       <div class="banner">
@@ -37,13 +30,12 @@ import More from '@/components/more'
 export default {
   data(){
     return{
-      isShow:false,
       isShowMa:false
     }
   },
   methods:{
-    lists(){
-      this.isShow=!this.isShow
+    backCenter(){
+      this.$router.push('/seller')
     },
     malists(){
       this.isShowMa=!this.isShowMa
@@ -88,26 +80,6 @@ export default {
         margin-left:48px;
         margin-top:22px;
         cursor:pointer;
-      }
-    }
-    .chose_lists{
-      width:80px ;
-      height:132px;
-      position: absolute;
-      top: 80px;
-      right:4%;
-      background:#272961;
-      ul{
-        display: flex;
-        -webkit-flex-wrap:wrap;
-        li{
-          width:100%;
-          height:44px;
-          text-align: center;
-          line-height: 44px;
-          color:white;
-          cursor:pointer;
-        }
       }
     }
     .ma_lists{

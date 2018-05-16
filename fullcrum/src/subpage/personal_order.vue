@@ -1,15 +1,15 @@
 <template lang="html">
-  <div class="fcmarket">
-    <HeaderFc>
-      <p class="slot-mine">FC市场</p>
-    </HeaderFc>
+  <div class="personalor">
+    <HeaderPerson>
+      <p class="slot-mine">我的订单</p>
+    </HeaderPerson>
     <div class="content">
       <div class="radio">
-        <router-link @click.native="Buy()" to="/fcshop" tag="span" style="margin-right:120px;">
-          <el-radio v-model="radio" label="1">购买</el-radio>
+        <router-link @click.native="Buy()" to="/personalor" tag="span" style="margin-right:120px;">
+          <el-radio v-model="radio" label="1">FC</el-radio>
           </router-link>
-        <router-link @click.native="Sell()" to="/sell" tag="span">
-          <el-radio v-model="radio" label="2">出售</el-radio>
+        <router-link @click.native="Sell()" to="/paperor" tag="span">
+          <el-radio v-model="radio" label="2">票据</el-radio>
         </router-link>
       </div>
       <div class="data_view">
@@ -20,7 +20,7 @@
 </template>
 
 <script>
-import HeaderFc from '@/components/header-user'
+import HeaderPerson from '@/components/header-user'
 export default {
   data(){
     return{
@@ -36,7 +36,7 @@ export default {
     }
   },
   components:{
-    HeaderFc
+    HeaderPerson
   }
 }
 </script>
@@ -52,7 +52,7 @@ export default {
   .data_view{
     width: 100%;
     margin-top:60px;
-    height:auto;
+    height:auto
   }
 }
 </style>

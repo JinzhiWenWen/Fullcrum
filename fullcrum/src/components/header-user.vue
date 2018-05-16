@@ -6,7 +6,7 @@
         <router-link to="/mark" tag='p'>票据市场</router-link>
         <router-link to="/fcshop" tag='p'>FC市场</router-link>
         <div class="right">
-          <p>订单</p>
+          <router-link to='/personalor' tag="p">订单</router-link>
           <router-link to='/personass' tag='p'>资产</router-link>
           <span class="user_pic" @click="lists"></span>
         </div>

@@ -8,7 +8,7 @@
         <p class="spec_fc">FC</p>
         <p class="blance">
           <span class="num">账户余额：100000.00FC</span>
-          <button type="button" name="button" class="buy">购买</button>
+          <router-link to="/fcshop" tag='button' class="buy">购买</router-link>
           <button type="button" name="button" class="sell">出售</button>
           <button type="button" name="button" class="sell" @click="ex">兑换</button>
           <div style="margin-top: 40px;height: 152px;" class="al_ex">

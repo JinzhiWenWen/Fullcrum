@@ -148,7 +148,7 @@ export default {
       if(this.much===''){
         alert('请输入价格')
       }else{
-        this.$router.push('/tard')
+        this.$router.push('/fcbuy')
       }
     }
   }
