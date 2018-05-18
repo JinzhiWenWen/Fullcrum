@@ -1,8 +1,9 @@
 <template lang="html">
+  <!-- 商家发布广告 -->
   <div class="release">
-    <HeaderSeller>
+    <HeaderBuyer>
       <p class="slot-mine">发布广告</p>
-    </HeaderSeller>
+    </HeaderBuyer>
     <div class="content">
       <div class="mess">
         <p class="table">
@@ -36,7 +37,7 @@
 </template>
 
 <script>
-import HeaderSeller from '@/components/header-seller'
+import HeaderBuyer from '@/components/header-merchat'
 export default {
   data () {
       return {
@@ -52,7 +53,7 @@ export default {
       }
     },
     components:{
-      HeaderSeller
+      HeaderBuyer
     }
 }
 </script>

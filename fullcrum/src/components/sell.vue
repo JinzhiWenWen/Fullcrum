@@ -1,5 +1,5 @@
 <template lang="html">
-    <div class="purchase">
+    <div class="sell">
       <p class="select_btn">
         <el-select class="chose_btn" v-model="value" placeholder="支付方式">
           <el-option
@@ -156,7 +156,7 @@ export default {
 </script>
 
 <style lang="scss">
-.purchase{
+.sell{
   width: 1040px;
   height:1116px;
   .select_btn{
@@ -171,6 +171,9 @@ export default {
         border-left:2px solid #ddd;
         border-right:2px solid #ddd;
         border-radius:5px;
+        input::-webkit-input-placeholder{
+          padding-left: 6px;
+        }
       }
       .el-input--suffix{
         height:32px;
@@ -178,6 +181,8 @@ export default {
           height:32px;
           font-size: 1.2rem;
           border-bottom:2px solid #ddd;
+          border-bottom-left-radius: 6px;
+          border-bottom-right-radius: 6px;
         }
         .el-input__suffix{
           line-height: 32px;

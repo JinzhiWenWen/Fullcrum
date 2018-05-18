@@ -16,6 +16,13 @@
         <button type="button" name="button">{{item.chose}}</button>
       </li>
     </ul>
+    <p class="pager">
+      <el-pagination
+        background
+        layout="prev, pager, next"
+        :total="50">
+      </el-pagination>
+    </p>
   </div>
 </template>
 <script>
@@ -52,7 +59,7 @@ export default {
 
 <style lang="scss" scoped>
 .fcorder_title{
-  width: 1110px;
+  width: 1120px;
   height:30px;
   border-bottom: 2px solid #eee;
   padding-left:26px;
@@ -94,5 +101,10 @@ export default {
       top:20px;
     }
   }
+}
+.pager{
+  position: absolute;
+  top:50%;
+  right:20px;
 }
 </style>

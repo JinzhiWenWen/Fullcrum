@@ -5,7 +5,7 @@
     </HeaderFc>
     <div class="content">
       <div class="radio">
-        <router-link @click.native="Buy()" to="/fcshop" tag="span" style="margin-right:120px;">
+        <router-link @click.native="Buy()" to="/fcshop" name="Purchase" tag="span" style="margin-right:120px;">
           <el-radio v-model="radio" label="1">购买</el-radio>
           </router-link>
         <router-link @click.native="Sell()" to="/sell" tag="span">

@@ -16,12 +16,12 @@
         </p>
       <p class="mark_title">
         <span>商家（成单数 | 完成率）</span>
-        <span style="margin-left:90px;">年化收益率</span>
-        <span style="margin-left:66px;">期限</span>
-        <span style="margin-left:118px;">总价</span>
-        <span style="margin-left:126px;">支付方式 </span>
-        <span style="margin-left:260px;">操作</span>
-      </p>
+        <span style="margin-left:112px;">年化收益率</span>
+        <span style="margin-left:74px;">期限</span>
+        <span style="margin-left:126px;">总价</span>
+        <span style="margin-left:130px;">支付方式 </span>
+        <span style="margin-left:280px;">操作</span>
+        </p>
       <ul class="note_lists">
         <li v-for="(item,index) in roteList">
           <span class="por">
@@ -52,7 +52,7 @@
           layout="prev, pager, next"
           :total="50">
         </el-pagination>
-      </p>
+        </p>
     </div>
     <div class="mask" ref="mask" @click="closePic">
 
@@ -75,7 +75,8 @@ export default {
         isShowOrder:false,
         disabled:true,
         much:'',
-        options: [{
+        options: [
+          {
             value: '选项1',
             label: '海绵宝宝'
           }, {
@@ -157,10 +158,6 @@ export default {
 </script>
 
 <style lang="scss">
-.slot-mine{
-  margin-top: 70px;
-  font-size: 4.6rem;
-}
 .mark_content{
   width: 1142px;
   height:1116px;
@@ -178,6 +175,9 @@ export default {
         border-left:2px solid #ddd;
         border-right:2px solid #ddd;
         border-radius:5px;
+        input::-webkit-input-placeholder{
+          padding-left: 6px;
+        }
       }
       .el-input--suffix{
         height:32px;
@@ -185,6 +185,8 @@ export default {
           height:32px;
           font-size: 1.2rem;
           border-bottom:2px solid #ddd;
+          border-bottom-left-radius: 6px;
+          border-bottom-right-radius: 6px;
         }
         .el-input__suffix{
           line-height: 32px;
@@ -193,12 +195,13 @@ export default {
     }
   }
   .mark_title{
-    width: 100%;
+    width: 1120px;
     height:30px;
     margin-top: 70px;
+    padding-left:18px;
     border-bottom: 2px solid #eee;
     span{
-      font-size: 1.6rem;
+      font-size: 1.4rem;
       color:#999;
     }
   }

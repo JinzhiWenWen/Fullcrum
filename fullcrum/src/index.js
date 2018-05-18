@@ -7,6 +7,7 @@ import LogiUp from '@/subpage/logiup'
 import LogiUoSuccess from '@/subpage/logiup_successful'
 import Personal from '@/subpage/personal_center'
 import Seller from '@/subpage/seller_center'
+import SellerOr from '@/subpage/seller_order'
 import About from '@/subpage/about_ful'
 import Market from '@/subpage/market'
 import Tarding from '@/subpage/tarding'
@@ -19,6 +20,11 @@ import Fcbuy from '@/subpage/fcbuy'
 import Fcsell from '@/subpage/fcsell'
 import Personalor from '@/subpage/personal_order'
 import Sellerma from '@/subpage/seller_market'
+import SellerSe from '@/subpage/seller_sell'
+import Merchat from '@/subpage/merchat_center'
+import MerchatAss from '@/subpage/merchat_assets'
+import MerchatOr from '@/subpage/merchat_order'
+import MerchatMa from '@/subpage/merchat_market'
 import Pass from '@/components/password-login'
 import Auth from '@/components/auth-login'
 import Boor from '@/components/boor-man'
@@ -68,6 +74,10 @@ export default new Router({
       },
       {path:'/logiupsuss',name:'LogiUoSuccess',component:LogiUoSuccess},
       {path:'/person',name:'Personal',component:Personal},
+      {path:'/merchat',name:'Merchat',component:Merchat},
+      {path:'/merchatass',name:'MerchatAss',component:MerchatAss},
+      {path:'/merchator',name:'MerchatOr',component:MerchatOr},
+      {path:'/merchatma',name:'MerchatMa',component:MerchatMa},
       {path:'/about',name:'About',component:About},
       {path:'/seller',name:'Seller',component:Seller},
       {path:'/mark',name:'Mark',component:Market},
@@ -104,6 +114,8 @@ export default new Router({
           {path:'/paperor',name:'Paperorder',component:Paperorder}
         ]
       },
-      {path:'/sellerma',name:'Sellerma',component:Sellerma}
+      {path:'/sellerma',name:'Sellerma',component:Sellerma},
+      {path:'/selleror',name:'SellerOr',component:SellerOr},
+      {path:'/sellerse',name:'SellerSe',component:SellerSe}
     ]
 })

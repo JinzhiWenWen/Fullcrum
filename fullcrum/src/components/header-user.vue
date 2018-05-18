@@ -13,7 +13,6 @@
         <div class="chose_lists" v-show="isShow">
           <ul>
             <router-link to='/person' tag='li'>个人中心</router-link>
-            <li>我的发布</li>
             <li>商家申请</li>
           </ul>
         </div>
@@ -83,7 +82,7 @@ export default {
     }
     .chose_lists{
       width:80px ;
-      height:132px;
+      height:88px;
       position: absolute;
       top: 80px;
       right:4%;

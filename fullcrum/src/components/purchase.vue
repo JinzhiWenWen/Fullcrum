@@ -171,6 +171,9 @@ export default {
         border-left:2px solid #ddd;
         border-right:2px solid #ddd;
         border-radius:5px;
+        input::-webkit-input-placeholder{
+          padding-left: 6px;
+        }
       }
       .el-input--suffix{
         height:32px;
@@ -178,6 +181,8 @@ export default {
           height:32px;
           font-size: 1.2rem;
           border-bottom:2px solid #ddd;
+          border-bottom-left-radius: 6px;
+          border-bottom-right-radius: 6px;
         }
         .el-input__suffix{
           line-height: 32px;
@@ -186,7 +191,7 @@ export default {
     }
   }
   .mark_title{
-    width: 1110px;
+    width: 1120px;
     height:30px;
     border-bottom: 2px solid #eee;
     padding-left:18px;
