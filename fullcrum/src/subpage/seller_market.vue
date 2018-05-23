@@ -5,7 +5,7 @@
     </HeaderSeller>
     <div class="mark">
       <p class="seller_chose">
-        <button type="button" name="button">出售票据</button>
+        <router-link to="/sellerse" tag="button">出售票据</router-link>
         <span class="seller_btn">
           <el-select class="chose_btn" v-model="value" placeholder="发布时间/金额">
             <el-option
@@ -42,13 +42,7 @@
           </span>
         </li>
       </ul>
-      <p class="pager">
-        <el-pagination
-          background
-          layout="prev, pager, next"
-          :total="50">
-        </el-pagination>
-      </p>
+      <Pager/>
       <div class="mask" ref="mask" @click="closePic">
 
       </div>
@@ -64,6 +58,7 @@
 
 <script>
 import HeaderSeller from '@/components/header-seller'
+import Pager from '@/components/pager'
 export default {
   data(){
     return{
@@ -127,7 +122,8 @@ export default {
     }
   },
   components:{
-    HeaderSeller
+    HeaderSeller,
+    Pager
   }
 }
 </script>
@@ -194,6 +190,7 @@ export default {
     }
     .seller_lists{
       width: 100%;
+      height:auto;
       li{
         width: 1110px;
         height:64px;
@@ -339,11 +336,6 @@ export default {
           font-size: 2.4rem;
         }
       }
-    }
-    .pager{
-      position: absolute;
-      right:0;
-      top:50%;
     }
   }
 </style>

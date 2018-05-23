@@ -143,7 +143,7 @@ export default {
     height:152px;
     background: #eee;
     border-radius: 12px;
-    box-shadow: 0 5px 10px #ddd;
+    box-shadow: 0 5px 5px #ddd;
     padding-left:34px;
   }
 .ex_icon{

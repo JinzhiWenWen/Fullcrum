@@ -46,13 +46,7 @@
           </span>
         </li>
       </ul>
-      <p class="pager">
-        <el-pagination
-          background
-          layout="prev, pager, next"
-          :total="50">
-        </el-pagination>
-        </p>
+      <Pager/>
     </div>
     <div class="mask" ref="mask" @click="closePic">
 
@@ -68,6 +62,7 @@
 
 <script>
 import HeaderMark from '@/components/header-user'
+import Pager from '@/components/pager'
 export default {
   data() {
       return {
@@ -152,7 +147,8 @@ export default {
     }
   },
   components:{
-      HeaderMark
+      HeaderMark,
+      Pager
     }
 }
 </script>
@@ -207,7 +203,7 @@ export default {
   }
   .note_lists{
     width: 100%;
-    height:64px;
+    height:auto;
     li{
       width: 1110px;
       height:64px;
@@ -360,11 +356,6 @@ export default {
         top:26px;
       }
     }
-  }
-  .pager{
-    position: absolute;
-    bottom:584px;
-    right:0;
   }
 }
 .mask{

@@ -25,14 +25,16 @@ import Merchat from '@/subpage/merchat_center'
 import MerchatAss from '@/subpage/merchat_assets'
 import MerchatOr from '@/subpage/merchat_order'
 import MerchatMa from '@/subpage/merchat_market'
+import MerchatMaBuy from '@/components/merchat_market_buy'
+import MerchatMaSell from '@/components/merchat_market_sell'
 import Pass from '@/components/password-login'
 import Auth from '@/components/auth-login'
 import Boor from '@/components/boor-man'
 import Inve from '@/components/inve-man'
 import Purchase from '@/components/purchase'
 import Sell from '@/components/sell'
-import Fcorder from '@/components/fc-order'
-import Paperorder from '@/components/paper-order'
+import Fcorder from '@/components/buyer_fc_order'
+import Paperorder from '@/components/buyer_paper_order'
 Vue.use(Router)
 export default new Router({
     routes:[
@@ -77,7 +79,15 @@ export default new Router({
       {path:'/merchat',name:'Merchat',component:Merchat},
       {path:'/merchatass',name:'MerchatAss',component:MerchatAss},
       {path:'/merchator',name:'MerchatOr',component:MerchatOr},
-      {path:'/merchatma',name:'MerchatMa',component:MerchatMa},
+      {
+        path:'/merchatma',
+        name:'MerchatMa',
+        component:MerchatMa,
+        children:[
+          {path:'/',name:'MerchatMaBuy',component:MerchatMaBuy},
+          {path:'/merchatmase',name:'MerchatMaSell',component:MerchatMaSell}
+        ]
+      },
       {path:'/about',name:'About',component:About},
       {path:'/seller',name:'Seller',component:Seller},
       {path:'/mark',name:'Mark',component:Market},

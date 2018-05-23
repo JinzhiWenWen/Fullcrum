@@ -16,43 +16,41 @@
         <button type="button" name="button">{{item.chose}}</button>
       </li>
     </ul>
-    <p class="pager">
-      <el-pagination
-        background
-        layout="prev, pager, next"
-        :total="50">
-      </el-pagination>
-    </p>
+    <Pager/>
   </div>
 </template>
 <script>
+import Pager from '@/components/pager'
 export default {
   data(){
     return{
       noteLists:[
         {
           orderNum:'2018050300001',
-          data:'2018/5/3',
-          amount:'5,000CNY',
+          data:'2018/4/28',
+          amount:'15,000CNY',
           status:'已成交',
           chose:'查看'
         },
         {
           orderNum:'2018050300001',
           data:'2018/5/3',
-          amount:'5,000CNY',
+          amount:'8,000CNY',
           status:'已成交',
           chose:'查看'
         },
         {
           orderNum:'2018050300001',
-          data:'2018/5/3',
-          amount:'5,000CNY',
+          data:'2018/2/12',
+          amount:'200,000CNY',
           status:'已成交',
           chose:'查看'
         },
       ]
     }
+  },
+  components:{
+    Pager
   }
 }
 </script>
@@ -70,6 +68,7 @@ export default {
 }
 .note_lists{
   width: 100%;
+  height:auto;
   li{
     height:68px;
     padding-top:28px;
@@ -102,9 +101,5 @@ export default {
     }
   }
 }
-.pager{
-  position: absolute;
-  top:50%;
-  right:20px;
-}
+
 </style>

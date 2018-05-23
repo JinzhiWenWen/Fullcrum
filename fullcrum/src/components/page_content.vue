@@ -1,5 +1,8 @@
 <template lang="html">
-  <div class="content-wapper">
+  <div class="content-wapper" ref="content_wapper">
+      <div class="content_list">
+
+      </div>
       <div class="content_top">
           <p class="title">加快您的现金流量<br>来扩大您的业务</p>
           <p class="title_chose">
@@ -112,6 +115,19 @@
 
 <script>
 export default {
+  methods:{
+    handleScroll () {
+      var scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop
+      if(scrollTop>=80){
+        this.$refs.content_wapper.style.transform="translateY(-35.8%)"
+      }else{
+        this.$refs.content_wapper.style.transform="translateY(0)"
+      }
+    }
+  },
+  mounted(){
+    window.addEventListener('scroll',this.handleScroll)
+  }
 }
 </script>
 
@@ -121,6 +137,14 @@ export default {
     height:auto;
     margin:0;
     padding:0;
+    transition: all .5s;
+    margin-top:100%;
+    .content_list{
+      width: 100%;
+      height:843px;
+      background: url('../img/content_bg_top.png');
+      background-size: 100% 100%;
+    }
     .content_top{
       width: 100%;
       height:834px;
@@ -128,19 +152,21 @@ export default {
       padding-bottom: 96px;
       position: relative;
       box-sizing: border-box;
+      background: url('../img/content_bg_cen.png');
+      background-size: 100% 100%;
       .title{
         width: 50%;
         text-align: center;
         margin-top:186px;
         font-size: 4.6rem;
-        color:#666;
+        color:white;
       }
       .title_chose{
         width: 50%;
         text-align: center;
         margin-top: 266px;
         font-size: 2rem;
-        color:#666;
+        color:white;
         cursor: pointer;
         span{
           padding-bottom:6px;
@@ -162,7 +188,8 @@ export default {
         .top{
           width: 564px;
           height:564px;
-          background: #666;
+          background: #eee;
+          z-index: 2;
         }
         .bottom{
           width: 564px;
@@ -171,18 +198,20 @@ export default {
           position: absolute;
           top: 60px;
           left:60px;
-          z-index: -1;
+          z-index: 1;
         }
       }
     }
     .content_center{
       width: 100%;
-      height:auto;
+      height:843px;
       display: flex;
+      margin-top: -1px;
       .bottom_left{
         width: 50%;
         height:843px;
-        background:#666;
+        background:url('../img/content_bg_cen_le.png');
+        background-size: 100% 100%;
       }
       .bottom_right{
         width: 50%;
@@ -190,17 +219,20 @@ export default {
         background: #ccc;
         padding-top:110px;
         box-sizing: border-box;
+        background:url('../img/content_bg_cen_ri.png');
+        background-size: 100% 100%;
         .title_left{
           font-size: 3.6rem;
           font-weight: bold;
           margin-bottom: 60px;
           margin-left:162px;
+          color:white;
         }
         .title_text{
           display: inline-block;
           margin-left:94px;
           font-size: 1.6rem;
-          color:#666;
+          color:white;
         }
       }
     }
@@ -210,12 +242,15 @@ export default {
       padding-top: 148px;
       padding-bottom:116px;
       box-sizing: border-box;
+      background: url('../img/content_bg_sta.png');
+      background-size: 100% 100%;
+      margin-top: -1px;
       .about_fulcrum{
         width: 100%;
         text-align: center;
         font-size: 3.6rem;
         font-weight: bold;
-        color:#333;
+        color:white;
         margin-bottom: 90px;
       }
       .uls_icon{
@@ -240,11 +275,11 @@ export default {
           .icon_title{
             margin-top:90px;
             font-size: 2.8rem;
-            color:#333;
+            color:white;
           }
           .icon_alt{
             font-size: 1.6rem;
-            color:#666;
+            color:white;
             margin-top: 40px;
           }
         }
@@ -252,20 +287,22 @@ export default {
     }
     .content_state{
       width: 100%;
-      // height:843px;
+      height:843px;
       // background: black;
       display: flex;
       display: -webkit-flex;
+      margin-top: -1px;
       p{
         margin:0;
       }
       .vendor{
         width: 35%;
         height:843px;
-        background: #ccc;
+        background: url('../img/content_bg_stae_le.png');
+        background-size: 100% 100%;
         position: relative;
         p{
-          color:#333;
+          color:white;
           font-size: 2rem;
           position: absolute;
           bottom:54px;
@@ -277,19 +314,23 @@ export default {
         height: 843px;
         box-sizing: border-box;
         padding-top: 152px;
+        background: url('../img/content_bg_stae_ce.png');
+        background-size: 100% 100%;
         p{
           font-size: 3.6rem;
           font-weight: bold;
           text-align: center;
+          color:white;
         }
       }
       .buyer{
         width: 35%;
         height:843px;
-        background: #ccc;
+        background: url('../img/content_bg_stae_ri.png');
+        background-size: 100% 100%;
         position: relative;
         p{
-          color:#333;
+          color:white;
           font-size: 2rem;
           position: absolute;
           bottom:54px;
@@ -300,11 +341,13 @@ export default {
     .about_us{
       width: 100%;
       height:843px;
-      background: url('../img/Background.png');
+      background: url('../img/Banner_bot.png');
+      background-size: 100% 100%;
       color:white;
       text-align: center;
       box-sizing: border-box;
       padding-top:190px;
+      margin-top: -1px;
       .regard{
         font-size: 3.6rem;
         font-weight: bold;

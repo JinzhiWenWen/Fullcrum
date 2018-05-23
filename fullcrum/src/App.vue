@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <transition :name="transitionName">
-      <router-view class="trans-view"></router-view>
+      <router-view class="trans-view" ref="trans_view"></router-view>
     </transition>
   </div>
 </template>
@@ -13,19 +13,13 @@ export default {
   name: 'App',
   data(){
     return{
-      transitionName:'slide-left'
+      transitionName:'slide-left',
+      wid:'100'
     }
   },
-  method(){
-
-  },
-  watch:{
-    '$route'(to,from){
-      if(to.path=='/'){
-        this.transitionName='slide-right';
-      }else{
-        this.transitionName='slide-left';
-      }
+  methods:{
+    btn(){
+      this.wid='80'
     }
   }
 }
@@ -35,6 +29,16 @@ export default {
   #app{
     margin:0;
     padding:0;
+  }
+  .btn{
+    position: fixed;
+    left:0;
+    top:100px;
+    width: 50px;
+    height:50px;
+    border-radius: 5px;
+    color:white;
+    background: black;
   }
   .trans-view{
     position: absolute;

@@ -15,8 +15,8 @@ export default {
     height:60px;
     position: absolute;
     left:50%;
-    margin-left: -100px;
-    top:10px;
+    margin-left: -90px;
+    top:20px;
     text-align: center;
     box-sizing: border-box;
     // line-height: 10px;

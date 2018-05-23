@@ -1,6 +1,6 @@
 <template lang="html">
   <div class="banner-wapper">
-    <img ref="aaa" src='../img/Background.png' alt='你好啊' class='img-responsive'>
+    <img src='../img/Banner.png' alt='你好啊' class='img-responsive'>
     <div class="title">
       <p class='alt_1'>
         <span>区块链时代全球首个</span>
@@ -17,10 +17,10 @@
       <i class="iconfont icon-weibo1"></i>
       <i class="iconfont icon-facebook"></i>
       <i class="iconfont icon-twitter1"></i>
-    </p>
+      </p>
     <p class="icon_deco">
         <i class="iconfont icon-shubiao"></i>
-    </p>
+      </p>
     <div class="login_fill" ref="login_fill">
       <div class="table">
         <ul class="chose_table">
@@ -45,7 +45,6 @@
 
     </div>
   </div>
-
 </template>
 
 <script>
@@ -72,14 +71,8 @@ export default {
     },
     auth(){
       this.color=2;
-    },
-    change(){
-      // this.$refs.aaa.style.transform='translateX(-50%)'
     }
-  },
-  mounted(){
-    this.change()
-  },
+  }
 }
 </script>
 
@@ -92,14 +85,16 @@ export default {
     width:100%;
     height:auto;
     text-align: center;
-    position: relative;
+    position: fixed;
+    top:0;
+    left:0;
     box-sizing: border-box;
     margin-bottom:-3px;
+    overflow: hidden;
     .img-responsive{
       display: inline-block;
       width:100%;
       height:100%;
-      transition: 10s;
     }
     .title{
       text-align: center;

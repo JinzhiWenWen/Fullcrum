@@ -11,7 +11,7 @@
 <script>
 import Banner from '../components/banner-wapper'
 import Nav from '../components/nav-wapper'
-import Content from '../components/content'
+import Content from '../components/page_content'
 export default {
   components:{
     Banner,
@@ -26,7 +26,7 @@ export default {
     display: inline-block;
     width:70px;
     text-align: center;
-    position: absolute;
+    position: fixed;
     left:50%;
     margin-left:-28%;
     top:30px;
@@ -39,7 +39,7 @@ export default {
     display: inline-block;
     width:70px;
     text-align: center;
-    position: absolute;
+    position: fixed;
     right:50%;
     margin-right: -28%;
     top: 30px;

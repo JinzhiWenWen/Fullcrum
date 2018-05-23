@@ -1,9 +1,9 @@
 <template lang="html">
   <div class="header_user">
-      <div class="loge">
+      <div class="loge" ref="loge">
         <Loge/>
         <More/>
-        <router-link to="/merchatma" tag='p'>FC市场</router-link>
+        <router-link class="left" to="/merchatma" tag='p'>FC市场</router-link>
         <div class="right">
           <router-link to='/merchator' tag="p">订单</router-link>
           <router-link to='/merchatass' tag='p'>资产</router-link>
@@ -36,8 +36,19 @@ export default {
   },
   methods:{
     lists(){
-      this.isShow=!this.isShow
+      this.isShow=!this.isShow;
+    },
+    handleScroll () {
+      var scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop
+      if(scrollTop>=260){
+        this.$refs.loge.style.background="#181f28"
+      }else{
+        this.$refs.loge.style.background="";
+      }
     }
+  },
+  mounted(){
+    window.addEventListener('scroll',this.handleScroll)
   },
   components:{
     Loge,
@@ -51,19 +62,28 @@ export default {
 .header_user{
   width: 100%;
   height:280px;
-  background:url('../img/Background.png');
+  background:url('../img/Banner.png');
   background-size: 100% 100%;
   .loge{
     width: 100%;
     height:80px;
-    border-bottom:1px solid black;
-    position: relative;
+    // border-bottom:1px solid black;
+    position: fixed;
+    top:0;
+    left:0;
+    z-index: 500;
+    transition: .5s;
     p{
       display: inline-block;
       color:white;
       line-height: 80px;
       padding-left:48px;
       cursor:pointer;
+    }
+    .left{
+      position: absolute;
+      top:.5%;
+      left:.5%;
     }
     .right{
       position:absolute;
@@ -107,7 +127,7 @@ export default {
     box-sizing: border-box;
     .slot-mine{
       display: inline-block;
-      margin-top: 70px;
+      margin-top: 150px;
       font-size: 4.6rem;
     }
   }

@@ -46,18 +46,12 @@
           </span>
         </li>
       </ul>
-      <p class="pager">
-        <el-pagination
-          background
-          layout="prev, pager, next"
-          :total="50">
-        </el-pagination>
-      </p>
+      <Pager/>
     </div>
 </template>
 
 <script>
-import HeaderMark from '@/components/header-user'
+import Pager from '@/components/pager'
 export default {
   data() {
       return {
@@ -151,6 +145,9 @@ export default {
         this.$router.push('/fcbuy')
       }
     }
+  },
+  components:{
+    Pager
   }
 }
 </script>
@@ -202,7 +199,7 @@ export default {
   }
   .note_lists{
     width: 100%;
-    height:64px;
+    height:auto;
     li{
       width: 1110px;
       height:64px;
@@ -261,7 +258,6 @@ export default {
         position: absolute;
         left:788px;
         top:24px;
-        // display: none;
       }
       .oper{
         position: absolute;
@@ -368,11 +364,6 @@ export default {
         top:12px;
       }
     }
-  }
-  .pager{
-    position: absolute;
-    bottom:500px;
-    right:0;
   }
 }
 </style>

@@ -16,7 +16,7 @@
     </div>
 <p class="more_way">
   没有账号？
-  <router-link to='/logiup' tag="span">注册</router-link>
+  <router-link @click.native="aa()" to='/logiup' tag="span">注册</router-link>
   /<span>忘记密码？</span>
   </p>
 </div>
@@ -68,7 +68,7 @@ export default {
           ]
         }
       };
-    },
+      },
     methods: {
       submitForm(formName) {
         this.$refs[formName].validate((valid) => {
@@ -83,6 +83,9 @@ export default {
       },
       resetForm(formName) {
         this.$refs[formName].resetFields();
+      },
+      aa(){
+        console.log(this.$refs.login_fill)
       }
     }
   }
@@ -113,7 +116,7 @@ export default {
 }
   .password_login{
     width:80%;
-    height:320px;
+    height:1020px;
     .phonenum {
       margin-top: 60px;
       input::-webkit-input-placeholder{

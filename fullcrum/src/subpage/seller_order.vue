@@ -22,7 +22,7 @@
         <span style="margin-left:206px;">总价</span>
         <span style="margin-left:236px;">订单状态</span>
         <span style="margin-left:186px;">操作 </span>
-      </p>
+        </p>
       <ul class="seller_order_lists">
         <li v-for="(item,index) in note_lists" :key="index">
           <span>{{item.num}}</span>
@@ -58,19 +58,14 @@
           </span>
         </li>
       </ul>
-      <p class="pager">
-        <el-pagination
-          background
-          layout="prev, pager, next"
-          :total="50">
-        </el-pagination>
-      </p>
+      <Pager/>
     </div>
   </div>
 </template>
 
 <script>
 import HeaderSeller from '@/components/header-seller'
+import Pager from '@/components/pager'
 export default {
   data(){
     return{
@@ -221,7 +216,8 @@ export default {
     }
   },
   components:{
-    HeaderSeller
+    HeaderSeller,
+    Pager
   }
 }
 </script>
