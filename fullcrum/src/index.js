@@ -10,7 +10,6 @@ import Seller from '@/subpage/seller_center'
 import SellerOr from '@/subpage/seller_order'
 import About from '@/subpage/about_ful'
 import Market from '@/subpage/market'
-import Tarding from '@/subpage/tarding'
 import Fcmarket from '@/subpage/fcmarket'
 import PersonalAss from '@/subpage/personal_assets'
 import SellerAss from '@/subpage/seller_assets'
@@ -91,7 +90,6 @@ export default new Router({
       {path:'/about',name:'About',component:About},
       {path:'/seller',name:'Seller',component:Seller},
       {path:'/mark',name:'Mark',component:Market},
-      {path:'/tard',name:'Tard',component:Tarding},
       {path:'/personass',name:'Personass',component:PersonalAss},
       {
         path:'/fcshop',

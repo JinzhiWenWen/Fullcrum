@@ -31,12 +31,15 @@
           <span class="time">{{item.Limit}}</span>
           <span class="total">{{item.Per}}</span>
           <span class="pay_way" v-show="item.isShowPay">
-            icon
+            <i class="iconfont icon-bank icon-iconfontjikediancanicon20"></i>
+            <i class="iconfont icon-zhifubaozhifu"></i>
+            <i class="iconfont icon-logo-wechat"></i>
           </span>
           <span class="oper" v-show="item.isShowOper">
             <button type="button" name="button" class="buy" @click="buyChase(index)">购买</button>
           </span>
           <span class="order" v-show="item.isShowOrder">
+            <span class="icon"></span>
             <input type="text" name="" ref="aaa" value="item.val" v-model="much" style="padding-left:10px;margin-bottom:6px;">
             <span class="unit">FC</span>
             <input type="text" name="" value="" style="padding-left:10px;">
@@ -160,6 +163,7 @@ export default {
     position: absolute;
     top:3.5%;
     margin-left:88%;
+    display: none;//暂无需
     .chose_btn{
       width: 130px;
       height:32px;
@@ -251,13 +255,24 @@ export default {
         color:#72a485;
       }
       .pay_way{
-        width: 60px;
+        width: 80px;
         height:20px;
-        background: #999;
         text-align: center;
         position: absolute;
-        left:788px;
+        left:780px;
         top:24px;
+        i{
+          font-size: 2rem;
+        }
+        .icon-bank{
+          color:#ea986c;
+        }
+        .icon-zhifubaozhifu{
+          color:#1296db;
+        }
+        .icon-logo-wechat{
+          color:#50b674;
+        }
       }
       .oper{
         position: absolute;
@@ -285,6 +300,15 @@ export default {
         position: absolute;
         right:12px;
         top:1px;
+        .icon{
+          width: 22px;
+          height:38px;
+          background: red;
+          position: absolute;
+          left:-26px;
+          top:20%;
+          background: url('../img/reverse.png');
+        }
         input{
           width: 182px;
           height:24px;
@@ -355,7 +379,7 @@ export default {
         top:34px;
       }
       .pay_way{
-        left:804px;
+        left:796px;
         top:34px;
       }
       .order{

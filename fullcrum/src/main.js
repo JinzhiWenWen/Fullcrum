@@ -12,8 +12,13 @@ import './index.css'
 Vue.config.productionTip = false
 Vue.use(ElementUI)
 Vue.use(VueResource)
-
 /* eslint-disable no-new */
+router.afterEach((to,from,next) => {
+  setTimeout(()=>{
+    window.scrollTo(0,0);
+  },100)
+
+})
 new Vue({
   el: '#app',
   router,

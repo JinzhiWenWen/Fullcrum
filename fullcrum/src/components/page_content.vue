@@ -9,13 +9,8 @@
             <span class="about_vendor">关于票据销售商</span>
             <span class="about_buyer">关于票据购买者</span>
           </p>
-          <div class="title_img">
-            <div class="top">
+          <div class="titleImg" ref="titleImg">
 
-            </div>
-            <div class="bottom">
-
-            </div>
           </div>
       </div>
       <div class="content_center">
@@ -116,17 +111,35 @@
 <script>
 export default {
   methods:{
+    //鼠标下滑事件
     handleScroll () {
       var scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop
+      var self=this;
       if(scrollTop>=80){
-        this.$refs.content_wapper.style.transform="translateY(-35.8%)"
+        self.$refs.content_wapper.style.transform="translateY(-35.8%)"
       }else{
-        this.$refs.content_wapper.style.transform="translateY(0)"
+        self.$refs.content_wapper.style.transform="translateY(0)"
       }
-    }
+    },
+    //悬浮事件
+    save(){
+        var self=this;
+        self.$refs.titleImg.style.top='134px';
+        setInterval(()=>{
+          if(self.$refs.titleImg.style.top>='114px'){
+            self.$refs.titleImg.style.top="174px"
+          }
+        },1000);
+        setInterval(()=>{
+          if(self.$refs.titleImg.style.top='174px'){
+            self.$refs.titleImg.style.top="134px"
+          }
+        },2000)
+    },
   },
   mounted(){
-    window.addEventListener('scroll',this.handleScroll)
+    window.addEventListener('scroll',this.handleScroll);
+    this.save();
   }
 }
 </script>
@@ -178,28 +191,15 @@ export default {
           border-bottom: 2px solid red;
         }
       }
-      .title_img{
+      .titleImg{
         width:624px;
         height:624px;
         position: absolute;
-        top:114px;
-        left:50%;
+        background: url('../img/content_save.png');
+        background-size: 100% 100%;
+        left:56%;
         box-sizing: border-box;
-        .top{
-          width: 564px;
-          height:564px;
-          background: #eee;
-          z-index: 2;
-        }
-        .bottom{
-          width: 564px;
-          height:564px;
-          background: #ccc;
-          position: absolute;
-          top: 60px;
-          left:60px;
-          z-index: 1;
-        }
+        transition:all 1s;
       }
     }
     .content_center{

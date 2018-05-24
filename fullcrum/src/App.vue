@@ -13,13 +13,7 @@ export default {
   name: 'App',
   data(){
     return{
-      transitionName:'slide-left',
-      wid:'100'
-    }
-  },
-  methods:{
-    btn(){
-      this.wid='80'
+      transitionName:'slide-left'
     }
   }
 }

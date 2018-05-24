@@ -42,10 +42,11 @@ export default {
     },
     handleScroll () {
       var scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop
+      var self=this;
       if(scrollTop>=260){
-        this.$refs.loge.style.background="#181f28"
+        self.$refs.loge.style.background="#181f28"
       }else{
-        this.$refs.loge.style.background="";
+        self.$refs.loge.style.background="";
       }
     }
   },
@@ -64,7 +65,7 @@ export default {
 .header_user{
   width: 100%;
   height:280px;
-  background:url('../img/Background.png');
+  background:url('../img/banner_center.png');
   background-size: 100% 100%;
   .loge{
     width: 100%;
@@ -94,7 +95,8 @@ export default {
       .user_pic{
         width: 32px;
         height:32px;
-        background: red;
+        background: url('../img/UserPic.png');
+        background-size: 100% 100%;
         border-radius:50%;
         margin-left:48px;
         margin-top:22px;

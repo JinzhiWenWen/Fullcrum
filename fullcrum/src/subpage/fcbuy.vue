@@ -15,13 +15,13 @@
         <span style="color:black;font-size:1.6rem;margin-bottom:24px;">收款账户</span>
         <br>
         <span>
-          <i class="icon_way"></i>
+          <i class="iconfont icon-iconfontjikediancanicon20 iconBank iconWay"></i>
           <span class="way">银行卡</span>
           <span style="margin-left:58px;">海绵宝宝&nbsp;&nbsp;&nbsp;&nbsp;602359428453196785&nbsp;&nbsp;&nbsp;&nbsp;中国工商银行</span>
         </span>
         <br>
         <span style="margin-top:48px;margin-bottom:48px;">
-          <i class="icon_way"></i>
+          <i class="iconfont icon-zhifubaozhifu iconWay"></i>
           <span class="way">支付宝</span>
           <span style="margin-left:58px;">派大星&nbsp;&nbsp;&nbsp;&nbsp;13240891337&nbsp;&nbsp;&nbsp;&nbsp;二维码
              <i class="alipay_qr"></i>
@@ -29,7 +29,7 @@
         </span>
         <br>
         <span>
-          <i class="icon_way"></i>
+          <i class="iconfont icon-logo-wechat iconWay"></i>
           <span class="way">微信支付</span>
           <span style="margin-left:46px;">章鱼哥&nbsp;&nbsp;&nbsp;&nbsp;C3023559023&nbsp;&nbsp;&nbsp;&nbsp;二维码
             <i class="wechat_qr"></i>
@@ -89,18 +89,27 @@ export default {
     margin-top:20px;
     padding-bottom:24px;
     border-bottom: 1px solid  #eee;
-     .icon_way{
+     .iconWay{
       display: inline-block;
       position: absolute;
       width: 20px;
       height:20px;
-      background: #999;
       border-radius: 50%;
+      font-size: 2rem;
     }
     span{
       position: relative;
       color:#999;
       line-height: 20px;
+      .iconBank{
+        color:#ea986c;
+      }
+      .icon-zhifubaozhifu{
+        color:#1296db;
+      }
+      .icon-logo-wechat{
+        color:#50b674;
+      }
     }
     .way{
       padding-left: 28px;

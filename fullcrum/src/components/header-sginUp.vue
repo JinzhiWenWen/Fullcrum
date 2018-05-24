@@ -26,7 +26,7 @@ export default {
 .sgin_up{
   width: 100%;
   height:280px;
-  background:url('../img/Background.png');
+  background:url('../img/banner_center.png');
   background-size: 100% 100%;
   box-sizing: border-box;
   .logo{

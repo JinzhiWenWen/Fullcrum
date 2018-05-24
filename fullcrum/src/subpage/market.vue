@@ -19,11 +19,13 @@
         <span style="margin-left:112px;">年化收益率</span>
         <span style="margin-left:74px;">期限</span>
         <span style="margin-left:126px;">总价</span>
-        <span style="margin-left:130px;">支付方式 </span>
-        <span style="margin-left:280px;">操作</span>
+        <span style="margin-left:130px;">限额 </span>
+        <span style="margin-left:230px;">操作</span>
         </p>
       <ul class="note_lists">
-        <li v-for="(item,index) in roteList">
+        <li v-for="(item,index) in roteList"
+        @mouseleave="CancelMove(index)"
+        >
           <span class="por">
             <span class="status"></span>
           </span>
@@ -31,9 +33,7 @@
           <span class="rete">{{item.Rete}}</span>
           <span class="time">{{item.Time}}</span>
           <span class="total">{{item.Total}}FC</span>
-          <span class="pay_way">
-            icon
-          </span>
+          <span class="limit">{{item.Limit}}</span>
           <span class="oper" v-show="item.isShowOper">
             <button type="button" name="button" class="prev" @click="showPaper">预览</button>
             <button type="button" name="button" class="buy" @click="buyChase(index)">购买</button>
@@ -41,14 +41,14 @@
           <span class="order" v-show="item.isShowOrder">
             <input type="text" name="" value="" v-model="much" style="padding-left:10px;">
             <span class="unit">FC</span>
-            <button type="button" name="button" class="firm" @click="place">下单</button>
+            <button type="button" name="button" class="firm" @click="place()">下单</button>
             <button type="button" name="button" class="cancel" @click="Cancel(index)">取消</button>
           </span>
         </li>
       </ul>
       <Pager/>
     </div>
-    <div class="mask" ref="mask" @click="closePic">
+    <div class="mask" ref="mask" @click="closePic()">
 
     </div>
     <div class="paper_pic" ref="paperPic">
@@ -56,6 +56,12 @@
       <span class="close" @click="closePic">
         <i class="el-icon-close"></i>
       </span>
+    </div>
+    <div class="pass" ref="pass">
+      <span>交易密码：</span>
+      <input type="password" name=""  value="">
+      <button type="button" name="button">确认</button>
+      <button type="button" name="button" style="margin-left:94px;"  @click="closePic()">取消</button>
     </div>
   </div>
 </template>
@@ -91,6 +97,7 @@ export default {
             Rete:'9.45%',
             Time:'6个月',
             Total:'100000.00',
+            Limit:'3000-10000FC',
             isShowOper:true,
             isShowOrder:false
           },
@@ -99,6 +106,7 @@ export default {
             Rete:'9.85%',
             Time:'8个月',
             Total:'300000.00',
+            Limit:'3000-10000FC',
             isShowOper:true,
             isShowOrder:false
           },
@@ -107,6 +115,7 @@ export default {
             Rete:'9.65%',
             Time:'030天',
             Total:'1000000.00',
+            Limit:'3000-10000FC',
             isShowOper:true,
             isShowOrder:false
           },
@@ -115,6 +124,7 @@ export default {
             Rete:'9.95%',
             Time:'070天',
             Total:'2300000.00',
+            Limit:'3000-10000FC',
             isShowOper:true,
             isShowOrder:false
           }
@@ -124,25 +134,36 @@ export default {
   methods:{
     showPaper(){
       this.$refs.mask.style.display='block';
-      this.$refs.paperPic.style.top="500px";
+      this.$refs.paperPic.style.top="50%";
     },
     closePic(){
-      this.$refs.mask.style.display='none';
+      setTimeout(()=>{
+        this.$refs.mask.style.display='none';
+      },300)
       this.$refs.paperPic.style.top="-500px";
+      this.$refs.pass.style.top="-300px";
     },
     buyChase(index){
       this.roteList[index].isShowOper=false;
       this.roteList[index].isShowOrder=true;
+      this.much='';
     },
     Cancel(index){
       this.roteList[index].isShowOper=true;
       this.roteList[index].isShowOrder=false;
+      this.much='';
+    },
+    CancelMove(index){
+      this.roteList[index].isShowOper=true;
+      this.roteList[index].isShowOrder=false;
+      this.roteList[index].isShowPay=true;
     },
     place(){
       if(this.much===''){
-        alert('请输入价格')
+        alert('请输入金额!')
       }else{
-        this.$router.push('/tard')
+        this.$refs.mask.style.display='block';
+        this.$refs.pass.style.top="30%";
       }
     }
   },
@@ -153,7 +174,7 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .mark_content{
   width: 1142px;
   height:1116px;
@@ -163,6 +184,7 @@ export default {
   padding-top:50px;
   .select_btn{
     margin-left:88%;
+    display:none;//暂不需
     .chose_btn{
       width: 130px;
       height:32px;
@@ -197,7 +219,7 @@ export default {
     padding-left:18px;
     border-bottom: 2px solid #eee;
     span{
-      font-size: 1.4rem;
+      font-size: 1.6rem;
       color:#999;
     }
   }
@@ -240,26 +262,22 @@ export default {
       }
       .rete{
         position: absolute;
-        left:286px;
+        left:310px;
         top:24px;
       }
       .time{
         position: absolute;
-        left:414px;
+        left:444px;
         top:24px;
       }
       .total{
         position:absolute;
-        left:550px;
+        left:584px;
         top:24px;
       }
-      .pay_way{
-        width: 60px;
-        height:20px;
-        background: #999;
-        text-align: center;
+      .limit{
         position: absolute;
-        left:734px;
+        left:744px;
         top:24px;
       }
       .oper{
@@ -335,19 +353,19 @@ export default {
         top:34px;
       }
       .rete{
-        left:302px;
+        left:324px;
         top:34px;
       }
       .time{
-        left:430px;
+        left:460px;
         top:34px;
       }
       .total{
-        left:566px;
+        left:600px;
         top:34px;
       }
-      .pay_way{
-        left:750px;
+      .limit{
+        left:760px;
         top:34px;
       }
       .order{
@@ -367,6 +385,33 @@ export default {
   background: black;
   opacity: .5;
   display: none;
+}
+.pass{
+  width: 300px;
+  height:150px;
+  position: fixed;
+  top:300px;
+  left:50%;
+  margin-left: -150px;
+  background: white;
+  transition:all .5s;
+  top:-300px;
+  padding-top:50px;
+  padding-left:20px;
+  span{
+    font-size: 1.6rem;
+  }
+  input{
+    border-bottom: 1px solid #eee;
+  }
+  button{
+    width: 82px;
+    height:32px;
+    border-radius: 5px;
+    margin-top: 30px;
+    background: #5277cc;
+    color:white;
+  }
 }
 .paper_pic{
   position: fixed;
@@ -401,4 +446,5 @@ export default {
     }
   }
 }
+
 </style>
