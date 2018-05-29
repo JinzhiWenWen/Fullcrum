@@ -80,38 +80,38 @@
           <span class="title_left">企业认证<br/>
             <span style="color:#a1a1a1;font-size:1.2rem;">请务必使用真实的企业账户，被激活的部分账户信息会在交易时向买方展示。 </span>
           </span>
-        </p>
+          </p>
         <div class="company_message">
           <p class="company">
             <span class="company_name">公司名称</span>
             <span class="company_name_last">{{userMessage.userInit}}</span>
             <span class="push_btn">添加</span>
-          </p>
+            </p>
           <p class="company">
             <span class="company_name">企业固话</span>
             <span class="company_name_last">{{userMessage.userInit}}</span>
             <span class="push_btn">添加</span>
-          </p>
+            </p>
           <p class="company">
             <span class="company_name">企业银行账号</span>
             <span class="cor_banknum">{{userMessage.userInit}}</span>
             <span class="push_btn">添加</span>
-          </p>
+            </p>
           <p class="company">
             <span class="company_name">大额行号</span>
             <span class="company_name_last">{{userMessage.userInit}}</span>
             <span class="push_btn">添加</span>
-          </p>
+            </p>
           <p class="company">
             <span class="company_name">手机号</span>
             <span class="phone_num">{{userMessage.userInit}}</span>
             <span class="push_btn">添加</span>
-          </p>
+            </p>
           <p class="company">
             <span class="company_name">邮箱</span>
             <span class="email_num">{{userMessage.userInit}}</span>
             <span class="push_btn">添加</span>
-          </p>
+            </p>
           <div class="verify">
             <div class="busi">
               <span @mouseenter="show" @mouseleave="hide">
@@ -594,21 +594,6 @@ export default {
                   left:25%;
                   font-size: 1.4rem;
                   z-index: -1;
-                }
-                .uploader-btn{
-                  .el-upload--picture-card{
-                    width: 200px;
-                    height:272px;
-                    border:0;
-                    line-height: 272px;
-                    border-radius: 3px;
-                    background: black;
-                    opacity: .5;
-                    .el-icon-plus{
-                      color:white;
-                      font-size: 11rem;
-                    }
-                  }
                 }
               }
             }

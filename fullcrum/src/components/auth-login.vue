@@ -112,7 +112,7 @@ export default {
 }
   .password_login{
     width:80%;
-    height:320px;
+    height:340px;
     .phonenum {
       margin-top: 60px;
     }

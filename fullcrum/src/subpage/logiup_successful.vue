@@ -9,7 +9,8 @@
         <p class="wallet_address">{{wallet_address}}</p>
         <p>这是系统为您生成的数字钱包地址，可在个人中心查看。</p>
       </div>
-      <button class="personal" type="button" name="button" @click="personal">进入个人中心</button>
+      <button class="personal" type="button" name="button" @click="personal()">进入个人中心</button>
+      <button class="succ_market" type="button" name="button" @click="market()">进入票据市场</button>
     </div>
   </div>
 </template>
@@ -28,6 +29,9 @@ export default {
   methods:{
     personal(){
       window.open(window.location.origin + '/#/person')
+    },
+    market(){
+      window.open(window.location.origin + '/#/mark')
     }
   }
 }
@@ -83,7 +87,17 @@ export default {
     }
     .personal{
       cursor:pointer;
-      width: 286px;
+      width: 246px;
+      height:60px;
+      border-radius:5px;
+      background:#4f8ef3;
+      color:white;
+      font-size: 2.4rem;
+      margin-top:100px;
+    }
+    .succ_market{
+      cursor:pointer;
+      width: 246px;
       height:60px;
       border-radius:5px;
       background:#4f8ef3;

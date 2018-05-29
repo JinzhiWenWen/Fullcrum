@@ -1,8 +1,8 @@
 <template lang="html">
   <div class="page-wapper">
       <Banner/>
-      <router-link to='/vendor' tag='span' class='vendor'>卖家入口</router-link>
-      <router-link to='/buyer'  tag='span' class='buyer'>买家入口</router-link>
+      <router-link to='/vendor' name="Vendor" tag='span' class='vendor'>卖家入口</router-link>
+      <router-link to='/buyer' name="Buyer"  tag='span' class='buyer'>买家入口</router-link>
       <Nav/>
       <Content/>
   </div>

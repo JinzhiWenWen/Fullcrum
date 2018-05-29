@@ -1,6 +1,8 @@
 <template lang="html">
-  <div class="nav-wapper" ref="nav_wapper">
+  <div class="nav-wapper" ref="navWapper">
     <Loge/>
+    <router-link to='/vendor' tag='span' class='vendor'>卖家入口</router-link>
+    <router-link to='/buyer'  tag='span' class='buyer'>买家入口</router-link>
     <Icon/>
   </div>
 </template>
@@ -9,18 +11,24 @@
 import Loge from '../logo/loge'
 import Icon from './more'
 export default {
+  mounted(){
+      var self=this;
+      window.addEventListener('scroll',self.handleScroll)
+  },
   methods:{
     handleScroll () {
-      var scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop
+      var self=this;
+      var scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop;
       if(scrollTop>=260){
-        this.$refs.nav_wapper.style.background="#181f28"
+        self.$refs.navWapper.style.background="#181f28"
       }else{
-        this.$refs.nav_wapper.style.background="";
+        self.$refs.navWapper.style.background="";
       }
     }
   },
-  mounted(){
-      window.addEventListener('scroll',this.handleScroll)
+  destroyed(){
+    var self=this;
+    window.addEventListener('scroll',self.handleScroll)
   },
   components:{
     Loge,
@@ -38,5 +46,29 @@ export default {
     left:0;
     z-index: 12;
     transition:all .5s;
+    .vendor{
+      width:70px;
+      text-align: center;
+      position: absolute;
+      left:50%;
+      margin-left:-28%;
+      top:30px;
+      z-index:99;
+      font-size:1.6rem;
+      cursor:pointer;
+      color:white;
+    }
+    .buyer{
+      width:70px;
+      text-align: center;
+      position: absolute;
+      right:50%;
+      margin-right: -28%;
+      top: 30px;
+      z-index: 99;
+      font-size:1.6rem;
+      cursor: pointer;
+      color:white;
+    }
   }
 </style>

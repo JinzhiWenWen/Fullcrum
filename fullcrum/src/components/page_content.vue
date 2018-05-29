@@ -110,11 +110,16 @@
 
 <script>
 export default {
+  mounted(){
+    var self=this;
+    window.addEventListener('scroll',this.handleScroll);
+    self.save();
+  },
   methods:{
     //鼠标下滑事件
     handleScroll () {
-      var scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop
       var self=this;
+      var scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop;
       if(scrollTop>=80){
         self.$refs.content_wapper.style.transform="translateY(-35.8%)"
       }else{
@@ -125,22 +130,25 @@ export default {
     save(){
         var self=this;
         self.$refs.titleImg.style.top='134px';
-        setInterval(()=>{
-          if(self.$refs.titleImg.style.top>='114px'){
-            self.$refs.titleImg.style.top="174px"
+        function top(){
+          if(self.$refs.titleImg.style.top='134px'){
+            self.$refs.titleImg.style.top="174px";
           }
-        },1000);
-        setInterval(()=>{
+        }
+        function bot(){
           if(self.$refs.titleImg.style.top='174px'){
-            self.$refs.titleImg.style.top="134px"
+            self.$refs.titleImg.style.top="134px";
           }
-        },2000)
+        }
+        setInterval(top,1000);
+        setInterval(bot,2000)
     },
   },
-  mounted(){
-    window.addEventListener('scroll',this.handleScroll);
-    this.save();
-  }
+  destroyed(){
+    var self=this;
+    window.addEventListener('scroll',self.handleScroll)
+    self.save()
+  },
 }
 </script>
 
@@ -198,6 +206,7 @@ export default {
         background: url('../img/content_save.png');
         background-size: 100% 100%;
         left:56%;
+        top:'';
         box-sizing: border-box;
         transition:all 1s;
       }

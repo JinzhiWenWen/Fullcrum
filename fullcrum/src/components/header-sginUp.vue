@@ -1,12 +1,16 @@
 <template lang="html">
-  <div class="sgin_up">
-    <div class="loge">
+  <div class="sgin_up" ref="sgin_up">
+    <div class="loge" ref="loge">
       <Loge/>
       <More/>
-      <div class="logo">
+      <div class="logo" ref="logo">
 
       </div>
-      <p class="title">注册FULCRUM</p>
+  </div>
+  <div class="title">
+    <slot>
+      <p class="slot-tit">注册FULCRUM</p>
+    </slot>
   </div>
 </div>
 </template>
@@ -29,17 +33,22 @@ export default {
   background:url('../img/banner_center.png');
   background-size: 100% 100%;
   box-sizing: border-box;
-  .logo{
+  .loge{
     width: 100%;
     height:80px;
-    border-bottom:1px solid black;
+    position:absolute;
+    left:0;
+    top:0;
+    z-index:500;
+    transition:all .5s;
   }
   .title{
     width:100%;
+    height:200px;
     color:white;
-    margin-top: 70px;
     font-size: 4.8rem;
     text-align: center;
+    padding-top:8%;
   }
 }
 </style>

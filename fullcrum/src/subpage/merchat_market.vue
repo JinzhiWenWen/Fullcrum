@@ -4,10 +4,10 @@
       <p class="slot-mine">FC市场</p>
     </HeaderMerchat>
     <div class="merchat_market_con">
-      <router-link @click.native="Buy()" to='/merchatma' tag='span'>
+      <router-link @click.native="Buy()" to='/merchatma/merchatbuy' tag='span'>
         <el-radio v-model="radio" label="1">出售</el-radio>
       </router-link>
-      <router-link @click.native="Sell()" to="/merchatmase" tag="span">
+      <router-link @click.native="Sell()" to="/merchatma/merchatmase" tag="span">
         <el-radio v-model="radio" label="2">购买</el-radio>
       </router-link>
       <div class="view_box">

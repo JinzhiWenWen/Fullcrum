@@ -446,5 +446,4 @@ export default {
     }
   }
 }
-
 </style>

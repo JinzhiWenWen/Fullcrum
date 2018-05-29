@@ -5,10 +5,10 @@
     </HeaderPerson>
     <div class="content">
       <div class="radio">
-        <router-link @click.native="Buy()" to="/personalor" tag="span" style="margin-right:120px;">
+        <router-link @click.native="Buy()" to="/personalor/fc" tag="span" style="margin-right:120px;">
           <el-radio v-model="radio" label="1">FC</el-radio>
           </router-link>
-        <router-link @click.native="Sell()" to="/paperor" tag="span">
+        <router-link @click.native="Sell()" to="/personalor/paperor" tag="span">
           <el-radio v-model="radio" label="2">票据</el-radio>
         </router-link>
       </div>

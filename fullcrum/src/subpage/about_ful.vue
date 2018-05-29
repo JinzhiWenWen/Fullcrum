@@ -1,12 +1,6 @@
 <template lang="html">
   <div class="about_as">
-    <SginUpHeader>
-      <my-component>
-        <p>关于我们</p>
-      </my-component>
-    </SginUpHeader>
-    <router-link to='/vendor' tag='span' class='vendor'>卖家入口</router-link>
-    <router-link to='/buyer'  tag='span' class='buyer'>买家入口</router-link>
+    <HeaderAbout/>
     <div class="content_main">
       <div class="content_top">
         <div class="top_left">
@@ -20,7 +14,7 @@
             笼甚至被诈骗比比皆是，进而更加恶化了信任
             环境。由于票据目前不能分拆，虽投
             <br/><br/>
-            资利润相对较高，风险较低，但是一般投资人无法记性票据小额投资，及其需要一<br/><br/>
+            资利润相对较高，风险较低，但是一般投资人无法进行票据小额投资，及其需要一<br/><br/>
             种穿透机制，打破目前票据不可分拆的弊端。
           </span>
         </div>
@@ -116,7 +110,7 @@
 </template>
 
 <script>
-import SginUpHeader from '@/components/header-sginUp'
+import HeaderAbout from '@/components/header-about'
 export default {
   data(){
     return{
@@ -143,7 +137,7 @@ export default {
     }
   },
   components:{
-    SginUpHeader
+    HeaderAbout
   }
 }
 </script>
@@ -152,32 +146,6 @@ export default {
 .about_as{
   width: 100%;
   height:100%;
-  .vendor{
-    display: inline-block;
-    width:70px;
-    text-align: center;
-    position: absolute;
-    left:50%;
-    margin-left:-28%;
-    top:30px;
-    z-index:99;
-    font-size:1.6rem;
-    cursor:pointer;
-    color:white;
-  }
-  .buyer{
-    display: inline-block;
-    width:70px;
-    text-align: center;
-    position: absolute;
-    right:50%;
-    margin-right: -28%;
-    top: 30px;
-    z-index: 99;
-    font-size:1.6rem;
-    cursor: pointer;
-    color:white;
-  }
   .content_main{
     width: 100%;
     height:1570px;

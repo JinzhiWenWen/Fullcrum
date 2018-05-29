@@ -1,8 +1,6 @@
 <template lang="html">
   <div class="buyer-wapper">
     <Banner/>
-    <router-link to='/vendor' tag='span' class='vendor'>卖家入口</router-link>
-    <router-link to='/buyer'  tag='span' class='buyer'>买家入口</router-link>
     <Nav/>
     <div class="content_top">
       <div class="top_left">
@@ -82,13 +80,15 @@
         将提供更低成本、更高效率、更安全的解决方案，帮助企业补充资金流动性，更好的发展商业。
       </span>
       <br>
-      <el-button type="primary" plain class="load_more">更多</el-button>
+      <router-link to='/about'>
+        <el-button type="primary" plain class="load_more">更多</el-button>
+      </router-link>
     </div>
   </div>
 </template>
 
 <script>
-import Banner from '../components/banner-wapper'
+import Banner from '../components/banner-user'
 import Nav from '../components/nav-wapper'
 export default {
   components:{
@@ -99,32 +99,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.vendor{
-  display: inline-block;
-  width:70px;
-  text-align: center;
-  position: absolute;
-  left:50%;
-  margin-left:-28%;
-  top:30px;
-  z-index:99;
-  font-size:1.6rem;
-  cursor:pointer;
-  color:white;
-}
-.buyer{
-  display: inline-block;
-  width:70px;
-  text-align: center;
-  position: absolute;
-  right:50%;
-  margin-right: -28%;
-  top: 30px;
-  z-index: 99;
-  font-size:1.6rem;
-  cursor: pointer;
-  color:white;
-}
 .content_top{
   width: 100%;
   height:auto;
@@ -208,7 +182,8 @@ export default {
 .about_us{
   width: 100%;
   height:843px;
-  background: url('../img/Background.png');
+  background: url('../img/Banner_bot.png');
+  background-size: 100% 100%;
   color:white;
   text-align: center;
   box-sizing: border-box;

@@ -40,7 +40,19 @@ button{
   border-radius: 0;
   padding:0!important;
 }
+.el-upload--picture-card{
+  width: 200px;
+  height:272px;
+  border:0;
+  line-height: 272px;
+  border-radius: 3px;
+  background: black;
+  opacity: .5;
+  .el-icon-plus{
+    color:white;
+    font-size: 11rem;
+  }
+}
 .slot-mine{
-  margin-top: 70px;
   font-size: 4.6rem;
 }

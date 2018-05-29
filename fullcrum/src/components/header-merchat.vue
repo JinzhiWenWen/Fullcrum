@@ -7,13 +7,13 @@
         <div class="right">
           <router-link to='/merchator' tag="p">订单</router-link>
           <router-link to='/merchatass' tag='p'>资产</router-link>
-          <span class="user_pic" @click="lists"></span>
+          <span class="user_pic" @mouseenter="merlists()" @mouseleave="mernolist()"></span>
         </div>
         <div class="chose_lists" v-show="isShow">
-          <ul>
+          <ul  @mouseenter="merlists()" @mouseleave="mernolist()">
+            <li></li>
             <router-link to='/merchat' tag='li'>个人中心</router-link>
             <router-link to='rele' tag='li'>发布广告</router-link>
-            <li>商家申请</li>
           </ul>
         </div>
       </div>
@@ -35,12 +35,15 @@ export default {
     }
   },
   methods:{
-    lists(){
-      this.isShow=!this.isShow;
+    merlists(){
+      this.isShow=true;
+    },
+    mernolist(){
+      this.isShow=false
     },
     handleScroll () {
-      var scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop
       var self=this;
+      var scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop;
       if(scrollTop>=260){
         self.$refs.loge.style.background="#181f28"
       }else{
@@ -99,15 +102,15 @@ export default {
         margin-left:48px;
         margin-top:22px;
         cursor:pointer;
+        z-index: 20;
       }
     }
     .chose_lists{
       width:80px ;
       height:132px;
       position: absolute;
-      top: 80px;
-      right:4%;
-      background:#272961;
+      top: 36px;
+      right:3.7%;
       ul{
         display: flex;
         -webkit-flex-wrap:wrap;
@@ -118,6 +121,21 @@ export default {
           line-height: 44px;
           color:white;
           cursor:pointer;
+          background:#272961;
+        }
+        li:nth-child(1){
+          opacity: 0;
+        }
+        li:nth-child(2){
+          border-top-left-radius: 5px;
+          border-top-right-radius: 5px;
+        }
+        li:nth-child(3){
+          border-bottom-left-radius: 5px;
+          border-bottom-right-radius: 5px;
+        }
+        li:hover{
+          background: red;
         }
       }
     }

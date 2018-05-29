@@ -26,6 +26,9 @@ import MerchatOr from '@/subpage/merchat_order'
 import MerchatMa from '@/subpage/merchat_market'
 import MerchatMaBuy from '@/components/merchat_market_buy'
 import MerchatMaSell from '@/components/merchat_market_sell'
+import MerchatAp from '@/subpage/merchat_application'
+import MerchatMess from '@/subpage/merchat_message'
+import MerchatSub from '@/subpage/merchat_submit'
 import Pass from '@/components/password-login'
 import Auth from '@/components/auth-login'
 import Boor from '@/components/boor-man'
@@ -37,22 +40,24 @@ import Paperorder from '@/components/buyer_paper_order'
 Vue.use(Router)
 export default new Router({
     routes:[
+      {path:'/',redirect: "/page"},
       {
-        path:'/',
+        path:'/page',
         name:'Page',
         component:Page,
         children:[
           {
-            path:'/',
+            path:'/page/pass',
             name:'Password',
             component:Pass
           },
           {
-            path:'auth',
+            path:'/page/auth',
             name:'Auth',
             component:Auth
           }
-        ]
+        ],
+        redirect: "/page/pass"
       },
       {path:'/vendor',name:'Vendor',component:Vendor},
       {path:'/buyer',name:'Buyer',component:Buyer},
@@ -62,31 +67,36 @@ export default new Router({
         component:LogiUp,
         children:[
           {
-            path:'/logiup',
+            path:'/logiup/boor',
             name:'Boor',
             component:Boor
           },
           {
-            path:'/inve',
+            path:'/logiup/inve',
             name:'Inve',
             component:Inve
           }
-        ]
+        ],
+        redirect:'/logiup/boor'
       },
       {path:'/logiupsuss',name:'LogiUoSuccess',component:LogiUoSuccess},
       {path:'/person',name:'Personal',component:Personal},
       {path:'/merchat',name:'Merchat',component:Merchat},
       {path:'/merchatass',name:'MerchatAss',component:MerchatAss},
       {path:'/merchator',name:'MerchatOr',component:MerchatOr},
+      {path:'/merchatsub',name:'MerchatSub',component:MerchatSub},
       {
         path:'/merchatma',
         name:'MerchatMa',
         component:MerchatMa,
         children:[
-          {path:'/',name:'MerchatMaBuy',component:MerchatMaBuy},
-          {path:'/merchatmase',name:'MerchatMaSell',component:MerchatMaSell}
-        ]
+          {path:'/merchatma/merchatbuy',name:'MerchatMaBuy',component:MerchatMaBuy},
+          {path:'/merchatma/merchatmase',name:'MerchatMaSell',component:MerchatMaSell}
+        ],
+        redirect:'/merchatma/merchatbuy'
       },
+      {path:'/merchatap',name:'Merchatap',component:MerchatAp},
+      {path:'/merchatmes',name:'MerchatMess',component:MerchatMess},
       {path:'/about',name:'About',component:About},
       {path:'/seller',name:'Seller',component:Seller},
       {path:'/mark',name:'Mark',component:Market},
@@ -97,16 +107,17 @@ export default new Router({
         component:Fcmarket,
         children:[
           {
-            path:'/',
+            path:'/fcshop/pur',
             name:'Purchase',
             component:Purchase
           },
           {
-            path:'/sell',
+            path:'/fcshop/sel',
             name:'Sell',
             component:Sell
           }
-        ]
+        ],
+        redirect:'/fcshop/pur'
       },
       {path:'/sellerass',name:'SellerAss',component:SellerAss},
       {path:'/with',name:'WithDrawal',component:WithDrawal},
@@ -118,9 +129,10 @@ export default new Router({
         name:'Personalor',
         component:Personalor,
         children:[
-          {path:'/',name:'Fcorder',component:Fcorder},
-          {path:'/paperor',name:'Paperorder',component:Paperorder}
-        ]
+          {path:'/personalor/fc',name:'Fcorder',component:Fcorder},
+          {path:'/personalor/paperor',name:'Paperorder',component:Paperorder}
+        ],
+        redirect:'/personalor/fc'
       },
       {path:'/sellerma',name:'Sellerma',component:Sellerma},
       {path:'/selleror',name:'SellerOr',component:SellerOr},

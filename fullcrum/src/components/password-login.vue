@@ -73,7 +73,7 @@ export default {
       submitForm(formName) {
         this.$refs[formName].validate((valid) => {
           if (valid) {
-            alert('登陆成功!');
+            this.$router.push('/personal')
           } else {
             // alert('请填写错误信息');
             console.log(this.ruleForm2.phoneNum)
@@ -116,7 +116,7 @@ export default {
 }
   .password_login{
     width:80%;
-    height:1020px;
+    height:340px;
     .phonenum {
       margin-top: 60px;
       input::-webkit-input-placeholder{

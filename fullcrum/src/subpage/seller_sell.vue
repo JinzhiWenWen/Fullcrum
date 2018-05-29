@@ -13,7 +13,21 @@
             :on-remove="handleRemove">
             <i class="el-icon-plus"></i>
             <br>
-            <span class="el-title">点击上传票据</span>
+            <span class="el-title">点击上传票据（正面）</span>
+          </el-upload>
+          <el-dialog :visible.sync="dialogVisible">
+            <img width="100%" :src="dialogImageUrl" alt="">
+          </el-dialog>
+        </span>
+        <span class="el_upload_two">
+          <el-upload
+            action="https://jsonplaceholder.typicode.com/posts/"
+            list-type="picture-card"
+            :on-preview="handlePictureCardPreview"
+            :on-remove="handleRemove">
+            <i class="el-icon-plus"></i>
+            <br>
+            <span class="el-title">点击上传票据（反面）</span>
           </el-upload>
           <el-dialog :visible.sync="dialogVisible">
             <img width="100%" :src="dialogImageUrl" alt="">
@@ -133,28 +147,56 @@ export default {
   padding-bottom:80px;
   .seller_sell_loader{
     width: 100%;
-    height:500px;
+    height:250px;
     background: #eee;
+    display: flex;
     .el_upload{
       position: relative;
+      border-right:5px solid #fff;
       .el-title{
         color:white;
         position: absolute;
-        top:10%;
-        left:42.5%;
+        top:20%;
+        left:30%;
         font-size: 1.8rem;
       }
       .el-upload--picture-card{
-        width: 750px;
-        height:500px;
+        width: 370px;
+        height:250px;
         border:0;
         border-radius: 0;
         background: black;
         opacity: .5;
-        line-height: 600px;
+        line-height: 250px;
         .el-icon-plus{
           color:white;
-          font-size: 20rem;
+          font-size: 10rem;
+        }
+
+      }
+    }
+    .el_upload_two{
+      position: relative;
+      border-left:5px solid #fff;
+      box-sizing: border-box;
+      .el-title{
+        color:white;
+        position: absolute;
+        top:20%;
+        left:30%;
+        font-size: 1.8rem;
+      }
+      .el-upload--picture-card{
+        width: 370px;
+        height:250px;
+        border:0;
+        border-radius: 0;
+        background: black;
+        opacity: .5;
+        line-height: 250px;
+        .el-icon-plus{
+          color:white;
+          font-size: 10rem;
         }
 
       }
