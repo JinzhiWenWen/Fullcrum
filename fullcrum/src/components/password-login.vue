@@ -25,13 +25,13 @@
 <script>
 export default {
   data() {
+
     var validateNum = (rule, value, callback) => {
       var phone=/^1[34578]\d{9}$/;
       var email=/^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/;
       var num=false;
       var ema=false;
       if(phone.test(value)||email.test(value))num=true;
-      // if(email.test(value))ema=true;
       if (value === ''){
         callback(new Error('请输入手机号码'));
       } else if(num === false){
@@ -44,11 +44,10 @@ export default {
       }
     };
     var validatePass2 = (rule, value, callback) => {
-      var userpass='123456';
       if (value === '') {
         callback(new Error('请输入密码'));
       }else{
-        if(value !== userpass){
+        if(value !== this.ruleForm2.userpass){
           callback(new Error('密码错误，请从新输入'))
         }
         callback();
@@ -73,7 +72,7 @@ export default {
       submitForm(formName) {
         this.$refs[formName].validate((valid) => {
           if (valid) {
-            this.$router.push('/personal')
+            this.$router.push('/person')
           } else {
             // alert('请填写错误信息');
             console.log(this.ruleForm2.phoneNum)
