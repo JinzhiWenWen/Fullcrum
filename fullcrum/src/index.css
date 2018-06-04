@@ -53,6 +53,12 @@ button{
     font-size: 11rem;
   }
 }
+.el-form-item.is-success .el-input__inner, .el-form-item.is-success .el-input__inner:focus, .el-form-item.is-success .el-textarea__inner, .el-form-item.is-success .el-textarea__inner:focus{
+  border-color:#5277cc;
+}
+.el-form-item.is-success .el-input__validateIcon{
+  color:#5277cc;
+}
 .slot-mine{
   font-size: 4.6rem;
 }

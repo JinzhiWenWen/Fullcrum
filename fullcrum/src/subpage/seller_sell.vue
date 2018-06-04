@@ -237,7 +237,7 @@ export default {
       font-size: 2.2rem;
     }
     .release{
-      margin-right: 138px;
+      margin-right: 128px;
       background: #4262c3;
       color:white;
     }

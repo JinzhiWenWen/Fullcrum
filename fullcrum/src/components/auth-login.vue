@@ -68,7 +68,10 @@ export default {
       submitForm(formName) {
         this.$refs[formName].validate((valid) => {
           if (valid) {
-            alert('登陆成功!');
+            // alert('登陆成功!');
+            this.$axios.get('http://v.juhe.cn/xiangji_weather/real_time_weather.php').then((res)=>{
+              console.log(res)
+            })
           } else {
             // alert('请填写错误信息');
             console.log(this.ruleForm2.phoneNum)
