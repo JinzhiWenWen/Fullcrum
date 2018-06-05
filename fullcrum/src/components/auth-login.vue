@@ -69,9 +69,20 @@ export default {
         this.$refs[formName].validate((valid) => {
           if (valid) {
             // alert('登陆成功!');
-            this.$axios.get('http://v.juhe.cn/xiangji_weather/real_time_weather.php').then((res)=>{
-              console.log(res)
-            })
+            console.log(this.ruleForm2.pass)
+            // this.axios({
+            //   method:'get',
+            //   url:'http://52.69.162.140:8080/fcexchange/register',
+            //   // mes:{
+            //   //   'userNum':this.ruleForm2.phoneNum,
+            //   //   'userPass':this.ruleForm2.pass
+            //   // },
+            //   responseType:'json',
+            //   header:{'Content-type':'application/json'}
+            // }).then((res)=>{
+            //
+            // })
+            // console.log(this.axios)
           } else {
             // alert('请填写错误信息');
             console.log(this.ruleForm2.phoneNum)

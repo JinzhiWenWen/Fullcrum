@@ -22,11 +22,13 @@
           <span>确认密码</span>
           <el-input type="password" v-model="ruleForm2.turnpass" auto-complete="off" class=""></el-input>
         </el-form-item>
-        <router-link to='/logiupsuss' tag='div' class="next_btn">
+        <!-- <router-link to='/logiupsuss' tag='div' class="next_btn"> -->
+        <div class="next_btn">
           <el-form-item>
-            <el-button style="font-size:2.2rem;width:286px;height:60px;" type="primary" @click="submitForm('ruleForm2')">下一步</el-button>
+            <el-button style="font-size:2.2rem;width:286px;height:60px;" type="primary"  @click="submitForm('ruleForm2')">下一步</el-button>
           </el-form-item>
-        </router-link>
+        </div>
+        <!-- </router-link> -->
       </el-form>
       <button class="obtain" @click="obtain" :disabled="disabled" ref="obtain" type="button" name="button">{{btnTxt}}</button>
     </div>
@@ -57,8 +59,8 @@ export default {
     var validatePass = (rule, value, callback) => {
       if (value === '') {
         callback(new Error('请输入密码'));
-      }else if(value!=='123'){
-        callback(new Error('密码必须至少包含8个字符,且至少包含一个大写字母'))
+      }else{
+        callback()
       }
     };
     var validatePass2=(rule,value,callback)=>{
@@ -105,6 +107,7 @@ export default {
     },
     methods: {
       obtain(){
+        // alert('111')
         if(this.time>0){
           this.time--;
           this.disabled=true;
@@ -121,7 +124,19 @@ export default {
       submitForm(formName) {
         this.$refs[formName].validate((valid) => {
           if (valid) {
-            alert('登陆成功!');
+            this.axios({
+              method:'post',
+              url:'http://52.69.162.140:8080/fcexchange/register',
+              // mes:{
+              //   'userNum':this.ruleForm2.phoneNum,
+              //   'userPass':this.ruleForm2.pass
+              // },
+              responseType:'json',
+              header:{'Content-Type':'application/json'},
+              // timeout:1000
+            }).then((res)=>{
+              console.log(res)
+            })
           } else {
             return false;
           }
