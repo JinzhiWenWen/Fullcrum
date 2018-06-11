@@ -52,10 +52,20 @@ export default {
       }else{
         self.$refs.loge.style.background="";
       }
+    },
+    buyerMe(){
+      var Id=sessionStorage.getItem('mes');
+      this.axios.get(this.oUrl+'/fcexchange/feuser/'+Id).then((res)=>{
+        // console.log(res)
+      })
     }
   },
-  mounted(){
-    window.addEventListener('scroll',this.handleScroll)
+  created(){
+    window.addEventListener('scroll',this.handleScroll);
+    this.buyerMe()
+  },
+  destroyed(){
+    window.addEventListener('scroll',this.handleScroll());
   },
   components:{
     Loge,

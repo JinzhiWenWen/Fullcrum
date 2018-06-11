@@ -30,7 +30,8 @@ import More from '@/components/more'
 export default {
   data(){
     return{
-      isShowMa:false
+      isShowMa:false,
+      myData:{}
     }
   },
   methods:{
@@ -48,10 +49,21 @@ export default {
       }else{
         self.$refs.loge.style.background="";
       }
+    },
+    obtain(){
+      var Id=sessionStorage.getItem('mes');
+      this.axios.get(this.oUrl+'/fcexchange/feuser/'+Id).then((res)=>{
+        this.myData=res.data
+        // console.log(this.myData)
+      })
     }
   },
   mounted(){
-    window.addEventListener('scroll',this.handleScroll)
+    window.addEventListener('scroll',this.handleScroll);
+    this.obtain()
+  },
+  destroyed(){
+    window.addEventListener('scroll',this.handleScroll());
   },
   components:{
     Loge,

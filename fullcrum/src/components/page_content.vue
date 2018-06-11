@@ -110,6 +110,12 @@
 
 <script>
 export default {
+  data(){
+    return{
+      timer:null,
+      timerB:null
+    }
+  },
   mounted(){
     var self=this;
     window.addEventListener('scroll',this.handleScroll);
@@ -140,14 +146,18 @@ export default {
             self.$refs.titleImg.style.top="134px";
           }
         }
-        setInterval(top,1000);
-        setInterval(bot,2000)
+        var timer=setInterval(top,1000);
+        var timerB=setInterval(bot,2000);
     },
   },
   destroyed(){
-    var self=this;
-    window.addEventListener('scroll',self.handleScroll)
-    self.save()
+    window.addEventListener('scroll',this.handleScroll());
+    if(this.timer){
+      clearInterval(this.timer);
+    }
+    if(thsi.timerB){
+      clearInterval(this.timerB)
+    }  
   },
 }
 </script>

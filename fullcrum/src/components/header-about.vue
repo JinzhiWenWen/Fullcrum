@@ -43,6 +43,9 @@ export default {
   mounted(){
     window.addEventListener('scroll',this.handleScroll)
   },
+  destroyed(){
+    window.addEventListener('scroll',this.handleScroll());
+  },
   components:{
     Loge,
     More

@@ -4,8 +4,8 @@
     <p class="for">注册为</p>
     <div class="matter">
       <p class="table">
-        <router-link to='/logiup/boor' tag='span' class="boor" @click.native="boor" :class="{active:color==1}">借款人</router-link>
-        <router-link to='/logiup/inve' tag='span' class="inve" @click.native="inve" :class="{active:color==2}">投资人</router-link>
+        <router-link to='/logiup/boor' tag='span' class="boor" @click.native="boor" :class="{active:color==1}">买家</router-link>
+        <router-link to='/logiup/inve' tag='span' class="inve" @click.native="inve" :class="{active:color==2}">卖家</router-link>
       </p>
       <div class="view_box">
         <router-view></router-view>

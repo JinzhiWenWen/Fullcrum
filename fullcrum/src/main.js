@@ -14,7 +14,7 @@ Vue.config.productionTip = false;
 Vue.use(ElementUI);
 Vue.use(VueResource);
 Vue.prototype.axios=Axios;
-// Vue.prototype.$oUrl='http://52.69.162.140:8080';
+Vue.prototype.oUrl='http://52.69.162.140:8080';
 /* eslint-disable no-new */
 router.afterEach((to,from,next) => {
   setTimeout(()=>{

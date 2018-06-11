@@ -9,11 +9,11 @@
     </p>
     <ul class="note_lists">
       <li v-for="(item,index) in noteLists">
-        <span class="num">{{item.orderNum}}</span>
-        <span class="time">{{item.data}}</span>
-        <span class="much">{{item.amount}}</span>
+        <span class="num">{{item.orderNumber}}</span>
+        <span class="time">{{item.createAt}}</span>
+        <span class="much">{{item.fcCounts}}</span>
         <span class="statu">{{item.status}}</span>
-        <button type="button" name="button">{{item.chose}}</button>
+        <button type="button" name="button">查看</button>
       </li>
     </ul>
     <Pager/>
@@ -24,30 +24,21 @@ import Pager from '@/components/pager'
 export default {
   data(){
     return{
-      noteLists:[
-        {
-          orderNum:'2018050300001',
-          data:'2018/5/3',
-          amount:'5,000CNY',
-          status:'已成交',
-          chose:'查看'
-        },
-        {
-          orderNum:'2018050300001',
-          data:'2018/5/3',
-          amount:'5,000CNY',
-          status:'已成交',
-          chose:'查看'
-        },
-        {
-          orderNum:'2018050300001',
-          data:'2018/5/3',
-          amount:'5,000CNY',
-          status:'已成交',
-          chose:'查看'
-        },
-      ]
+      noteLists:null
     }
+  },
+  methods:{
+    getOrder(){
+      // var waId=sessionStorage.getItem('waId');
+      var waId='wid001';
+      this.axios.get(this.oUrl+'/fcexchange/fcorders/'+waId).then((res)=>{
+        this.noteLists=res.data;
+        console.log(this.noteLists)
+      })
+    }
+  },
+  mounted(){
+    this.getOrder()
   },
   components:{
     Pager

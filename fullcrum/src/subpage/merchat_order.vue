@@ -130,6 +130,18 @@ export default {
       ]
     }
   },
+  methods:{
+    getOrder(){
+      // var waId=sessionStorage.getItem('waId');
+      var waId='wid001';
+      this.axios.get(this.oUrl+'/fcexchange/fcorders/'+waId).then((res)=>{
+        console.log(res.data)
+      })
+    }
+  },
+  created(){
+    this.getOrder()
+  },
   components:{
     HeaderMerchat,
     Pager

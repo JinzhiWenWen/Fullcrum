@@ -10,47 +10,47 @@
         <div class="account_message">
           <p class="user_name">
             <span class="nick_name">昵称</span>
-            <span class="nick_name_last">{{userMessage.userName}}</span>
+            <span class="nick_name_last">{{userMessage.username}}</span>
             <span class="nick_mod" @click="change_name">修改</span>
             <input type="text" name=""
             ref="change_name" value=""
-            v-model="userMessage.userName"
+            placeholder="请输入用户名"
             v-show="isShowName" class="change_btn">
           </p>
           <p class="user_email">
             <span class="nick_email">邮箱</span>
-            <span class="nick_email_last" ref="nick_email">{{userMessage.userEmail}}</span>
+            <span class="nick_email_last" ref="nick_email">{{userMessage.email}}</span>
             <span class="nick_mod" @click="change_email">绑定</span>
             <input type="text" name=""
             ref="change_email" value=""
-            v-model="userMessage.userEmail"
+            placeholder="请输入邮箱"
             v-show="isShowEmail" class="change_btn">
           </p>
           <p class="user_phone">
             <span class="nick_phone">手机</span>
-            <span class="nick_phone_last" ref="nick_phone">{{userMessage.userPhone}}</span>
+            <span class="nick_phone_last" ref="nick_phone"></span>
             <span class="nick_mod" @click="change_phone">修改</span>
             <input type="text" name=""
             ref="change_phone" value=""
-            v-model="userMessage.userPhone"
+            placeholder="请输入手机号"
             v-show="isShowPhone" class="change_btn">
           </p>
           <p class="user_pass">
             <span class="nick_pass">登录密码</span>
-            <span class="nick_pass_last" ref="nick_pass">{{userMessage.userPass}}</span>
+            <span class="nick_pass_last" ref="nick_pass"></span>
             <span class="nick_mod" @click="change_pass">修改</span>
             <input type="text" name=""
             ref="change_pass" value=""
-            v-model="userMessage.userPass"
+            placeholder="请输入登录密码"
             v-show="isShowPass" class="change_btn">
           </p>
           <p class="user_trade">
             <span class="nick_trade">交易密码</span>
-            <span class="nick_trade_last" ref="nick_trade">{{userMessage.userTrade}}</span>
+            <span class="nick_trade_last" ref="nick_trade"></span>
             <span class="nick_mod" @click="change_trade">设置</span>
             <input type="text" name=""
             ref="change_trade" value=""
-            v-model="userMessage.userTrade"
+            placeholder="请输入交易密码"
             v-show="isShowTrade" class="change_trade">
           </p>
         </div>
@@ -119,45 +119,39 @@ export default {
       isShowPhone:false,
       isShowPass:false,
       isShowTrade:false,
-      userMessage:{
-        userName:'海绵海绵我是大星',
-        userEmail:'未绑定',
-        userPhone:'未绑定',
-        userPass:'******',
-        userTrade:'未绑定',
-        userCation:'未认证',
-        userNum:'1001**********3012',
-        userBank:'广发银行',
-        userBankNum:'6225684********1337',
-        userTrePay:'132****1337',
-        userWecPay:'未添加'
-      }
+      userMessage:{}
     }
   },
   methods:{
     change_name(){
         this.isShowName=!this.isShowName;
-        this.$refs.change_name.value=this.userName
     },
     change_email(){
         this.isShowEmail=!this.isShowEmail;
-        this.$refs.change_email.value=this.userEmail;
-        this.$refs.nick_email.style.color="#333";
     },
     change_phone(){
         this.isShowPhone=!this.isShowPhone;
-        this.$refs.change_phone.value=this.userPhone;
-        this.$refs.nick_phone.style.color="#333";
     },
     change_pass(){
         this.isShowPass=!this.isShowPass;
-        this.$refs.change_pass.value=this.userPass
     },
     change_trade(){
         this.isShowTrade=!this.isShowTrade;
-        this.$refs.change_trade.value=this.userTrade;
-        this.$refs.nick_trade.style.color="#333";
+    },
+    getMe(){
+      var Id=sessionStorage.getItem('mes');
+      this.axios.get(this.oUrl+'/fcexchange/feuser/'+Id).then((res)=>{
+        this.userMessage=res.data
+      })
+      this.axios.get(this.oUrl+'/fcexchange//wallets/'+Id).then((res)=>{
+        // var waId=res.data.id;
+        // sessionStorage.setItem('waId',waId)
+        console.log(res)
+      })
     }
+  },
+  created(){
+    this.getMe()
   },
   components:{
     HeaderUser

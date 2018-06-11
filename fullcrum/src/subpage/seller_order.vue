@@ -215,6 +215,18 @@ export default {
       ]
     }
   },
+  methods:{
+    getWall(){
+      // var waId=sessionStorage.getItem('waId');
+      var waId='wid001';
+      this.axios.get(this.oUrl+'/fcexchange/fcorders/'+waId).then((res)=>{
+        console.log(res)
+      })
+    }
+  },
+  created(){
+    this.getWall()
+  },
   components:{
     HeaderSeller,
     Pager

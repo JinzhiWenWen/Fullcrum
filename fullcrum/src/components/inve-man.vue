@@ -1,7 +1,7 @@
 <template lang="html">
-  <div class="inve_man">
+  <div class="boor_man">
     <p class="title">
-      我想在线收购他人的票据<br/>
+      我想在线销售我的票据<br/>
       然后一夜暴富
     </p>
     <div class="form">
@@ -10,9 +10,9 @@
           <span>手机号码或邮箱</span>
           <el-input v-model="ruleForm2.phoneNum" auto-complete="off" class=""></el-input>
         </el-form-item>
-        <el-form-item prop="code">
-          <span>验证码</span>
-          <el-input v-model="ruleForm2.code" auto-complete="off" class=""></el-input>
+        <el-form-item prop="userName">
+          <span>用户名</span>
+          <el-input v-model="ruleForm2.userName" auto-complete="off" class="" maxlength="8" minlength="4"></el-input>
         </el-form-item>
         <el-form-item prop="pass">
           <span>密码</span>
@@ -22,12 +22,13 @@
           <span>确认密码</span>
           <el-input type="password" v-model="ruleForm2.turnpass" auto-complete="off" class=""></el-input>
         </el-form-item>
+        <!-- <router-link to='/logiupsuss' tag='div' class="next_btn"> -->
         <div class="next_btn">
           <el-form-item>
-            <el-button style="font-size:2.2rem;width:286px;height:60px;" type="primary" @click="submitForm('ruleForm2')">下一步</el-button>
+            <el-button style="font-size:2.2rem;width:286px;height:60px;" type="primary"  @click="submitForm('ruleForm2')">下一步</el-button>
           </el-form-item>
         </div>
-
+        <!-- </router-link> -->
       </el-form>
       <button class="obtain" @click="obtain" :disabled="disabled" ref="obtain" type="button" name="button">{{btnTxt}}</button>
     </div>
@@ -58,8 +59,8 @@ export default {
     var validatePass = (rule, value, callback) => {
       if (value === '') {
         callback(new Error('请输入密码'));
-      }else if(value!=='123'){
-        callback(new Error('密码必须至少包含8个字符,且至少包含一个大写字母'))
+      }else{
+        callback()
       }
     };
     var validatePass2=(rule,value,callback)=>{
@@ -71,9 +72,9 @@ export default {
           callback()
         }
     }
-    var validatecode=(rule,value,callback)=>{
+    var validateName=(rule,value,callback)=>{
       if(value===''){
-        callback(new Error('请输入验证码'))
+        callback(new Error('请输入用户名'))
       }else{
         callback()
       }
@@ -85,8 +86,9 @@ export default {
         ruleForm2: {
           pass: '',
           phoneNum: '',
-          code:'',
-          turnpass:''
+          userName:'',
+          turnpass:'',
+          identity:'seller'
         },
         rules2: {
           phoneNum: [
@@ -98,8 +100,8 @@ export default {
           turnpass:[
             { validator: validatePass2, trigger: 'blur' }
           ],
-          code:[
-            { validator: validatecode, trigger: 'blur' }
+          userName:[
+            { validator: validateName, trigger: 'blur' }
           ]
         }
       };
@@ -122,7 +124,25 @@ export default {
       submitForm(formName) {
         this.$refs[formName].validate((valid) => {
           if (valid) {
-            alert('登陆成功!');
+            this.axios.post(this.oUrl+'/fcexchange/register',{
+              "identity":this.ruleForm2.identity,
+              "username":this.ruleForm2.userName,
+              "email":this.ruleForm2.phoneNum,
+              "password":this.ruleForm2.pass
+            }
+            ,{headers:{'Content-Type':'application/json'}}
+            ).then((res)=>{
+              console.log(res)
+              var sta=res.status;
+              if(sta==200){
+                this.$router.push({
+                  name:'LogiUoSuccess',
+                  params:{
+                    // iden:this.ruleForm2.identity//传递参数到注册完成页面
+                  }
+                })
+              }
+            })
           } else {
             return false;
           }
@@ -136,7 +156,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.inve_man{
+.boor_man{
   width: 100%;
   padding-top:20px;
   height:740px;
@@ -169,6 +189,7 @@ export default {
       background: #4f8ef3;
       color:white;
       border-radius:5px;
+      display: none;
     }
   }
 }

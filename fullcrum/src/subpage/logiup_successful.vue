@@ -20,19 +20,45 @@ import SginUpHeader from '@/components/header-sginUp'
 export default {
   data(){
     return{
-      wallet_address:'GYgvuyt5763GVJHVUGY26VJH43'
+      wallet_address:'GYgvuyt5763GVJHVUGY26VJH43',
+      mes:'',
     }
   },
   components:{
     SginUpHeader
   },
   methods:{
+    //判断用户身份进入页面
     personal(){
-      window.open(window.location.origin + '/#/person')
+      var iden=this.mes;
+      console.log(iden)
+      if(iden==='buyer'){
+        window.open(window.location.origin + '/#/person')
+      }else{
+        window.open(window.location.origin + '/#/seller')
+      }
     },
     market(){
-      window.open(window.location.origin + '/#/mark')
+      var iden=this.mes;
+      console.log(iden)
+      if(iden==='buyer'){
+        window.open(window.location.origin + '/#/mark')
+      }else{
+        window.open(window.location.origin + '/#/sellerma')
+      }
+    },
+    //接收传参
+    getParams(){
+      var routerParams=this.$route.params.iden;
+      this.mes=routerParams;//赋值参数
     }
+  },
+  created(){
+    this.getParams();
+  },
+  //检测路由变化
+  watch:{
+    '$route':'getParams'
   }
 }
 </script>

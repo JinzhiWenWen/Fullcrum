@@ -49,10 +49,22 @@ export default {
       }else{
         self.$refs.loge.style.background="";
       }
+    },
+    getMes(){
+      var id=sessionStorage.getItem('mes');
+      this.axios.get(this.oUrl+'/fcexchange/feuser/'+id).then((res)=>{
+        console.log(res)
+      })
     }
+  },
+  created(){
+    this.getMes()
   },
   mounted(){
     window.addEventListener('scroll',this.handleScroll)
+  },
+  destroyed(){
+    window.addEventListener('scroll',this.handleScroll());
   },
   components:{
     Loge,
