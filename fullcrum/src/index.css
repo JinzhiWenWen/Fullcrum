@@ -1,5 +1,5 @@
 html{
-  font-family: 'Helvetica Neue','Helvetica','Arial','PingFang SC','Hiragino Sans GB','WenQuanYi Micro Hei','Microsoft Yahei','sans-serif','微软雅黑'
+  font-family:'微软雅黑';
 }
 html,body{
   width: 100%;
@@ -35,6 +35,7 @@ button{
   border: 0;
   cursor: pointer;
   outline: none;
+  font-family: "微软雅黑"
 }
 .el-input__inner{
   border:0 none;
@@ -67,13 +68,17 @@ button{
 }
 input::-webkit-input-placeholder{
             color:#b0b0b0;
+            font-family: "微软雅黑";
         }
 input::-moz-placeholder{   /* Mozilla Firefox 19+ */
             color:#b0b0b0;
+            font-family: "微软雅黑";
         }
 input:-moz-placeholder{    /* Mozilla Firefox 4 to 18 */
             color:#b0b0b0;
+            font-family: "微软雅黑";
         }
 input:-ms-input-placeholder{  /* Internet Explorer 10-11 */
             color:#b0b0b0;
+            font-family: "微软雅黑";
         }

@@ -87,7 +87,19 @@ export default {
     },
     moreAbout(){
       this.$router.push('/about')
+    },
+    query(){
+      var Id=sessionStorage.getItem('mes');
+      console.log(Id)
+      if(Id){
+        this.$refs.more_login.style.display='none'
+      }else{
+        this.$refs.more_login.style.display='block'
+      }
     }
+  },
+  mounted(){
+    this.query()
   }
 }
 </script>

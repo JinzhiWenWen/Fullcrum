@@ -168,7 +168,6 @@ export default {
     text-align: center;
   }
   .form{
-
     span{
       font-size: 1.4rem;
       color:#333;

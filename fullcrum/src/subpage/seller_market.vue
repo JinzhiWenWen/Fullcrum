@@ -5,8 +5,8 @@
     </HeaderSeller>
     <div class="mark">
       <p class="seller_chose">
-        <router-link to="/sellerse" tag="button">出售票据</router-link>
-        <span class="seller_btn">
+        <router-link to="/sellerse" tag="button" class="selBtn">出售票据</router-link>
+        <!-- <span class="seller_btn">
           <el-select class="chose_btn" v-model="value" placeholder="发布时间/金额">
             <el-option
               v-for="item in options"
@@ -15,7 +15,7 @@
               :value="item.value">
             </el-option>
           </el-select>
-        </span>
+        </span> -->
         </p>
       <p class="seller_title">
         <span>商家（成单数 | 完成率）</span>
@@ -138,7 +138,8 @@ export default {
     padding-top:50px;
     .seller_chose{
       height:34px;
-      button{
+      position: relative;
+      .selBtn{
         width: 92px;
         height:32px;
         color:white;

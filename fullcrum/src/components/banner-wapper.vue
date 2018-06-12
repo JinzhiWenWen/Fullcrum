@@ -10,7 +10,7 @@
       <p class="alt_2">
         运用区块链技术打造一个自发的、自治的、不断自我迭代的、去中心化的金融票据数字资产交易平台
       </p>
-      <el-button type="primary" plain class="login_btn"  @click="login">登陆</el-button>
+      <el-button type="primary" plain class="login_btn"  @click="login" v-show="ifShow">登陆</el-button>
     </div>
     <p class="icon_share">
       <i class="iconfont icon-wechat"></i>
@@ -49,11 +49,13 @@
 </template>
 
 <script>
+import {getCookie} from '@/assets/util'
 export default {
   data(){
     return{
       color:1,
-      aaa:'nima'
+      aaa:'nima',
+      ifShow:true
     }
   },
   methods:{
@@ -72,7 +74,18 @@ export default {
     },
     auth(){
       this.color=2;
+    },
+    queryPage(){
+      var Id=getCookie('mes');
+      if(Id){
+        this.ifShow=false;
+      }else{
+        this.ifShow=true;
+      }
     }
+  },
+  created(){
+    this.queryPage()
   }
 }
 </script>

@@ -28,6 +28,7 @@
 </template>
 
 <script>
+import {setCookie} from '@/assets/util'
 export default {
   data() {
     var validateNum = (rule, value, callback) => {
@@ -79,6 +80,7 @@ export default {
               var iden=res.data.identity;
               var id=res.data.id;
               sessionStorage.setItem('mes',id)
+              setCookie('mes',id)
               if(iden==='buyer'){
                 this.$router.push('/mark')
               }else if(iden==='seller'){

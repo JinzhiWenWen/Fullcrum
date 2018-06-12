@@ -5,9 +5,10 @@
         <More/>
         <router-link class="left" to="/sellerma" tag='p'>票据市场</router-link>
         <div class="right">
-          <p @click="malists()">票据管理</p>
-          <div class="ma_lists" v-show="isShowMa">
-            <ul>
+          <p @mouseenter="malists()" @mouseleave="hidemali()">票据管理</p>
+          <div class="ma_lists" v-show="isShowMa"  @mouseenter="malists()" @mouseleave="hidemali()">
+            <ul >
+              <li></li>
               <router-link to='/sellerse' tag='li'>票据发布</router-link>
               <router-link to='/selleror' tag="li">票据列表</router-link>
             </ul>
@@ -39,7 +40,10 @@ export default {
       this.$router.push('/seller')
     },
     malists(){
-      this.isShowMa=!this.isShowMa
+      this.isShowMa=true;
+    },
+    hidemali(){
+      this.isShowMa=false
     },
     handleScroll () {
       var scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop
@@ -117,11 +121,12 @@ export default {
     }
     .ma_lists{
       width:80px ;
-      height:88px;
+      height:auto;
       position: absolute;
-      top: 80px;
-      right:54%;
-      background:#272961;
+      top: 20px;
+      right:55%;
+      z-index: -1;
+      border-radius: 5px;
       ul{
         display: flex;
         -webkit-flex-wrap:wrap;
@@ -132,6 +137,21 @@ export default {
           line-height: 44px;
           color:white;
           cursor:pointer;
+          background: #272961;
+        }
+        li:nth-child(1){
+          opacity: 0;
+        }
+        li:nth-child(2){
+          border-top-left-radius: 5px;
+          border-top-right-radius: 5px;
+        }
+        li:nth-child(3){
+          border-bottom-left-radius: 5px;
+          border-bottom-right-radius: 5px;
+        }
+        li:hover{
+          background: red;
         }
       }
     }

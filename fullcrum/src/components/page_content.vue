@@ -117,9 +117,7 @@ export default {
     }
   },
   mounted(){
-    var self=this;
     window.addEventListener('scroll',this.handleScroll);
-    self.save();
   },
   methods:{
     //鼠标下滑事件
@@ -131,34 +129,12 @@ export default {
       }else{
         self.$refs.content_wapper.style.transform="translateY(0)"
       }
-    },
-    //悬浮事件
-    save(){
-        var self=this;
-        self.$refs.titleImg.style.top='134px';
-        function top(){
-          if(self.$refs.titleImg.style.top='134px'){
-            self.$refs.titleImg.style.top="174px";
-          }
-        }
-        function bot(){
-          if(self.$refs.titleImg.style.top='174px'){
-            self.$refs.titleImg.style.top="134px";
-          }
-        }
-        var timer=setInterval(top,1000);
-        var timerB=setInterval(bot,2000);
-    },
+    }
   },
   destroyed(){
-    window.addEventListener('scroll',this.handleScroll());
-    if(this.timer){
-      clearInterval(this.timer);
-    }
-    if(thsi.timerB){
-      clearInterval(this.timerB)
-    }  
-  },
+    let self=this;
+    window.addEventListener('scroll',self.handleScroll());
+  }
 }
 </script>
 
@@ -216,9 +192,15 @@ export default {
         background: url('../img/content_save.png');
         background-size: 100% 100%;
         left:56%;
-        top:'';
+        top:134px;
         box-sizing: border-box;
-        transition:all 1s;
+        animation:myfirst 3s linear infinite;
+        -webkit-animation:myfirst 3s linear infinite; /* Safari and Chrome */
+      }
+      @keyframes myfirst{
+        0%{top: 134px;}
+        50%{top:184px;}
+        100%{top:134px;}
       }
     }
     .content_center{

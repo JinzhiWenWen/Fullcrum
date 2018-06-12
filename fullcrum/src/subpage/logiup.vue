@@ -42,10 +42,8 @@ export default {
   color:white!important;
 }
 .sgin_up{
-  width: 100;
-  height:auto;
-  box-sizing: border-box;
-  position: relative;
+  width: 100%;
+  height:100%;
   .for{
     width:100%;
     font-size: 1.6rem;
