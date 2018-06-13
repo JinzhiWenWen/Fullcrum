@@ -135,6 +135,7 @@ export default {
     }
     .more_way{
       color:#999;
+      text-align: center;
       span{
         color:#4f8ef3;
         cursor:pointer;

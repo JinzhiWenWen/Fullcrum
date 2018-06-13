@@ -123,7 +123,7 @@
                     :on-preview="handlePictureCardPreview"
                     :on-remove="handleRemove"
                     :limit="1">
-                    <i class="el-icon-plus"></i>
+                    <i class="el-icon-plus" style="font-size:11rem;"></i>
                     <span class="el-title">点击添加图片</span>
                   </el-upload>
                   <el-dialog :visible.sync="dialogVisible">
@@ -195,7 +195,7 @@ export default {
       isShowTrade:false,
       dialogImageUrl: '',
       dialogVisible: false,
-      isShow:false,
+      isShow:true,
       isShowTive:false,
       isShowRever:false,
       userMessage:{}
@@ -228,7 +228,7 @@ export default {
       this.isShow=true;
     },
     hide(){
-      this.isShow=false;
+      this.isShow=true;
     },
     showTive(){
       this.isShowTive=true;
@@ -263,7 +263,7 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" >
 .personal_center{
   width: 100%;
   height:100%;

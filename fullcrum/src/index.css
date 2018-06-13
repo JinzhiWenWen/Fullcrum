@@ -52,16 +52,15 @@ button{
   border-radius: 3px;
   background: black;
   opacity: .5;
-  .el-icon-plus{
-    color:white;
-    font-size: 11rem;
-  }
 }
 .el-form-item.is-success .el-input__inner, .el-form-item.is-success .el-input__inner:focus, .el-form-item.is-success .el-textarea__inner, .el-form-item.is-success .el-textarea__inner:focus{
   border-color:#5277cc;
 }
 .el-form-item.is-success .el-input__validateIcon{
   color:#5277cc;
+}
+.el-form-item__content{
+  text-align: center;
 }
 .slot-mine{
   font-size: 4.6rem;

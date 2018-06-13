@@ -12,8 +12,7 @@ import Loge from '../logo/loge'
 import Icon from './more'
 export default {
   mounted(){
-      var self=this;
-      window.addEventListener('scroll',self.handleScroll)
+      window.addEventListener('scroll',this.handleScroll)
   },
   methods:{
     handleScroll () {
@@ -27,7 +26,7 @@ export default {
     }
   },
   destroyed(){
-    window.addEventListener('scroll',self.handleScroll())
+    window.addEventListener('scroll',this.handleScroll())
   },
   components:{
     Loge,
@@ -52,7 +51,6 @@ export default {
       left:50%;
       margin-left:-28%;
       top:30px;
-      z-index:99;
       font-size:1.6rem;
       cursor:pointer;
       color:white;
@@ -64,7 +62,6 @@ export default {
       right:50%;
       margin-right: -28%;
       top: 30px;
-      z-index: 99;
       font-size:1.6rem;
       cursor: pointer;
       color:white;
