@@ -37,6 +37,7 @@ import Purchase from '@/components/purchase'
 import Sell from '@/components/sell'
 import Fcorder from '@/components/buyer_fc_order'
 import Paperorder from '@/components/buyer_paper_order'
+import PersonalSet from '@/subpage/personal_setmes'
 Vue.use(Router)
 export default new Router({
     routes:[
@@ -85,6 +86,7 @@ export default new Router({
       {path:'/merchatass',name:'MerchatAss',component:MerchatAss},
       {path:'/merchator',name:'MerchatOr',component:MerchatOr},
       {path:'/merchatsub',name:'MerchatSub',component:MerchatSub},
+      {path:'/personSet',name:'PersonalSet',component:PersonalSet},
       {
         path:'/merchatma',
         name:'MerchatMa',

@@ -59,9 +59,6 @@ button{
 .el-form-item.is-success .el-input__validateIcon{
   color:#5277cc;
 }
-.el-form-item__content{
-  text-align: center;
-}
 .slot-mine{
   font-size: 4.6rem;
 }

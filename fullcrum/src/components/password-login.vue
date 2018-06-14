@@ -39,7 +39,9 @@ export default {
       if(phone.test(value)||email.test(value))num=true;
       if (value === ''){
         callback(new Error('请输入手机号码'));
-      } else{
+      } else if(num=false){
+        callback(new Error('请输入正确的手机号或邮箱'))
+      }else{
         callback()
       }
     };
@@ -79,8 +81,10 @@ export default {
             if(res.status==200){
               var iden=res.data.identity;
               var id=res.data.id;
-              sessionStorage.setItem('mes',id)
-              setCookie('mes',id)
+              var token=res.data.appToken;
+              sessionStorage.setItem('mes',id);
+              setCookie('mes',id);
+              setCookie('token',token)
               if(iden==='buyer'){
                 this.$router.push('/mark')
               }else if(iden==='seller'){
@@ -88,8 +92,8 @@ export default {
               }else if(iden==='merchants'){
                 this.tiShi=true;
               }
-            }else{
-              alert('账号或密码错误！')
+            }else if(res.code=='0'){
+              console.log(res)
             }
           });
           // this.axios.get(this.oUrl+'/fcexchange/feusers').then((res)=>{

@@ -42,14 +42,23 @@
             <span class="icon"></span>
             <input type="text" name="" ref="aaa" value="item.val" v-model="much" style="padding-left:10px;margin-bottom:6px;">
             <span class="unit">FC</span>
-            <input type="text" name="" value="" style="padding-left:10px;">
+            <input type="text" name="" value="1" style="padding-left:10px;color:#ccc;">
             <span class="cnyt">CNY</span>
-            <button type="button" name="button" class="firm" @click="place">下单</button>
+            <button type="button" name="button" class="firm" @click="place()">下单</button>
             <button type="button" name="button" class="cancel" @click="Cancel(index)">取消</button>
           </span>
         </li>
       </ul>
       <Pager/>
+      <div class="mask_pur" ref="mask_pur">
+
+      </div>
+      <div class="pass_pur" ref="pass_pur">
+        <span>交易密码：</span>
+        <input type="password" ref="tradePass" name=""  value="">
+        <button type="button" name="button" @click="turnPlace()">确认</button>
+        <button type="button" name="button" style="margin-left:94px;"  @click="closePic()">取消</button>
+      </div>
     </div>
 </template>
 
@@ -141,12 +150,47 @@ export default {
       this.roteList[index].isShowOrder=false;
       this.roteList[index].isShowPay=true;
     },
+    closePic(){
+      setTimeout(()=>{
+        this.$refs.mask_pur.style.display='none';
+      },300)
+      this.$refs.pass_pur.style.top="-100%";
+    },
     place(){
       if(this.much===''){
-        alert('请输入价格')
+        this.$notify.error({
+          title: '错误',
+          message: '请输入金额',
+          offset:100
+        });
       }else{
-        this.$router.push('/fcbuy')
+        this.$refs.mask_pur.style.display='block';
+        this.$refs.pass_pur.style.top="30%";
       }
+    },
+    turnPlace(){
+      var tradePass=this.$refs.tradePass.value;
+        if(tradePass===''){
+          this.$notify.error({
+            title: '错误',
+            message: '请输入交易密码',
+            offset:100
+          });
+        }else{
+          this.axios.post(this.oUrl+'/fcexchange/fcorder',
+          {header:{'Content-Type':'application/json'}},
+          {
+            'fcCounts':this.much,
+            'orderType':'buy',
+            'feWallet':{
+              'id':'',
+              'address':''
+            }
+          }
+        ).then((res)=>{
+          console.log(res)
+        })
+        }
     }
   },
   components:{
@@ -159,6 +203,42 @@ export default {
 .purchase{
   width: 1040px;
   height:1116px;
+  .mask_pur{
+    width: 100%;
+    height:3400px;
+    position: fixed;
+    top:0;
+    left:0;
+    background: black;
+    opacity: .5;
+    display: none;
+  }
+  .pass_pur{
+    width: 300px;
+    height:150px;
+    position: fixed;
+    top:-100%;
+    left:50%;
+    margin-left: -150px;
+    background: white;
+    transition:all .5s;
+    padding-top:50px;
+    padding-left:20px;
+    span{
+      font-size: 1.6rem;
+    }
+    input{
+      border-bottom: 1px solid #eee;
+    }
+    button{
+      width: 82px;
+      height:32px;
+      border-radius: 5px;
+      margin-top: 30px;
+      background: #5277cc;
+      color:white;
+    }
+  }
   .select_btn{
     position: absolute;
     top:3.5%;

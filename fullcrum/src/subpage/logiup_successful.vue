@@ -17,6 +17,7 @@
 
 <script>
 import SginUpHeader from '@/components/header-sginUp'
+import {getCookie} from '@/assets/util'
 export default {
   data(){
     return{
@@ -51,10 +52,27 @@ export default {
     getParams(){
       var routerParams=this.$route.params.iden;
       this.mes=routerParams;//赋值参数
+    },
+    CreateWal(){
+      var Id=getCookie('mes');
+      var token=getCookie('token');
+      this.axios.post(this.oUrl+'/fcexchange/walletaddress',
+      {header:{
+        'Content-Type':'application/json',
+        'Accept':'application/json',
+        'Authorization':token
+      }},
+      {
+        'id':Id
+      }
+    ).then((res)=>{
+      console.log(res)
+    })
     }
   },
   created(){
     this.getParams();
+    this.CreateWal();
   },
   //检测路由变化
   watch:{
@@ -67,7 +85,7 @@ export default {
 .logiup_successful{
   width: 100%;
   height:100%;
-  position: relative;
+  // position: relative;
   text-align: center;
   .succ{
     width:684px;

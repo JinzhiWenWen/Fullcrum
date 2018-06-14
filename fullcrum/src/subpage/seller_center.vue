@@ -195,7 +195,7 @@ export default {
       isShowTrade:false,
       dialogImageUrl: '',
       dialogVisible: false,
-      isShow:true,
+      isShow:false,
       isShowTive:false,
       isShowRever:false,
       userMessage:{}
@@ -228,7 +228,7 @@ export default {
       this.isShow=true;
     },
     hide(){
-      this.isShow=true;
+      this.isShow=false;
     },
     showTive(){
       this.isShowTive=true;

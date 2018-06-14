@@ -59,8 +59,8 @@
     </div>
     <div class="pass" ref="pass">
       <span>交易密码：</span>
-      <input type="password" name=""  value="">
-      <button type="button" name="button">确认</button>
+      <input type="password" ref="tradePass" name=""  value="">
+      <button type="button" name="button" @click="turnPlace()">确认</button>
       <button type="button" name="button" style="margin-left:94px;"  @click="closePic()">取消</button>
     </div>
   </div>
@@ -160,11 +160,25 @@ export default {
     },
     place(){
       if(this.much===''){
-        alert('请输入金额!')
+        this.$notify.error({
+          title: '错误',
+          message: '请输入金额',
+          offset:100
+        });
       }else{
         this.$refs.mask.style.display='block';
         this.$refs.pass.style.top="30%";
       }
+    },
+    turnPlace(){
+      var tradePass=this.$refs.tradePass.value;
+      if(tradePass===''){
+        this.$notify.error({
+          title: '错误',
+          message: '请输入交易密码',
+          offset:100
+        });
+      }else{}
     }
   },
   components:{
