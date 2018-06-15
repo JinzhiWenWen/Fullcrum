@@ -101,7 +101,7 @@ export default {
       isShowPhone:false,
       isShowPass:false,
       isShowTrade:false,
-      token:'',
+      token:null,
       userMessage:{}
     }
   },
@@ -115,27 +115,27 @@ export default {
     upLoadMes(){
       var phone=/^1[34578]\d{9}$/;
       var Id=getCookie('mes');
-      var token=getCookie('token');
+      this.token=getCookie('token');
       var tradePass=this.$refs.change_trade.value;
       var phoneNum=this.$refs.change_phone.value;
-      console.log(token)
+      console.log(this.token)
       if(phone.test(phoneNum)){
         this.axios.post(this.oUrl+'/fcexchange/feusers/updateFeUser',
         {header:{
-          'Content-type':'application/json',
-          'Accept':'application/json',
-          'Authorization':token
+          "Content-Type":"application/json",
+          "Accept":"application/json",
+          "Authorization":"a71b33e0483204b276c9ee21b111bd85"
         }},
         {
-          'id':Id,
-          'firstName':this.userMessage.username,
-          "lastName":this.userMessage.username,
-          'phone':phoneNum,
-          'stats':1,
-          'margin':0,
-          'tradePassword':tradePass,
-          "aliPay": "thisisaalipayURL",
-          "wechatPay": "THISISAWECHATPAYURL"
+"id":"2c9f94fc63dd5b7b0163df58e8070010",
+"firstName":"this.userMessage.username",
+"lastName":"this.userMessage.username",
+"phone":"13240891337",
+"status":1,
+"margin":"0",
+"tradePassword":"123456",
+"aliPay": "thisisaalipayURL",
+"wechatPay": "THISISAWECHATPAYURL"
         }
       ).then((res)=>{
         console.log(res)
@@ -147,7 +147,7 @@ export default {
           offset:100
         });
       }
-
+      // console.log(this.axios)
     }
   },
   created(){

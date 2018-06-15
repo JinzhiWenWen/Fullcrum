@@ -39,7 +39,7 @@ export default {
       if(phone.test(value)||email.test(value))num=true;
       if (value === ''){
         callback(new Error('请输入手机号码'));
-      } else if(num=false){
+      } else if(num===false){
         callback(new Error('请输入正确的手机号或邮箱'))
       }else{
         callback()
@@ -76,9 +76,13 @@ export default {
             "email":this.ruleForm2.phoneNum,
             "passcode":this.ruleForm2.pass
           },
-            {header:{'Content-type':'application/json'}}
+            {header:{
+              'Content-Type':'application/json',
+              'Accept ':'application/json'
+            }}
           ).then((res)=>{
             if(res.status==200){
+              console.log(res)
               var iden=res.data.identity;
               var id=res.data.id;
               var token=res.data.appToken;
@@ -92,10 +96,11 @@ export default {
               }else if(iden==='merchants'){
                 this.tiShi=true;
               }
-            }else if(res.code=='0'){
-              console.log(res)
             }
-          });
+          }).catch(function(error){
+            console.log(error)
+          })
+          ;
           // this.axios.get(this.oUrl+'/fcexchange/feusers').then((res)=>{
           //   console.log(res)
           // })
