@@ -114,23 +114,17 @@
             </p>
           <div class="verify">
             <div class="busi">
-              <span @mouseenter="show" @mouseleave="hide">
-                <div class="uploader" v-show="isShow">
-                  <el-upload
-                    action="https://jsonplaceholder.typicode.com/posts/"
-                    list-type="picture-card"
-                    class="uploader-btn"
-                    :on-preview="handlePictureCardPreview"
-                    :on-remove="handleRemove"
-                    :limit="1">
-                    <i class="el-icon-plus" style="font-size:11rem;"></i>
-                    <span class="el-title">点击添加图片</span>
-                  </el-upload>
-                  <el-dialog :visible.sync="dialogVisible">
-                    <img width="100%" :src="dialogImageUrl" alt="">
-                  </el-dialog>
+              <div class="" style="">
+                <input type="file" accept="image/*" class="upload" name="" @change="Upload">
+                <div class="inMask">
+                  <i class="el-icon-plus"></i>
+                  <br>
+                  <span  class="in_title">点击添加图片</span>
                 </div>
-              </span>
+                <div class="showIm">
+                  <img src="../img/Banner.png" alt="">
+                </div>
+              </div>
               <p>营业执照</p>
             </div>
             <div class="idc">
@@ -185,6 +179,7 @@
 
 <script>
 import HeaderUser from '@/components/header-seller'
+import {getCookie} from '@/assets/util'
 export default {
   data(){
     return{
@@ -195,10 +190,10 @@ export default {
       isShowTrade:false,
       dialogImageUrl: '',
       dialogVisible: false,
-      isShow:false,
       isShowTive:false,
       isShowRever:false,
-      userMessage:{}
+      userMessage:{},
+      token:null
     }
   },
   methods:{
@@ -224,11 +219,69 @@ export default {
         this.dialogImageUrl = file.url;
         this.dialogVisible = true;
     },
-    show(){
-      this.isShow=true;
-    },
-    hide(){
-      this.isShow=false;
+    Upload(e){
+      var that=this;
+      let file = e.target.files[0];
+      //通过canvas压缩图片
+      var reader=new FileReader();
+      reader.readAsDataURL(file);
+      // var result=reader.result
+      var img=new Image;
+      reader.onload=function(e){
+        var width=1080,
+        quality=0.3,
+        canvas=document.createElement("canvas"),
+        drawer=canvas.getContext("2d");
+        img.src=this.result;
+        img.onload=()=>{
+          canvas.width=width;
+          canvas.height=width*(img.height/img.width);
+          drawer.drawImage(img,0,0,canvas.width,canvas.height);
+          img.src=canvas.toDataURL('image/png',quality);
+        }
+      };
+      setTimeout(()=>{
+        console.log(img.src)
+        //创建axios
+        this.token= getCookie('token')
+        var Id=getCookie('mes')
+        // function stringToBytes(str) {
+        //  var ch, st, re = [];
+        //  for (var i = 0; i < str.length; i++ ) {
+        //  ch = str.charCodeAt(i); // get char
+        //  st = [];         // set up "stack"
+        //  do {
+        //   st.push( ch & 0xFF ); // push byte to stack
+        //   ch = ch >> 8;     // shift value down by 1 byte
+        //  }  
+        //  while ( ch );
+        //  // add stack contents to result
+        //  // done because chars have "wrong" endianness
+        //  re = re.concat( st.reverse());
+        //  }
+        //  // return an array of bytes
+        //  return re;
+        // }
+        // var a = stringToBytes('4564564')
+        // console.log(a)
+        // var data = [{uid:Id,file:a,documentType:"1",mimeType:"jpg"}];
+        // // console.log(json)
+        // var message=JSON.stringify(data)
+        // console.log(message)
+      })
+
+      // pm.variables.set("message",json);
+      //   this.axios.post(this.oUrl+'/fcexchange/feusers/document',{
+      //     body:{message}
+      //   },
+      //   {headers:{
+      //     'Content-Type':'application/json',
+      //     'Accept':'application/json',
+      //     'Authorization':this.token
+      //   }}
+      // ).then((res)=>{
+      //
+      // })
     },
     showTive(){
       this.isShowTive=true;
@@ -250,7 +303,7 @@ export default {
       this.axios.get(this.oUrl+'/fcexchange/fcorders/'+Id).then((res)=>{
         // var waId=res.data.id;
         // sessionStorage.setItem('waId',waId);
-        console.log(res)
+        // console.log(res)
       })
     }
   },
@@ -263,7 +316,7 @@ export default {
 }
 </script>
 
-<style lang="scss" >
+<style lang="scss">
 .personal_center{
   width: 100%;
   height:100%;
@@ -571,29 +624,75 @@ export default {
             width: 50%;
             height:304px;
             padding-left:90px;
-            span{
+            position: relative;
+            .upload{
               width: 200px;
               height:272px;
-              background: #999;
-              border-radius: 3px;
-              position: relative;
-              color:white;
-              .uploader{
-                position:absolute;
-                top:0;
-                left:0;
-                .el-title{
-                  width: 100px;
-                  height:100px;
-                  position: absolute;
-                  top:20%;
-                  background: black;
-                  left:25%;
-                  font-size: 1.4rem;
-                  z-index: -1;
-                }
+              cursor:pointer;
+              opacity:0;
+            }
+            .inMask{
+              width: 200px;
+              height:272px;
+              background: rgba(0,0,0,.8);
+              z-index: -1;
+              text-align: center;
+              box-sizing: border-box;
+              padding-top:8%;
+              position: absolute;
+              top:0;
+              left:24%;
+              border-radius:5px;
+              .el-icon-plus{
+                font-size:11rem;
+                color:white;
+                opacity:.9;
+              }
+              .in_title{
+                width: 100%;
+                margin-top:10px;
+                color:white;
+                opacity:.9;
+                font-size: 1.4rem;
               }
             }
+            .showIm{
+              width: 200px;
+              height:272px;
+              position: absolute;
+              left:-120px;
+              background: rgba(0,0,0,.8);
+              top:0;
+              border-radius:5px;
+              img{
+                width: 100%;
+                height:100%;
+                border-radius: 5px;
+              }
+            }
+            // span{
+            //   width: 200px;
+            //   height:272px;
+            //   background: #999;
+            //   border-radius: 3px;
+            //   position: relative;
+            //   color:white;
+            //   .uploader{
+            //     position:absolute;
+            //     top:0;
+            //     left:0;
+            //     .el-title{
+            //       width: 100px;
+            //       height:100px;
+            //       position: absolute;
+            //       top:20%;
+            //       background: black;
+            //       left:25%;
+            //       font-size: 1.4rem;
+            //       z-index: -1;
+            //     }
+            //   }
+            // }
           }
           .idc{
             width: 50%;

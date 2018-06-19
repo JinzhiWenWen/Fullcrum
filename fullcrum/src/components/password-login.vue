@@ -97,10 +97,9 @@ export default {
                 this.tiShi=true;
               }
             }
-          }).catch(function(error){
+          }).catch((error)=>{
             console.log(error)
-          })
-          ;
+          });
           // this.axios.get(this.oUrl+'/fcexchange/feusers').then((res)=>{
           //   console.log(res)
           // })

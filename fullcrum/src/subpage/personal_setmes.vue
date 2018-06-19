@@ -121,24 +121,26 @@ export default {
       console.log(this.token)
       if(phone.test(phoneNum)){
         this.axios.post(this.oUrl+'/fcexchange/feusers/updateFeUser',
-        {header:{
-          "Content-Type":"application/json",
-          "Accept":"application/json",
-          "Authorization":"a71b33e0483204b276c9ee21b111bd85"
-        }},
         {
-"id":"2c9f94fc63dd5b7b0163df58e8070010",
-"firstName":"this.userMessage.username",
-"lastName":"this.userMessage.username",
-"phone":"13240891337",
-"status":1,
-"margin":"0",
-"tradePassword":"123456",
-"aliPay": "thisisaalipayURL",
-"wechatPay": "THISISAWECHATPAYURL"
-        }
+        "id":Id,
+        "firstName":"ccc",
+        "lastName":"ddd",
+        "status":1,
+        "margin":"0",
+        "tradePassword":tradePass,
+        "aliPay": "thisisaalipayURL",
+        "wechatPay": "THISISAWECHATPAYURL"
+      },
+      {headers:{
+        "Content-Type":"application/json",
+        "Accept":"application/json",
+        "Authorization":this.token
+      }}
       ).then((res)=>{
-        console.log(res)
+        console.log(res.data)
+        if(res.data.status=='0'){
+          alert('111')
+        }
       })
       }else{
         this.$notify.error({
