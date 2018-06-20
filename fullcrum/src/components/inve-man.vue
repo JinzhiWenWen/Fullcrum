@@ -36,6 +36,7 @@
 </template>
 
 <script>
+import {setCookie} from '@/assets/util'
 export default {
   data() {
     var validateNum = (rule, value, callback) => {
@@ -133,6 +134,10 @@ export default {
             ,{headers:{'Content-Type':'application/json'}}
             ).then((res)=>{
               console.log(res)
+              var id=res.data.id;
+              var token=res.data.appToken;
+              setCookie('mes',id);
+              setCookie('token',token)
               var sta=res.status;
               if(sta==200){
                 this.$router.push({

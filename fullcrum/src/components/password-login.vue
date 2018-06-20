@@ -29,6 +29,7 @@
 
 <script>
 import {setCookie} from '@/assets/util'
+import {getCookie} from '@/assets/util'
 export default {
   data() {
     var validateNum = (rule, value, callback) => {
@@ -82,7 +83,6 @@ export default {
             }}
           ).then((res)=>{
             if(res.status==200){
-              console.log(res)
               var iden=res.data.identity;
               var id=res.data.id;
               var token=res.data.appToken;
@@ -98,11 +98,8 @@ export default {
               }
             }
           }).catch((error)=>{
-            console.log(error)
+            // console.log(error)
           });
-          // this.axios.get(this.oUrl+'/fcexchange/feusers').then((res)=>{
-          //   console.log(res)
-          // })
           } else {
             // alert('请填写错误信息');
             console.log(this.ruleForm2.phoneNum)
@@ -112,9 +109,6 @@ export default {
       },
       resetForm(formName) {
         this.$refs[formName].resetFields();
-      },
-      aa(){
-        console.log(this.$refs.login_fill)
       }
     }
   }

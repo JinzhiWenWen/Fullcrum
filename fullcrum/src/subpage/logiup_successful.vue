@@ -17,6 +17,7 @@
 
 <script>
 import SginUpHeader from '@/components/header-sginUp'
+import {setCookie} from '@/assets/util'
 import {getCookie} from '@/assets/util'
 export default {
   data(){
@@ -56,17 +57,9 @@ export default {
     CreateWal(){
       var Id=getCookie('mes');
       var token=getCookie('token');
-      this.axios.post(this.oUrl+'/fcexchange/walletaddress',
-      {header:{
-        'Content-Type':'application/json',
-        'Accept':'application/json',
-        'Authorization':token
-      }},
-      {
-        'id':Id
-      }
-    ).then((res)=>{
+      this.axios.post(this.oUrl+'/fcexchange/wallets/'+Id).then((res)=>{
       console.log(res)
+      var waId=res.data.id;
     })
     }
   },

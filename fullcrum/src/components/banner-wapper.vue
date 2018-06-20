@@ -105,7 +105,6 @@ export default {
     box-sizing: border-box;
     margin-bottom:-3px;
     overflow: hidden;
-    .vendor
     .img-responsive{
       display: inline-block;
       width:100%;
@@ -164,7 +163,7 @@ export default {
       height:1200px;
       background: black;
       opacity: .5;
-      z-index: 100;
+      z-index: 5;
       position: fixed;
       top: 0;
       left:0;
@@ -179,7 +178,7 @@ export default {
         margin-left:-250px;
         background: white;
         border-radius: 5px;
-        z-index: 101;
+        z-index: 10;
         transition: .3s;
         box-sizing: border-box;
         .view_input{

@@ -69,6 +69,8 @@
 <script>
 import HeaderMark from '@/components/header-user'
 import Pager from '@/components/pager'
+import {getCookie} from '@/assets/util'
+import {setCookie} from '@/assets/util'
 export default {
   data() {
       return {
@@ -179,7 +181,19 @@ export default {
           offset:100
         });
       }else{}
+    },
+    setWal(){
+      var Id=getCookie('mes');
+      this.axios.get(this.oUrl+'/fcexchange/wallets/'+Id).then((res)=>{
+        var waId=res.data[0].id;
+        var ress=res.data[0].address;
+        setCookie('waId',waId);
+        setCookie('ress',ress);
+      })
     }
+  },
+  mounted(){
+    this.setWal()
   },
   components:{
       HeaderMark,

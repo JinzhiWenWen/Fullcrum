@@ -180,6 +180,7 @@
 <script>
 import HeaderUser from '@/components/header-seller'
 import {getCookie} from '@/assets/util'
+import {setCookie} from '@/assets/util'
 export default {
   data(){
     return{
@@ -241,47 +242,27 @@ export default {
         }
       };
       setTimeout(()=>{
-        console.log(img.src)
+        // console.log(img.src)
         //创建axios
         this.token= getCookie('token')
         var Id=getCookie('mes')
-        // function stringToBytes(str) {
-        //  var ch, st, re = [];
-        //  for (var i = 0; i < str.length; i++ ) {
-        //  ch = str.charCodeAt(i); // get char
-        //  st = [];         // set up "stack"
-        //  do {
-        //   st.push( ch & 0xFF ); // push byte to stack
-        //   ch = ch >> 8;     // shift value down by 1 byte
-        //  }  
-        //  while ( ch );
-        //  // add stack contents to result
-        //  // done because chars have "wrong" endianness
-        //  re = re.concat( st.reverse());
-        //  }
-        //  // return an array of bytes
-        //  return re;
-        // }
-        // var a = stringToBytes('4564564')
-        // console.log(a)
-        // var data = [{uid:Id,file:a,documentType:"1",mimeType:"jpg"}];
-        // // console.log(json)
-        // var message=JSON.stringify(data)
-        // console.log(message)
+        this.axios.post(this.oUrl+'/fcexchange/feusers/document',
+          [{
+            uid:Id,
+            file:img.src,
+            documentType:'1',
+            mimeType:'jpg'
+          }],
+          {headers:{
+            'Content-Type':'application/json',
+            'Accept':'application/json',
+            'Authorization':this.token
+          }}
+        ).then((res)=>{
+          console.log(res)
+        })
       })
 
-      // pm.variables.set("message",json);
-      //   this.axios.post(this.oUrl+'/fcexchange/feusers/document',{
-      //     body:{message}
-      //   },
-      //   {headers:{
-      //     'Content-Type':'application/json',
-      //     'Accept':'application/json',
-      //     'Authorization':this.token
-      //   }}
-      // ).then((res)=>{
-      //
-      // })
     },
     showTive(){
       this.isShowTive=true;
@@ -300,10 +281,11 @@ export default {
       this.axios.get(this.oUrl+'/fcexchange/feuser/'+Id).then((res)=>{
         this.userMessage=res.data
       });
-      this.axios.get(this.oUrl+'/fcexchange/fcorders/'+Id).then((res)=>{
-        // var waId=res.data.id;
-        // sessionStorage.setItem('waId',waId);
-        // console.log(res)
+      this.axios.get(this.oUrl+'/fcexchange/wallets/'+Id).then((res)=>{
+        var waId=res.data[0].id;
+        var ress=res.data[0].address;
+        setCookie('waId',waId);
+        setCookie('ress',ress);
       })
     }
   },

@@ -4,7 +4,7 @@
       <p class="slot-mine">票据列表</p>
     </HeaderSeller>
     <div class="seller_order_con">
-      <p class="seller_order_chose">
+      <!-- <p class="seller_order_chose">
         <span class="seller_btn">
           <el-cascader
               size="small"
@@ -14,8 +14,7 @@
               placeholder="日期/金额/状态"
             ></el-cascader>
         </span>
-
-        </p>
+        </p> -->
       <p class="seller_order_title">
         <span>订单号</span>
         <span style="margin-left:202px;">发布日期</span>
@@ -66,6 +65,7 @@
 <script>
 import HeaderSeller from '@/components/header-seller'
 import Pager from '@/components/pager'
+import {getCookie} from '@/assets/util'
 export default {
   data(){
     return{
@@ -218,7 +218,7 @@ export default {
   methods:{
     getWall(){
       // var waId=sessionStorage.getItem('waId');
-      var waId='wid001';
+      var waId=getCookie('waId');
       this.axios.get(this.oUrl+'/fcexchange/fcorders/'+waId).then((res)=>{
         console.log(res)
       })

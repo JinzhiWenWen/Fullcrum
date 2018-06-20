@@ -15,7 +15,7 @@
         <li ref="more_about" @click="moreAbout()">关于我们</li>
       </ul>
     </div>
-    <div class="login_fill" ref="login_fill">
+    <!-- <div class="login_fill" ref="login_fill">
       <div class="table">
         <ul class="chose_table">
           <router-link
@@ -35,7 +35,7 @@
       <div class="view_input">
         <router-view></router-view>
       </div>
-    </div>
+    </div> -->
     <div class="mask" ref="mask" @click="close()">
 
     </div>
@@ -143,7 +143,6 @@ export default {
     },
     query(){
       var Id=getCookie('mes');
-      console.log(Id)
       if(Id!=null){
         this.$refs.more_login.style.display='none'
       }else{

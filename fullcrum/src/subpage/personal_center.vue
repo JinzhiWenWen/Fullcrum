@@ -142,15 +142,15 @@ export default {
       var Id=sessionStorage.getItem('mes');
       this.axios.get(this.oUrl+'/fcexchange/feuser/'+Id).then((res)=>{
         this.userMessage=res.data
-        console.log(this.userMessage)
-      })
-      this.axios.get(this.oUrl+'/fcexchange//wallets/'+Id).then((res)=>{
-        // var waId=res.data.id;
-        // sessionStorage.setItem('waId',waId)
-        // console.log(res)
       });
+      this.axios.get(this.oUrl+'/fcexchange/wallets/'+Id).then((res)=>{
+        var waId=res.data[0].id;
+        var ress=res.data[0].address;
+        setCookie('waId',waId);
+        setCookie('ress',ress);
+      })
       if(this.userMessage.firstName==null){
-        this.$router.push('/personSet')
+        // this.$router.push('/personSet')
       }
     }
   },

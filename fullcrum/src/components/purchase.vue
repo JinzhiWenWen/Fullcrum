@@ -1,6 +1,6 @@
 <template lang="html">
     <div class="purchase">
-      <p class="select_btn">
+      <!-- <p class="select_btn">
         <el-select class="chose_btn" v-model="value" placeholder="支付方式">
           <el-option
             v-for="item in options"
@@ -9,7 +9,7 @@
             :value="item.value">
           </el-option>
         </el-select>
-        </p>
+        </p> -->
       <p class="mark_title">
         <span>商家（成单数 | 完成率）</span>
         <span style="margin-left:120px;">收购数量</span>
@@ -64,6 +64,7 @@
 
 <script>
 import Pager from '@/components/pager'
+import {getCookie} from '@/assets/util'
 export default {
   data() {
       return {
@@ -84,6 +85,9 @@ export default {
           }],
         value: '',
         much:'',
+        waId:null,
+        ress:null,
+        token:null,
         roteList:[
           {
             VendorName:'海绵海绵我是大星（123 | 97%）',
@@ -170,6 +174,9 @@ export default {
     },
     turnPlace(){
       var tradePass=this.$refs.tradePass.value;
+      this.waId=getCookie('waId');
+      this.ress=getCookie('ress')
+      this.token=getCookie('token')
         if(tradePass===''){
           this.$notify.error({
             title: '错误',
@@ -178,15 +185,21 @@ export default {
           });
         }else{
           this.axios.post(this.oUrl+'/fcexchange/fcorder',
-          {header:{'Content-Type':'application/json'}},
           {
             'fcCounts':this.much,
             'orderType':'buy',
             'feWallet':{
-              'id':'',
-              'address':''
+              'id':this.waId,
+              'address':this.ress
             }
-          }
+          },
+          {
+            header:{
+              'Content-Type':'application/json',
+              'Accept':'application/json',
+              'Authorization':this.token
+            }
+          },
         ).then((res)=>{
           console.log(res)
         })
