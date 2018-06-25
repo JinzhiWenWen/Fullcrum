@@ -44,7 +44,7 @@
             <span class="unit">FC</span>
             <input type="text" name="" value="1" style="padding-left:10px;color:#ccc;">
             <span class="cnyt">CNY</span>
-            <button type="button" name="button" class="firm" @click="place()">下单</button>
+            <button type="button" name="button" class="firm" @click="place(index)">下单</button>
             <button type="button" name="button" class="cancel" @click="Cancel(index)">取消</button>
           </span>
         </li>
@@ -88,6 +88,7 @@ export default {
         waId:null,
         ress:null,
         token:null,
+        turnPass:null,
         roteList:[
           {
             VendorName:'海绵海绵我是大星（123 | 97%）',
@@ -160,7 +161,7 @@ export default {
       },300)
       this.$refs.pass_pur.style.top="-100%";
     },
-    place(){
+    place(index){
       if(this.much===''){
         this.$notify.error({
           title: '错误',
@@ -174,16 +175,33 @@ export default {
     },
     turnPlace(){
       var tradePass=this.$refs.tradePass.value;
+      var Id=getCookie('mes')
       this.waId=getCookie('waId');
       this.ress=getCookie('ress')
       this.token=getCookie('token')
+      this.axios.get(this.oUrl+'/fcexchange/feuser/'+Id).then((res)=>{
+        console.log(res)
+        this.turnPass=res.data.tradePassword;
+      })
         if(tradePass===''){
           this.$notify.error({
             title: '错误',
             message: '请输入交易密码',
             offset:100
           });
-        }else{
+        }else if(this.turnPass===''){
+          this.$notify.error({
+            title:'错误',
+            message:'交易密码未设置',
+            offset:100
+          })
+        }else if(tradePass!==this.turnPass){
+          this.$notify.error({
+              title:'错误',
+              message:'交易密码错误',
+              offset:100
+            })
+          }else{
           this.axios.post(this.oUrl+'/fcexchange/fcorder',
           {
             'fcCounts':this.much,
@@ -201,7 +219,14 @@ export default {
             }
           },
         ).then((res)=>{
-          console.log(res)
+          if(res.status==200){
+            this.$router.push({
+              name:'Fcbuy',
+              query:{
+                much:this.much
+              }
+            })
+          }
         })
         }
     }

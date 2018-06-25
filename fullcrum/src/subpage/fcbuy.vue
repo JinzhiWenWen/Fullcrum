@@ -5,7 +5,7 @@
     </HeaderBuyer>
     <div class="buyer_message">
       <p class="base">
-        <span style="font-size:3rem;">您正向天王盖地虎购买50000.00FC</span>
+        <span style="font-size:3rem;">您正向天王盖地虎购买{{this.turnMuch}}.00FC</span>
         <br>
         <span style="color:#999;font-size:1.6rem;;margin-top:20px;margin-bottom:14px;">单价：0.99CNY</span>
         <br>
@@ -65,8 +65,21 @@
 <script>
 import HeaderBuyer from '@/components/header-user'
 export default {
+  data(){
+    return{
+      turnMuch:null
+    }
+  },
   components:{
     HeaderBuyer
+  },
+  methods:{
+    getParamsOrder(){
+      this.turnMuch=this.$route.query.much;
+    }
+  },
+  created(){
+    this.getParamsOrder()
   }
 }
 </script>

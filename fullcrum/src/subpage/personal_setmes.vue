@@ -123,6 +123,7 @@ export default {
         this.axios.post(this.oUrl+'/fcexchange/feusers/updateFeUser',
         {
         "id":Id,
+        'phone':phoneNum,
         "firstName":"ccc",
         "lastName":"ddd",
         "status":1,
@@ -138,9 +139,7 @@ export default {
       }}
       ).then((res)=>{
         console.log(res.data)
-        if(res.data.status=='0'){
-          alert('111')
-        }
+        this.$router.push('/person')
       })
       }else{
         this.$notify.error({

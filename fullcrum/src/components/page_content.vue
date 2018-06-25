@@ -7,7 +7,8 @@
           <p class="title">加快您的现金流量<br>来扩大您的业务</p>
           <p class="title_chose">
             <span class="about_vendor">关于票据销售商</span>
-            <span class="about_buyer">关于票据购买者</span>
+            <span class="hov_left" ref="hov_left"></span>
+            <span class="about_buyer"  @mouseenter="dwon()" @mouseleave="leave()">关于票据购买者</span>
           </p>
           <div class="titleImg" ref="titleImg">
 
@@ -129,6 +130,12 @@ export default {
       }else{
         self.$refs.content_wapper.style.transform="translateY(0)"
       }
+    },
+    dwon(){
+      this.$refs.hov_left.style.left='56%'
+    },
+    leave(){
+      this.$refs.hov_left.style.left='28.8%'
     }
   },
   destroyed(){
@@ -146,6 +153,7 @@ export default {
     padding:0;
     transition: all .5s;
     margin-top:100%;
+    overflow-x: hidden;
     .content_list{
       width: 100%;
       height:843px;
@@ -154,9 +162,9 @@ export default {
     }
     .content_top{
       width: 100%;
-      height:834px;
-      padding-top:114px;
-      padding-bottom: 96px;
+      height:100%;
+      padding-top:6%;
+      padding-bottom: 4%;
       position: relative;
       box-sizing: border-box;
       background: url('../img/content_bg_cen.png');
@@ -164,30 +172,38 @@ export default {
       .title{
         width: 50%;
         text-align: center;
-        margin-top:186px;
+        margin-top:9.7%;
         font-size: 4.6rem;
         color:white;
       }
       .title_chose{
         width: 50%;
         text-align: center;
-        margin-top: 266px;
+        margin-top: 14%;
         font-size: 2rem;
         color:white;
         cursor: pointer;
+        position: relative;
         span{
-          padding-bottom:6px;
+          padding-bottom:.5%;
         }
         .about_vendor{
-          margin-right:114px;
+          margin-right:12%;
         }
-        span:hover{
-          border-bottom: 2px solid red;
+        .hov_left{
+          width: 15%;
+          height:5%;
+          background: red;
+          position: absolute;
+          left:28.8%;
+          top:100%;
+          border-radius:3px;
+          transition: all .5s;
         }
       }
       .titleImg{
-        width:624px;
-        height:624px;
+        width:32.8%;
+        height:75%;
         position: absolute;
         background: url('../img/content_save.png');
         background-size: 100% 100%;
@@ -205,20 +221,22 @@ export default {
     }
     .content_center{
       width: 100%;
-      height:843px;
+      height:100%;
       display: flex;
       margin-top: -1px;
       .bottom_left{
         width: 50%;
-        height:843px;
+        // height:100%;
+        padding-top: 40%;
         background:url('../img/content_bg_cen_le.png');
         background-size: 100% 100%;
       }
       .bottom_right{
         width: 50%;
-        height:843px;
+        height:100%;
         background: #ccc;
-        padding-top:110px;
+        padding-top:6.2%;
+        padding-bottom:18.4%;
         box-sizing: border-box;
         background:url('../img/content_bg_cen_ri.png');
         background-size: 100% 100%;
@@ -239,9 +257,9 @@ export default {
     }
     .content_bottom{
       width: 100%;
-      height:843px;
-      padding-top: 148px;
-      padding-bottom:116px;
+      height:100%;
+      padding-top: 7.7%;
+      padding-bottom:6%;
       box-sizing: border-box;
       background: url('../img/content_bg_sta.png');
       background-size: 100% 100%;
@@ -288,8 +306,7 @@ export default {
     }
     .content_state{
       width: 100%;
-      height:843px;
-      // background: black;
+      height:100%;
       display: flex;
       display: -webkit-flex;
       margin-top: -1px;
@@ -298,10 +315,11 @@ export default {
       }
       .vendor{
         width: 35%;
-        height:843px;
+        height:100%;
         background: url('../img/content_bg_stae_le.png');
         background-size: 100% 100%;
         position: relative;
+        padding-top:44.3%;
         p{
           color:white;
           font-size: 2rem;
@@ -312,9 +330,10 @@ export default {
       }
       .bill{
         width: 30%;
-        height: 843px;
+        height: 100%;
         box-sizing: border-box;
-        padding-top: 152px;
+        padding-top: 8%;
+        padding-bottom: 33.8%;
         background: url('../img/content_bg_stae_ce.png');
         background-size: 100% 100%;
         p{
@@ -326,10 +345,11 @@ export default {
       }
       .buyer{
         width: 35%;
-        height:843px;
+        height:100%;
         background: url('../img/content_bg_stae_ri.png');
         background-size: 100% 100%;
         position: relative;
+        padding-top:44.3%;
         p{
           color:white;
           font-size: 2rem;
@@ -341,28 +361,29 @@ export default {
     }
     .about_us{
       width: 100%;
-      height:843px;
+      height:100%;
       background: url('../img/Banner_bot.png');
       background-size: 100% 100%;
       color:white;
       text-align: center;
       box-sizing: border-box;
-      padding-top:190px;
+      padding-top:10%;
       margin-top: -1px;
+      padding-bottom: 2%;
       .regard{
         font-size: 3.6rem;
         font-weight: bold;
-        margin-bottom:80px;
+        margin-bottom:4.5%;
       }
       .what_to_do{
         font-size: 3.2rem;
         font-weight: bold;
-        margin-bottom:30px;
+        margin-bottom:2.2%;
       }
       .explain{
         display: inline-block;
         font-size: 1.6rem;
-        margin-bottom:160px;
+        margin-bottom:7.6%;
       }
       .load_more{
         width: 141px;

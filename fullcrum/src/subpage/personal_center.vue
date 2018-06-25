@@ -37,7 +37,7 @@
           </p>
           <p class="user_pass">
             <span class="nick_pass">登录密码</span>
-            <span class="nick_pass_last" ref="nick_pass"></span>
+            <span class="nick_pass_last" ref="nick_pass">******</span>
             <span class="nick_mod" @click="change_pass">修改</span>
             <input type="text" name=""
             ref="change_pass" value=""
@@ -46,7 +46,7 @@
           </p>
           <p class="user_trade">
             <span class="nick_trade">交易密码</span>
-            <span class="nick_trade_last" ref="nick_trade"></span>
+            <span class="nick_trade_last" ref="nick_trade">******</span>
             <span class="nick_mod" @click="change_trade">设置</span>
             <input type="text" name=""
             ref="change_trade" value=""
@@ -111,6 +111,7 @@
 
 <script>
 import HeaderUser from '@/components/header-user'
+import {setCookie} from '@/assets/util'
 export default {
   data(){
     return{
@@ -148,9 +149,10 @@ export default {
         var ress=res.data[0].address;
         setCookie('waId',waId);
         setCookie('ress',ress);
+        console.log(this.userMessage)
       })
-      if(this.userMessage.firstName==null){
-        // this.$router.push('/personSet')
+      if(this.userMessage.tradePassword===''){
+        this.$router.push('/personSet')
       }
     }
   },

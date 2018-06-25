@@ -20,30 +20,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  .vendor{
-    display: inline-block;
-    width:70px;
-    text-align: center;
-    position: fixed;
-    left:50%;
-    margin-left:-28%;
-    top:30px;
-    z-index:99;
-    font-size:1.6rem;
-    cursor:pointer;
-    color:white;
-  }
-  .buyer{
-    display: inline-block;
-    width:70px;
-    text-align: center;
-    position: fixed;
-    right:50%;
-    margin-right: -28%;
-    top: 30px;
-    z-index: 99;
-    font-size:1.6rem;
-    cursor: pointer;
-    color:white;
-  }
+.page-wapper{
+  width: 100%;
+  height:100%;
+}
 </style>

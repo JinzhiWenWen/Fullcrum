@@ -133,8 +133,6 @@ export default {
             }
             ,{headers:{'Content-Type':'application/json'}}
             ).then((res)=>{
-              console.log(res)
-
               var sta=res.status;
               if(sta==200){
                 this.$router.push({
