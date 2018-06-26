@@ -86,9 +86,11 @@ export default {
               var iden=res.data.identity;
               var id=res.data.id;
               var token=res.data.appToken;
+              var iden=res.data.identity;
               sessionStorage.setItem('mes',id);
               setCookie('mes',id);
-              setCookie('token',token)
+              setCookie('token',token);
+              setCookie('ide',iden)
               if(iden==='buyer'){
                 this.$router.push('/mark')
               }else if(iden==='seller'){

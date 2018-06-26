@@ -16,12 +16,16 @@ Vue.use(VueResource);
 Vue.prototype.axios=Axios;
 Vue.prototype.oUrl='http://52.69.162.140:8080';
 /* eslint-disable no-new */
+//跳转页面默认返回顶部
 router.afterEach((to,from,next) => {
   setTimeout(()=>{
     window.scrollTo(0,0);
   },100)
-
 })
+//路由守卫
+// router.beforeEach((to,from,next)=>{
+//
+// })
 new Vue({
   el: '#app',
   router,

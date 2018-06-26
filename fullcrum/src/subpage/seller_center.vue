@@ -287,6 +287,9 @@ export default {
         setCookie('waId',waId);
         setCookie('ress',ress);
       })
+      if(getCookie('ide')==='buyer'){
+        this.$router.push('/')
+      }
     }
   },
   created(){
