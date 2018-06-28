@@ -262,7 +262,6 @@ export default {
           console.log(res)
         })
       })
-
     },
     showTive(){
       this.isShowTive=true;
