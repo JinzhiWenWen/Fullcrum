@@ -326,6 +326,7 @@ export default {
           position: absolute;
           bottom:54px;
           right:158px;
+          cursor:pointer;
         }
       }
       .bill{
@@ -356,6 +357,7 @@ export default {
           position: absolute;
           bottom:54px;
           left:158px;
+          cursor:pointer;
         }
       }
     }

@@ -1,6 +1,6 @@
 <template lang="html">
     <div class="purchase">
-      <p class="select_btn">
+      <!-- <p class="select_btn">
         <el-select class="chose_btn" v-model="value" placeholder="支付方式">
           <el-option
             v-for="item in options"
@@ -9,7 +9,7 @@
             :value="item.value">
           </el-option>
         </el-select>
-        </p>
+        </p> -->
       <p class="mark_title">
         <span>商家（成单数 | 完成率）</span>
         <span style="margin-left:120px;">收购数量</span>

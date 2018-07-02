@@ -145,14 +145,13 @@ export default {
         this.userMessage=res.data
       });
       this.axios.get(this.oUrl+'/fcexchange/wallets/'+Id).then((res)=>{
-        console.log(res)
         var waId=res.data[0].id;
         var ress=res.data[0].address;
         setCookie('waId',waId);
         setCookie('ress',ress);
-        console.log(this.userMessage)
+        console.log(this.userMessage.tradePassword)
       })
-      if(this.userMessage.tradePassword==null){
+      if(this.userMessage.tradePassword===null){
         this.$router.push('/personSet')
       }
     }
