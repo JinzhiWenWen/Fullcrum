@@ -38,6 +38,7 @@ import Sell from '@/components/sell'
 import Fcorder from '@/components/buyer_fc_order'
 import Paperorder from '@/components/buyer_paper_order'
 import PersonalSet from '@/subpage/personal_setmes'
+import MarketBuy from '@/subpage/market_buy'
 Vue.use(Router)
 export default new Router({
     routes:[
@@ -102,6 +103,7 @@ export default new Router({
       {path:'/about',name:'About',component:About},
       {path:'/seller',name:'Seller',component:Seller},
       {path:'/mark',name:'Mark',component:Market},
+      {path:'/marketbuy',name:'MarketBuy',component:MarketBuy},
       {path:'/personass',name:'Personass',component:PersonalAss},
       {
         path:'/fcshop',

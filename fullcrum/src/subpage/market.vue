@@ -41,7 +41,7 @@
           <span class="order" v-show="item.isShowOrder">
             <input type="text" name="" value="" v-model="much" style="padding-left:10px;">
             <span class="unit">FC</span>
-            <button type="button" name="button" class="firm" @click="place()">下单</button>
+            <button type="button" name="button" class="firm" @click="place(index)">下单</button>
             <button type="button" name="button" class="cancel" @click="Cancel(index)">取消</button>
           </span>
         </li>
@@ -58,9 +58,9 @@
       </span>
     </div>
     <div class="pass" ref="pass">
-      <span>交易密码：</span>
-      <input type="password" ref="tradePass" name=""  value="">
-      <button type="button" name="button" @click="turnPlace()">确认</button>
+      <span>秘钥：</span>
+      <input type="text" ref="tradePass" name=""  value="">
+      <button type="button" name="button" @click="turnPlace(index)">确认</button>
       <button type="button" name="button" style="margin-left:94px;"  @click="closePic()">取消</button>
     </div>
   </div>
@@ -160,7 +160,7 @@ export default {
       this.roteList[index].isShowOrder=false;
       this.roteList[index].isShowPay=true;
     },
-    place(){
+    place(index){
       if(this.much===''){
         this.$notify.error({
           title: '错误',
@@ -172,7 +172,7 @@ export default {
         this.$refs.pass.style.top="30%";
       }
     },
-    turnPlace(){
+    turnPlace(index){
       var tradePass=this.$refs.tradePass.value;
       if(tradePass===''){
         this.$notify.error({
@@ -180,7 +180,9 @@ export default {
           message: '请输入交易密码',
           offset:100
         });
-      }else{}
+      }else{
+        this.$router.push('/marketbuy')
+      }
     },
     setWal(){
       var Id=getCookie('mes');
