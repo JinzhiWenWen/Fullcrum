@@ -186,7 +186,7 @@ export default {
 <style lang="scss" scoped>
 .boor_man{
   width: 100%;
-  padding-top:20px;
+  padding-top:22px;
   height:740px;
   position: relative;
   .title{
