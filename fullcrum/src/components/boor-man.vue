@@ -25,7 +25,14 @@
         <!-- <router-link to='/logiupsuss' tag='div' class="next_btn"> -->
         <div class="next_btn">
           <el-form-item>
-            <el-button style="font-size:2.2rem;width:286px;height:60px;" type="primary"  @click="submitForm('ruleForm2')">下一步</el-button>
+            <el-button
+            v-loading="loadingBoor"
+            element-loading-text="注册中"
+            element-loading-spinner="el-icon-loading"
+            element-loading-background="#5277cc"
+            style="font-size:2.2rem;width:170px;height:60px;color:white;" type="primary"
+            @click="submitForm('ruleForm2')"
+            >下一步</el-button>
           </el-form-item>
         </div>
         <!-- </router-link> -->
@@ -84,6 +91,7 @@ export default {
         btnTxt:'获取',
         time:10,
         disabled:false,
+        loadingBoor:false,
         ruleForm2: {
           pass: '',
           phoneNum: '',
@@ -125,6 +133,7 @@ export default {
       submitForm(formName) {
         this.$refs[formName].validate((valid) => {
           if (valid) {
+            this.loadingBoor=true
             this.axios.post(this.oUrl+'/fcexchange/register',{
               "identity":this.ruleForm2.identity,
               "username":this.ruleForm2.userName,
@@ -134,10 +143,10 @@ export default {
             ,{headers:{'Content-Type':'application/json'}}
             ).then((res)=>{
               var sta=res.status;
-              var iden=res.data.identity;
-              var id=res.data.id;
-              var token=res.data.appToken;
-              var iden=res.data.identity;
+              var iden=res.data.value.identity;
+              var id=res.data.value.id;
+              var token=res.data.value.appToken;
+              var iden=res.data.value.identity;
               sessionStorage.setItem('mes',id);
               setCookie('mes',id);
               setCookie('token',token);
@@ -151,7 +160,15 @@ export default {
                 })
               }
             }).catch((error)=>{
-              console.log(error)
+              this.loadingBoor=false;
+              if(error.response.data.code==0){
+                this.$notify.error({
+                  title: '错误',
+                  message: '账号已注册或昵称已存在！',
+                  offset:100
+                });
+                // alert('111')
+              }
             })
           } else {
             return false;
@@ -185,7 +202,7 @@ export default {
     .next_btn{
         position: absolute;
         top:80%;
-        left:50%;
+        left:62%;
         margin-left: -143px;
     }
     .obtain{

@@ -59,6 +59,12 @@ button{
 .el-form-item.is-success .el-input__validateIcon{
   color:#5277cc;
 }
+.el-loading-spinner .el-loading-text{
+  color:white;
+}
+.el-loading-spinner i{
+  color:white;
+}
 .slot-mine{
   font-size: 4.6rem;
 }

@@ -177,7 +177,7 @@ export default {
       if(tradePass===''){
         this.$notify.error({
           title: '错误',
-          message: '请输入交易密码',
+          message: '请输入交易密码！',
           offset:100
         });
       }else{

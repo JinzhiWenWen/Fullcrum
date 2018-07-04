@@ -9,7 +9,14 @@
           <el-input  placeholder="请输入密码" type="password" v-model="ruleForm2.pass" auto-complete="off" class="password"></el-input>
         </el-form-item>
         <el-form-item>
-          <el-button class="elBtn_one"  style="font-size:1.8rem;margin-top:18px;width:112px;height:54px;" type="primary" @click="submitForm('ruleForm2')">登录</el-button>
+          <el-button
+           class="elBtn_one"  style="font-size:1.8rem;margin-top:18px;width:112px;height:54px;"
+           type="primary" @click="submitForm('ruleForm2')"
+           v-loading="loadingLogin"
+           element-loading-text="登录中"
+           element-loading-spinner="el-icon-loading"
+           element-loading-background="#5277cc"
+           >登录</el-button>
           <el-button class="elBtn_two"  style="font-size:1.2rem;margin-top:-18px;width:70px;height:36px;" type="primary" @click="submitForm('ruleForm2')">登录</el-button>
         </el-form-item>
       </el-form>
@@ -55,6 +62,7 @@ export default {
     };
     return {
         tiShi:false,
+        loadingLogin:false,
         ruleForm2: {
           pass: '',
           phoneNum: ''
@@ -73,6 +81,7 @@ export default {
       submitForm(formName) {
         this.$refs[formName].validate((valid) => {
           if (valid) {
+          this.loadingLogin=true  
           this.axios.post(this.oUrl+'/fcexchange/login',{
             "email":this.ruleForm2.phoneNum,
             "passcode":this.ruleForm2.pass
@@ -82,11 +91,12 @@ export default {
               'Accept ':'application/json'
             }}
           ).then((res)=>{
+            console.log(res)
             if(res.status==200){
-              var iden=res.data.identity;
-              var id=res.data.id;
-              var token=res.data.appToken;
-              var iden=res.data.identity;
+              var iden=res.data.value.identity;
+              var id=res.data.value.id;
+              var token=res.data.value.appToken;
+              var iden=res.data.value.identity;
               sessionStorage.setItem('mes',id);
               setCookie('mes',id);
               setCookie('token',token);
@@ -100,11 +110,16 @@ export default {
               }
             }
           }).catch((error)=>{
-            // console.log(error)
+            if(error.response.data.code==0){
+              this.loadingLogin=false
+              this.$notify.error({
+                title: '错误',
+                message: '账号密码错误或未注册！',
+                offset:100
+              });
+            }
           });
-          } else {
-            // alert('请填写错误信息');
-            console.log(this.ruleForm2.phoneNum)
+        }else {
             return false;
           }
         });
@@ -123,12 +138,11 @@ export default {
   }
   .elBtn_two{
     display: block!important;
-    margin-left: 34%;
+    margin-left: 35%!important;
     margin-top: 15px!important;
   }
   .phonenum{
     margin-top:5px!important;
-
   }
 
   .more_way{
