@@ -142,6 +142,7 @@ export default {
     getMe(){
       var Id=sessionStorage.getItem('mes');
       this.axios.get(this.oUrl+'/fcexchange/feuser/'+Id).then((res)=>{
+        console.log(res)
         this.userMessage=res.data
       });
       this.axios.get(this.oUrl+'/fcexchange/wallets/'+Id).then((res)=>{

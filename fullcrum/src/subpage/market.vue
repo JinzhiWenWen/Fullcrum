@@ -60,7 +60,7 @@
     <div class="pass" ref="pass">
       <span>秘钥：</span>
       <input type="text" ref="tradePass" name=""  value="">
-      <button type="button" name="button" @click="turnPlace(index)">确认</button>
+      <button type="button" name="button" @click="turnPlace()">确认</button>
       <button type="button" name="button" style="margin-left:94px;"  @click="closePic()">取消</button>
     </div>
   </div>
@@ -172,7 +172,7 @@ export default {
         this.$refs.pass.style.top="30%";
       }
     },
-    turnPlace(index){
+    turnPlace(){
       var tradePass=this.$refs.tradePass.value;
       if(tradePass===''){
         this.$notify.error({
@@ -181,7 +181,14 @@ export default {
           offset:100
         });
       }else{
-        this.$router.push('/marketbuy')
+        let key=this.$refs.tradePass.value
+        this.$router.push({
+          name:'MarketBuy',
+          params:{
+            turnKey:key,
+            much:this.much
+          }
+        })
       }
     },
     setWal(){

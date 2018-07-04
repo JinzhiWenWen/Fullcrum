@@ -10,6 +10,7 @@ import router from './index.js'
 import Axios from 'axios'
 import 'jquery'
 import './index.css'
+import Web3 from '@/assets/web3/web3.js'
 Vue.config.productionTip = false;
 Vue.use(ElementUI);
 Vue.use(VueResource);
