@@ -115,54 +115,42 @@
           <div class="verify">
             <div class="busi">
               <div class="" style="">
-                <input type="file" accept="image/*" class="upload" name="" @change="Upload">
-                <div class="inMask">
+                <div class="inMask" v-show="isShowIn" @mouseleave="hideIn()">
+                  <input type="file" accept="image/*" class="upload" name="" @change="Upload">
                   <i class="el-icon-plus"></i>
                   <br>
                   <span  class="in_title">点击添加图片</span>
                 </div>
-                <div class="showIm">
+                <div class="showIm" @mouseenter="showIn()">
                   <img src="../img/Banner.png" alt="">
                 </div>
               </div>
-              <p>营业执照</p>
+              <p class="busi_title">营业执照</p>
             </div>
             <div class="idc">
-              <span class="top" @mouseenter="showTive" @mouseleave="hideTive">
-                <el-upload
-                  action="https://jsonplaceholder.typicode.com/posts/"
-                  list-type="picture-card"
-                  class="uploader-btn"
-                  :on-preview="handlePictureCardPreview"
-                  :on-remove="handleRemove"
-                  :limit="1"
-                  v-show="isShowTive"
-                  >
+              <div class="" style="">
+                <div class="inMaskId"  v-show="isShow" @mouseleave="hideUpId()">
+                  <input type="file" accept="image/*" class="uploadId" name="" @change="UploadIde">
                   <i class="el-icon-plus"></i>
-                  <span class="el-title">点击上传</span>
-                </el-upload>
-                <el-dialog :visible.sync="dialogVisible">
-                  <img width="100%" :src="dialogImageUrl" alt="">
-                </el-dialog>
-              </span>
+                  <br>
+                  <span  class="in_title">点击添加图片</span>
+                </div>
+                <div class="showImId" @mouseenter="showUpId()" >
+                  <img src="../img/Banner.png" alt="">
+                </div>
+              </div>
               <p class="tive_title">法人身份证正面</p>
-              <span class="bot" @mouseenter="showReve" @mouseleave="hideReve">
-                <el-upload
-                  action="https://jsonplaceholder.typicode.com/posts/"
-                  list-type="picture-card"
-                  class="uploader-btn"
-                  :on-preview="handlePictureCardPreview"
-                  :on-remove="handleRemove"
-                  :limit="1"
-                  v-show="isShowRever"
-                  >
+              <div class="" style="">
+                <div class="inMaskIdT" v-show="isShowUpT"  @mouseleave="hideUpIdT()">
+                  <input type="file" accept="image/*" class="uploadIdT" name="" @change="UploadIdeT">
                   <i class="el-icon-plus"></i>
-                  <span class="el-title">点击上传</span>
-                </el-upload>
-                <el-dialog :visible.sync="dialogVisible">
-                  <img width="100%" :src="dialogImageUrl" alt="">
-                </el-dialog>
-              </span>
+                  <br>
+                  <span  class="in_title">点击添加图片</span>
+                </div>
+                <div class="showImT"  @mouseenter="showUpIdT()">
+                  <img src="../img/Banner.png" alt="">
+                </div>
+              </div>
               <p class="reve_title">法人身份证背面</p>
             </div>
           </div>
@@ -194,10 +182,31 @@ export default {
       isShowTive:false,
       isShowRever:false,
       userMessage:{},
-      token:null
+      token:null,
+      isShow:false,
+      isShowUpT:false,
+      isShowIn:false
     }
   },
   methods:{
+    showUpId(){
+      this.isShow=true
+    },
+    hideIn(){
+      this.isShowIn=false
+    },
+    hideUpId(){
+      this.isShow=false
+    },
+    showUpIdT(){
+      this.isShowUpT=true
+    },
+    hideUpIdT(){
+      this.isShowUpT=false
+    },
+    showIn(){
+      this.isShowIn=true
+    },
     change_name(){
         this.isShowName=!this.isShowName;
     },
@@ -212,13 +221,6 @@ export default {
     },
     change_trade(){
         this.isShowTrade=!this.isShowTrade;
-    },
-    handleRemove(file, fileList) {
-        console.log(file, fileList);
-    },
-    handlePictureCardPreview(file) {
-        this.dialogImageUrl = file.url;
-        this.dialogVisible = true;
     },
     Upload(e){
       var that=this;
@@ -260,6 +262,98 @@ export default {
           }}
         ).then((res)=>{
           console.log(res)
+        }).catch((error)=>{
+          console.log(error.response)
+        })
+      })
+    },
+    UploadIde(e){
+      var that=this;
+      let file = e.target.files[0];
+      //通过canvas压缩图片
+      var reader=new FileReader();
+      reader.readAsDataURL(file);
+      // var result=reader.result
+      var img=new Image;
+      reader.onload=function(e){
+        var width=1080,
+        quality=0.3,
+        canvas=document.createElement("canvas"),
+        drawer=canvas.getContext("2d");
+        img.src=this.result;
+        img.onload=()=>{
+          canvas.width=width;
+          canvas.height=width*(img.height/img.width);
+          drawer.drawImage(img,0,0,canvas.width,canvas.height);
+          img.src=canvas.toDataURL('image/png',quality);
+        }
+      };
+      setTimeout(()=>{
+        // console.log(img.src)
+        //创建axios
+        this.token= getCookie('token')
+        var Id=getCookie('mes')
+        this.axios.post(this.oUrl+'/fcexchange/feusers/document',
+          [{
+            uid:Id,
+            file:img.src,
+            documentType:'2',
+            mimeType:'jpg'
+          }],
+          {headers:{
+            'Content-Type':'application/json',
+            'Accept':'application/json',
+            'Authorization':this.token
+          }}
+        ).then((res)=>{
+          console.log(res)
+        }).catch((error)=>{
+          console.log(error.response)
+        })
+      })
+    },
+    UploadIdeT(e){
+      var that=this;
+      let file = e.target.files[0];
+      //通过canvas压缩图片
+      var reader=new FileReader();
+      reader.readAsDataURL(file);
+      // var result=reader.result
+      var img=new Image;
+      reader.onload=function(e){
+        var width=1080,
+        quality=0.3,
+        canvas=document.createElement("canvas"),
+        drawer=canvas.getContext("2d");
+        img.src=this.result;
+        img.onload=()=>{
+          canvas.width=width;
+          canvas.height=width*(img.height/img.width);
+          drawer.drawImage(img,0,0,canvas.width,canvas.height);
+          img.src=canvas.toDataURL('image/png',quality);
+        }
+      };
+      setTimeout(()=>{
+        // console.log(img.src)
+        //创建axios
+        this.token= getCookie('token')
+        var Id=getCookie('mes')
+        this.axios.post(this.oUrl+'/fcexchange/feusers/document',
+          [{
+            uid:Id,
+            file:img.src,
+            documentType:'3',
+            mimeType:'jpg'
+          }],
+          {headers:{
+            'Content-Type':'application/json',
+            'Accept':'application/json',
+            'Authorization':this.token
+          }}
+        ).then((res)=>{
+          console.log(res)
+        }).catch((error)=>{
+          console.log(error.response)
         })
       })
     },
@@ -276,8 +370,9 @@ export default {
       this.isShowRever=false;
     },
     obUser(){
-      var Id=sessionStorage.getItem('mes');
+      var Id=getCookie('mes');
       this.axios.get(this.oUrl+'/fcexchange/feuser/'+Id).then((res)=>{
+<<<<<<< HEAD
         this.userMessage=res.data
         console.log(res.data);
       });
@@ -291,6 +386,10 @@ export default {
 //     		console.log(res);
 //      
 //    });
+=======
+        this.userMessage=res.data.value
+      });
+>>>>>>> 2cfb8ca7a245e28b735621e5ebff1846afafd707
       if(getCookie('ide')==='buyer'){
         this.$router.push('/')
       }
@@ -603,39 +702,46 @@ export default {
           height:auto;
           display: flex;
           margin-top: 26px;
-          p{
+          .busi_title{
             width: 66%;
             text-align: center;
             padding-top:8px;
             font-size: 1.4rem;
+            position: absolute;
+            top:90%;
+            left:16%;
           }
           .busi{
             width: 50%;
             height:304px;
             padding-left:90px;
             position: relative;
-            .upload{
-              width: 200px;
-              height:272px;
-              cursor:pointer;
-              opacity:0;
-            }
             .inMask{
               width: 200px;
               height:272px;
-              background: rgba(0,0,0,.8);
-              z-index: -1;
+              background: rgba(0,0,0,.5);
               text-align: center;
               box-sizing: border-box;
-              padding-top:8%;
               position: absolute;
               top:0;
               left:24%;
               border-radius:5px;
+              z-index: 1;
+              .upload{
+                width: 200px;
+                height:272px;
+                cursor:pointer;
+                opacity:0;
+                z-index: 100;
+              }
               .el-icon-plus{
                 font-size:11rem;
                 color:white;
                 opacity:.9;
+                position: absolute;
+                left:23%;
+                top:20%;
+                z-index: -1;
               }
               .in_title{
                 width: 100%;
@@ -643,13 +749,17 @@ export default {
                 color:white;
                 opacity:.9;
                 font-size: 1.4rem;
+                position: absolute;
+                left:0;
+                top:60%;
+                z-index: 1;
               }
             }
             .showIm{
               width: 200px;
               height:272px;
               position: absolute;
-              left:-120px;
+              left:24%;
               background: rgba(0,0,0,.8);
               top:0;
               border-radius:5px;
@@ -659,111 +769,128 @@ export default {
                 border-radius: 5px;
               }
             }
-            // span{
-            //   width: 200px;
-            //   height:272px;
-            //   background: #999;
-            //   border-radius: 3px;
-            //   position: relative;
-            //   color:white;
-            //   .uploader{
-            //     position:absolute;
-            //     top:0;
-            //     left:0;
-            //     .el-title{
-            //       width: 100px;
-            //       height:100px;
-            //       position: absolute;
-            //       top:20%;
-            //       background: black;
-            //       left:25%;
-            //       font-size: 1.4rem;
-            //       z-index: -1;
-            //     }
-            //   }
-            // }
           }
           .idc{
-            width: 50%;
+            width: 30%;
             height:304px;
-            padding-left:70px;
+            // padding-left:10px;
             position: relative;
-            span{
-              width: 192px;
+            .inMaskId{
+              width: 230px;
               height:118px;
-              background: #999;
+              background: rgba(0,0,0,.5);
+              z-index: 1;
+              text-align: center;
+              box-sizing: border-box;
+              position: absolute;
+              top:0;
+              left:25%;
               border-radius:5px;
-            }
-            .top{
-              .uploader-btn{
-                position: relative;
-                .el-upload--picture-card{
-                  width: 192px;
-                  height:118px;
-                  border:0;
-                  line-height: 118px;
-                  border-radius: 3px;
-                  background: black;
-                  opacity: .5;
-                  .el-icon-plus{
-                    color:white;
-                    font-size: 6rem;
-                  }
-                  .el-title{
-                    width: 60px;
-                    height:50px;
-                    position: absolute;
-                    left:34%;
-                    top:28%;
-                    z-index: -1;
-                    background: black;
-                    color:white;
-                    font-size: 1.4rem;
-                  }
-                }
+              .uploadId{
+                width: 230px;
+                height:118px;
+                cursor:pointer;
+                opacity:0;
+                z-index: 100;
+                margin-left: 5%;
+              }
+              .el-icon-plus{
+                font-size:5rem;
+                color:white;
+                opacity:.9;
+                position: absolute;
+                left:40%;
+                top:15%;
+                z-index: -1;
+              }
+              .in_title{
+                width: 100%;
+                margin-top:10px;
+                color:white;
+                opacity:.9;
+                font-size: 1.4rem;
+                position: absolute;
+                left:2%;
+                top:55%;
+                z-index: -1;
               }
             }
-            .bot{
+            .showImId{
+              width: 232px;
+              height:118px;
               position: absolute;
-              left:70px;
-              top:51%;
-              .uploader-btn{
-                position: relative;
-                .el-upload--picture-card{
-                  width: 192px;
-                  height:118px;
-                  border:0;
-                  line-height: 118px;
-                  border-radius: 3px;
-                  background: black;
-                  opacity: .5;
-                  .el-icon-plus{
-                    color:white;
-                    font-size: 6rem;
-                  }
-                  .el-title{
-                    width: 60px;
-                    height:50px;
-                    position: absolute;
-                    left:34%;
-                    top:28%;
-                    z-index: -1;
-                    background: black;
-                    color:white;
-                    font-size: 1.4rem;
-                  }
-                }
+              left:25%;
+              background: rgba(0,0,0,.8);
+              top:0;
+              border-radius:5px;
+              img{
+                width: 100%;
+                height:100%;
+                border-radius: 5px;
+              }
+            }
+            .inMaskIdT{
+              width: 230px;
+              height:118px;
+              background: rgba(0,0,0,.5);
+              z-index: 1;
+              text-align: center;
+              box-sizing: border-box;
+              position: absolute;
+              top:50%;
+              left:25%;
+              border-radius:5px;
+              .uploadIdT{
+                width: 232px;
+                height:118px;
+                cursor:pointer;
+                opacity:0;
+                z-index: 100;
+              }
+              .el-icon-plus{
+                font-size:5rem;
+                color:white;
+                opacity:.9;
+                position: absolute;
+                left:40%;
+                top:15%;
+                z-index: -1;
+              }
+              .in_title{
+                width: 100%;
+                margin-top:10px;
+                color:white;
+                opacity:.9;
+                font-size: 1.4rem;
+                position: absolute;
+                left:2%;
+                top:55%;
+                z-index: -1;
+              }
+            }
+            .showImT{
+              width: 232px;
+              height:118px;
+              position: absolute;
+              left:25%;
+              background: rgba(0,0,0,.8);
+              top:50%;
+              border-radius:5px;
+              img{
+                width: 100%;
+                height:100%;
+                border-radius: 5px;
               }
             }
             .tive_title{
               position: absolute;
-              top: 38%;
-              left:12%;
+              top: 41%;
+              left:57%;
             }
             .reve_title{
               position: absolute;
-              top: 90%;
-              left:12%;
+              top: 92%;
+              left:57%;
             }
           }
         }

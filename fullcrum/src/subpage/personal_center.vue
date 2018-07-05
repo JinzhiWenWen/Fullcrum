@@ -28,7 +28,7 @@
           </p>
           <p class="user_phone">
             <span class="nick_phone">手机</span>
-            <span class="nick_phone_last" ref="nick_phone"></span>
+            <span class="nick_phone_last" ref="nick_phone">{{userMessage.phone}}</span>
             <span class="nick_mod" @click="change_phone">修改</span>
             <input type="text" name=""
             ref="change_phone" value=""
@@ -112,6 +112,7 @@
 <script>
 import HeaderUser from '@/components/header-user'
 import {setCookie} from '@/assets/util'
+import {getCookie} from '@/assets/util'
 export default {
   data(){
     return{
@@ -140,21 +141,22 @@ export default {
         this.isShowTrade=!this.isShowTrade;
     },
     getMe(){
-      var Id=sessionStorage.getItem('mes');
+      var Id=getCookie('mes');
       this.axios.get(this.oUrl+'/fcexchange/feuser/'+Id).then((res)=>{
         console.log(res)
-        this.userMessage=res.data
+        this.userMessage=res.data.value
+        if(res.data.value.tradePassword===null){
+          this.$router.push('/personSet')
+        }
       });
-      this.axios.get(this.oUrl+'/fcexchange/wallets/'+Id).then((res)=>{
-        var waId=res.data[0].id;
-        var ress=res.data[0].address;
-        setCookie('waId',waId);
-        setCookie('ress',ress);
-        console.log(this.userMessage.tradePassword)
-      })
-      if(this.userMessage.tradePassword===null){
-        this.$router.push('/personSet')
-      }
+      // this.axios.get(this.oUrl+'/fcexchange/wallets/'+Id).then((res)=>{
+      //   var waId=res.data[0].id;
+      //   var ress=res.data[0].address;
+      //   setCookie('waId',waId);
+      //   setCookie('ress',ress);
+      //   console.log(this.userMessage.tradePassword)
+      // })
+
     }
   },
   created(){
