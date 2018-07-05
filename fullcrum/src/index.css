@@ -65,6 +65,9 @@ button{
 .el-loading-spinner i{
   color:white;
 }
+.el-loading-mask{
+  border-radius: 5px;
+}
 .slot-mine{
   font-size: 4.6rem;
 }

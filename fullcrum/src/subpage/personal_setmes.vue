@@ -83,7 +83,12 @@
           </p>
         </div>
         <p class="uploadMes">
-          <button type="button" name="button" @click="upLoadMes()">保存</button>
+          <button
+          v-loading="loadingMesset"
+          element-loading-text="保存中"
+          element-loading-spinner="el-icon-loading"
+          element-loading-background="#5277cc"
+          type="button" name="button" @click="upLoadMes()">保存</button>
         </p>
       </div>
     </div>
@@ -102,6 +107,7 @@ export default {
       isShowPass:false,
       isShowTrade:false,
       token:null,
+      loadingMesset:false,
       userMessage:{}
     }
   },
@@ -109,7 +115,7 @@ export default {
     getMe(){
       var Id=getCookie('mes');
       this.axios.get(this.oUrl+'/fcexchange/feuser/'+Id).then((res)=>{
-        this.userMessage=res.data;
+        this.userMessage=res.data.value;
       });
     },
     upLoadMes(){
@@ -118,7 +124,7 @@ export default {
       this.token=getCookie('token');
       var tradePass=this.$refs.change_trade.value;
       var phoneNum=this.$refs.change_phone.value;
-      console.log(this.token)
+      this.loadingMesset=true;
       if(phone.test(phoneNum)){
         this.axios.post(this.oUrl+'/fcexchange/feusers/updateFeUser',
         {
@@ -142,13 +148,13 @@ export default {
         this.$router.push('/person')
       })
       }else{
+        this.loadingMesset=false
         this.$notify.error({
           title: '错误',
           message: '请输入正确的手机号',
           offset:100
         });
       }
-      // console.log(this.axios)
     }
   },
   created(){
@@ -488,7 +494,7 @@ export default {
       text-align: center;
       button{
         width: 15%;
-        height:40%;
+        height:45%;
         background: #5277cc;
         color:white;
         border-radius:5px;

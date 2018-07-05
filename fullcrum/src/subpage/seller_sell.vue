@@ -4,36 +4,30 @@
       <p class="slot-mine">票据出售</p>
     </HeaderSeller>
     <div class="seller_sell_con">
-      <p class="seller_sell_loader">
-        <span class="el_upload">
-          <el-upload
-            action="https://jsonplaceholder.typicode.com/posts/"
-            list-type="picture-card"
-            :on-preview="handlePictureCardPreview"
-            :on-remove="handleRemove">
+      <div class="seller_sell_loader">
+        <div class="" style="">
+          <div class="inMask"  @mouseleave="hideIn()" v-show="isShowIn">
+            <input type="file" accept="image/*" class="uploadIdT" name="" @change="uploadIs">
             <i class="el-icon-plus"></i>
             <br>
-            <span class="el-title">点击上传票据（正面）</span>
-          </el-upload>
-          <el-dialog :visible.sync="dialogVisible">
-            <img width="100%" :src="dialogImageUrl" alt="">
-          </el-dialog>
-        </span>
-        <span class="el_upload_two">
-          <el-upload
-            action="https://jsonplaceholder.typicode.com/posts/"
-            list-type="picture-card"
-            :on-preview="handlePictureCardPreview"
-            :on-remove="handleRemove">
+            <span  class="in_title">点击添加票据正面图片</span>
+          </div>
+          <div class="showImT"  @mouseenter="showIn()">
+            <img src="../img/Banner.png" alt="">
+          </div>
+        </div>
+        <div class="" style="">
+          <div class="inMaskR"  @mouseleave="hideInR()" v-show="isShowInR">
+            <input type="file" accept="image/*" class="uploadIdR" name="" @change="uploadThe">
             <i class="el-icon-plus"></i>
             <br>
-            <span class="el-title">点击上传票据（反面）</span>
-          </el-upload>
-          <el-dialog :visible.sync="dialogVisible">
-            <img width="100%" :src="dialogImageUrl" alt="">
-          </el-dialog>
-        </span>
-      </p>
+            <span  class="in_title">点击添加票据反面图片</span>
+          </div>
+          <div class="showImR"  @mouseenter="showInR()">
+            <img src="../img/Banner.png" alt="">
+          </div>
+        </div>
+      </div>
       <div class="seller_sell_mess" :model="paper_lists">
         <p class="seller_sell_title">票面必填信息</p>
         <span>
@@ -43,7 +37,7 @@
           style="margin-left:152px;"
           type="text" placeholder="点击输入"
           name="" value="">
-        </span>
+          </span>
         <span>
           金额
           <input
@@ -51,7 +45,7 @@
           style="margin-left:152px;"
           type="text" placeholder="单位（FC）"
           name="" value="">
-        </span>
+          </span>
         <span>
           付款行
           <input
@@ -59,7 +53,7 @@
           style="margin-left:140px;"
           type="text" placeholder="点击输入"
           name="" value="">
-        </span>
+          </span>
         <span>
           兑现日期
           <input
@@ -67,7 +61,7 @@
           style="margin-left:128px;"
           type="text" placeholder="例：20180804"
           name="" value="">
-        </span>
+          </span>
         <span>
           上一家备书企业
           <input
@@ -75,26 +69,26 @@
           style="margin-left:92px;"
           type="text" placeholder="点击输入"
           name="" value="">
-        </span>
+          </span>
         <span>
           票据可迁转
           <input
           v-model="paper_lists.moving"
           style="margin-left:118px;"
           type="radio" name="true" value="">
-        </span>
+          </span>
         <span>
           利率（年化）
           <input
           v-model="paper_lists.rate"
           style="margin-left:108px;"
           type="text" placeholder="例：4.5%" name="" value="">
-        </span>
+          </span>
       </div>
       <p class="seller_sell_chose">
-        <button type="button" name="button" class="release">发布</button>
-        <button type="button" name="button" class="cancel">取消</button>
-      </p>
+        <button type="button" name="button" class="release" @click="release()">发布</button>
+        <button type="button" name="button" class="cancel" @click="sellBack()">取消</button>
+        </p>
       <p class="warning_title">
         <span>1、请确保您的票据是可签转的，一经校验恶意操作将会被系统拉黑。</span>
         <span>2、您的FC收益会按照票据全额进入账户，提现时系统会自动扣除您所设置利率对应的人民币。</span>
@@ -105,11 +99,16 @@
 
 <script>
 import HeaderSeller from '@/components/header-seller'
+import {getCookie} from '@/assets/util'
 export default {
   data() {
     return {
       dialogImageUrl: '',
       dialogVisible: false,
+      isShowIn:false,
+      isShowInR:false,
+      picIs:null,
+      picThe:null,
       paper_lists:{
         orderNo:'',
         amount:'',
@@ -122,12 +121,96 @@ export default {
     };
   },
   methods: {
-    handleRemove(file, fileList) {
-      console.log(file, fileList);
+    showIn(){
+      this.isShowIn=true;
     },
-    handlePictureCardPreview(file) {
-      this.dialogImageUrl = file.url;
-      this.dialogVisible = true;
+    hideIn(){
+      this.isShowIn=false
+    },
+    showInR(){
+      this.isShowInR=true
+    },
+    hideInR(){
+      this.isShowInR=false
+    },
+    sellBack(){
+      window.history.back()
+    },
+    uploadIs(e){
+      var that=this;
+      let file = e.target.files[0];
+      //通过canvas压缩图片
+      var reader=new FileReader();
+      reader.readAsDataURL(file);
+      // var result=reader.result
+      var img=new Image;
+      reader.onload=function(e){
+        var width=1080,
+        quality=0.3,
+        canvas=document.createElement("canvas"),
+        drawer=canvas.getContext("2d");
+        img.src=this.result;
+        img.onload=()=>{
+          canvas.width=width;
+          canvas.height=width*(img.height/img.width);
+          drawer.drawImage(img,0,0,canvas.width,canvas.height);
+          img.src=canvas.toDataURL('image/png',quality);
+        }
+      };
+      setTimeout(()=>{
+        this.picIs=img.src
+      },500)
+    },
+    uploadThe(e){
+      var that=this;
+      let file = e.target.files[0];
+      //通过canvas压缩图片
+      var reader=new FileReader();
+      reader.readAsDataURL(file);
+      // var result=reader.result
+      var img=new Image;
+      reader.onload=function(e){
+        var width=1080,
+        quality=0.3,
+        canvas=document.createElement("canvas"),
+        drawer=canvas.getContext("2d");
+        img.src=this.result;
+        img.onload=()=>{
+          canvas.width=width;
+          canvas.height=width*(img.height/img.width);
+          drawer.drawImage(img,0,0,canvas.width,canvas.height);
+          img.src=canvas.toDataURL('image/png',quality);
+        }
+      };
+      setTimeout(()=>{
+        this.picThe=img.src
+      },500)
+    },
+    release(){
+      var Id=getCookie('mes')
+      this.axios.post(this.oUrl+'/fcexchange/bill/sellerorders',{
+        "billSellerOrder":{
+         "fcCounts": "9",
+         "expiredAt": "1530226624556",
+         "bankId":"cbc",
+         "interest":"1000000000000000000",
+         "maturityDate":1538819416043,
+         "feWalletAddress":"0xcbf6ff48ecad2820383e6e2adef8ce3020a54b3a"
+       },
+        "documentRequest":[
+          {"uid":Id,"file":this.picIs,"documentType":"1","mimeType":"jpg"},
+          {"uid":Id,"file":this.picThe,"documentType":"2","mimeType":"jpg"}
+       ]
+     },
+     {header:{
+       'Content-Type':'application/json',
+       'Accept':'application'
+     }}
+   ).then((res)=>{
+     console.log(res)
+   }).catch((error)=>{
+     console.log(error.response)
+   })
     }
   },
   components:{
@@ -136,7 +219,7 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .seller_sell_con{
   width: 750px;
   height:auto;
@@ -149,56 +232,110 @@ export default {
     width: 100%;
     height:250px;
     background: #eee;
+    position: relative;
+    z-index: 1;
     display: flex;
-    .el_upload{
-      position: relative;
-      border-right:5px solid #fff;
-      .el-title{
-        color:white;
-        position: absolute;
-        top:20%;
-        left:30%;
-        font-size: 1.8rem;
-      }
-      .el-upload--picture-card{
+    .inMask{
+      width: 370px;
+      height:250px;
+      background: rgba(0,0,0,.3);
+      text-align: center;
+      box-sizing: border-box;
+      border-radius:5px;
+      z-index: 100;
+      .uploadIdT{
         width: 370px;
         height:250px;
-        border:0;
-        border-radius: 0;
-        background: black;
-        opacity: .5;
-        line-height: 250px;
-        .el-icon-plus{
-          color:white;
-          font-size: 10rem;
-        }
-
+        cursor:pointer;
+        opacity:0;
+        z-index: 120!important;
+      }
+      .el-icon-plus{
+        font-size:11rem;
+        color:white;
+        opacity:.9;
+        position: absolute;
+        left:16%;
+        top:20%;
+        z-index: -1;
+      }
+      .in_title{
+        // width: 100%;
+        margin-top:10px;
+        color:white;
+        opacity:.9;
+        font-size: 1.6rem;
+        position: absolute;
+        left:13%;
+        top:65%;
+        z-index: -1;
       }
     }
-    .el_upload_two{
-      position: relative;
-      border-left:5px solid #fff;
-      box-sizing: border-box;
-      .el-title{
-        color:white;
-        position: absolute;
-        top:20%;
-        left:30%;
-        font-size: 1.8rem;
+    .showImT{
+      width: 370px;
+      height:250px;
+      position: absolute;
+      left:0;
+      background: rgba(0,0,0,.5);
+      top:0;
+      z-index: 1;
+      border-radius:5px;
+      z-index: -2;
+      img{
+        width: 100%;
+        height:100%;
+        border-radius: 5px;
       }
-      .el-upload--picture-card{
+    }
+    .inMaskR{
+      width: 370px;
+      height:250px;
+      background: rgba(0,0,0,.3);
+      text-align: center;
+      box-sizing: border-box;
+      border-radius:5px;
+      z-index: 100;
+      margin-left:103.5%;
+      .uploadIdR{
         width: 370px;
         height:250px;
-        border:0;
-        border-radius: 0;
-        background: black;
-        opacity: .5;
-        line-height: 250px;
-        .el-icon-plus{
-          color:white;
-          font-size: 10rem;
-        }
-
+        cursor:pointer;
+        opacity:0;
+        z-index: 120!important;
+      }
+      .el-icon-plus{
+        font-size:11rem;
+        color:white;
+        position: absolute;
+        left:68%;
+        top:20%;
+        z-index: -1;
+      }
+      .in_title{
+        margin-top:10px;
+        color:white;
+        font-size: 1.6rem;
+        position: absolute;
+        left:65%;
+        top:65%;
+        z-index: -1;
+      }
+    }
+    .showImR{
+      width: 370px;
+      height:250px;
+      position: absolute;
+      left:0;
+      background: rgba(0,0,0,.8);
+      top:0;
+      left:51%;
+      z-index: 1;
+      border-radius:5px;
+      z-index: -2;
+      img{
+        width: 100%;
+        height:100%;
+        border-radius: 5px;
       }
     }
   }
