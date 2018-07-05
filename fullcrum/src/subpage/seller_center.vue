@@ -121,7 +121,12 @@
                   <br>
                   <span  class="in_title">点击添加图片</span>
                 </div>
-                <div class="showIm" @mouseenter="showIn()">
+                <div class="showIm" @mouseenter="showIn()"
+                v-loading="selLoading"
+                element-loading-text="请稍后"
+                element-loading-spinner="el-icon-loading"
+                element-loading-background="rgba(0,0,0,.8)"
+                >
                   <img src="../img/Banner.png" alt="">
                 </div>
               </div>
@@ -135,7 +140,13 @@
                   <br>
                   <span  class="in_title">点击添加图片</span>
                 </div>
-                <div class="showImId" @mouseenter="showUpId()" >
+                <div class="showImId"
+                @mouseenter="showUpId()"
+                v-loading="selIdLoading"
+                element-loading-text="请稍后"
+                element-loading-spinner="el-icon-loading"
+                element-loading-background="rgba(0,0,0,.8)"
+                >
                   <img src="../img/Banner.png" alt="">
                 </div>
               </div>
@@ -147,7 +158,13 @@
                   <br>
                   <span  class="in_title">点击添加图片</span>
                 </div>
-                <div class="showImT"  @mouseenter="showUpIdT()">
+                <div class="showImT"
+                @mouseenter="showUpIdT()"
+                v-loading="selIdTLoading"
+                element-loading-text="请稍后"
+                element-loading-spinner="el-icon-loading"
+                element-loading-background="rgba(0,0,0,.8)"
+                >
                   <img src="../img/Banner.png" alt="">
                 </div>
               </div>
@@ -185,7 +202,10 @@ export default {
       token:null,
       isShow:false,
       isShowUpT:false,
-      isShowIn:false
+      isShowIn:false,
+      selLoading:false,
+      selIdLoading:false,
+      selIdTLoading:false
     }
   },
   methods:{
@@ -223,6 +243,8 @@ export default {
         this.isShowTrade=!this.isShowTrade;
     },
     Upload(e){
+      this.selLoading=true
+      this.isShowIn=false
       var that=this;
       let file = e.target.files[0];
       //通过canvas压缩图片
@@ -261,13 +283,17 @@ export default {
             'Authorization':this.token
           }}
         ).then((res)=>{
+          this.selLoading=false
           console.log(res)
         }).catch((error)=>{
+          this.selLoading=false
           console.log(error.response)
         })
       })
     },
     UploadIde(e){
+      this.selIdLoading=true;
+      this.isShow=false
       var that=this;
       let file = e.target.files[0];
       //通过canvas压缩图片
@@ -306,13 +332,17 @@ export default {
             'Authorization':this.token
           }}
         ).then((res)=>{
+          this.selIdLoading=false
           console.log(res)
         }).catch((error)=>{
+          this.selIdLoading=false
           console.log(error.response)
         })
       })
     },
     UploadIdeT(e){
+      this.selIdTLoading=true;
+      this.isShowUpT=false;
       var that=this;
       let file = e.target.files[0];
       //通过canvas压缩图片
@@ -352,8 +382,10 @@ export default {
           }}
         ).then((res)=>{
           console.log(res)
+          this.selIdTLoading=false
         }).catch((error)=>{
           console.log(error.response)
+          this.selIdTLoading=false
         })
       })
     },
