@@ -21,6 +21,7 @@
 </template>
 <script>
 import Pager from '@/components/pager'
+import {getCookie} from '@/assets/util'
 export default {
   data(){
     return{
@@ -48,6 +49,17 @@ export default {
         },
       ]
     }
+  },
+  methods:{
+  	order(){
+  		var Id=getCookie('mes')
+  		this.axios.get(this.oUrl+'/fcexchange/feuser/'+Id).then((res)=>{
+        console.log(res)
+      })
+  	}
+  },
+  created(){
+  	this.order()
   },
   components:{
     Pager

@@ -216,16 +216,16 @@ export default {
     }
   },
   methods:{
-    getWall(){
+    getOrder(){
       // var waId=sessionStorage.getItem('waId');
-      var waId=getCookie('waId');
-      this.axios.get(this.oUrl+'/fcexchange/fcorders/'+waId).then((res)=>{
-        console.log(res)
+      var Id=getCookie('mes')
+      this.axios.get(this.oUrl+'/fcexchange/bill/sellerorders/sellerorder/'+Id).then((res)=>{
+      	console.log(res);
       })
     }
   },
   created(){
-    this.getWall()
+    this.getOrder()
   },
   components:{
     HeaderSeller,

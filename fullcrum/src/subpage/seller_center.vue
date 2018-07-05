@@ -279,6 +279,7 @@ export default {
       var Id=sessionStorage.getItem('mes');
       this.axios.get(this.oUrl+'/fcexchange/feuser/'+Id).then((res)=>{
         this.userMessage=res.data
+        console.log(res.data);
       });
       this.axios.get(this.oUrl+'/fcexchange/wallets/'+Id).then((res)=>{
         var waId=res.data[0].id;
@@ -286,6 +287,10 @@ export default {
         setCookie('waId',waId);
         setCookie('ress',ress);
       })
+//     this.axios.get(this.oUrl+'/fcexchange/bill/buyerorders/'+Id).then((res)=>{
+//     		console.log(res);
+//      
+//    });
       if(getCookie('ide')==='buyer'){
         this.$router.push('/')
       }

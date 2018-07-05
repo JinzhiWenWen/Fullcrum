@@ -63,7 +63,7 @@ export default {
   mounted(){
     window.addEventListener('scroll',this.handleScroll)
   },
-  destroyed(){
+  destroys(){
     window.addEventListener('scroll',this.handleScroll());
   },
   components:{
