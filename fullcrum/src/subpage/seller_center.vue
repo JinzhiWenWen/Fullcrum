@@ -404,7 +404,6 @@ export default {
     obUser(){
       var Id=getCookie('mes');
       this.axios.get(this.oUrl+'/fcexchange/feuser/'+Id).then((res)=>{
-<<<<<<< HEAD
         this.userMessage=res.data
         console.log(res.data);
       });
@@ -413,15 +412,8 @@ export default {
         var ress=res.data[0].address;
         setCookie('waId',waId);
         setCookie('ress',ress);
-      })
-//     this.axios.get(this.oUrl+'/fcexchange/bill/buyerorders/'+Id).then((res)=>{
-//     		console.log(res);
-//      
-//    });
-=======
         this.userMessage=res.data.value
-      });
->>>>>>> 2cfb8ca7a245e28b735621e5ebff1846afafd707
+      })
       if(getCookie('ide')==='buyer'){
         this.$router.push('/')
       }

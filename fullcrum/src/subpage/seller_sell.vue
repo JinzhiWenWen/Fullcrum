@@ -28,28 +28,27 @@
           </div>
         </div>
       </div>
-      <div class="seller_sell_mess" :model="paper_lists">
+      <div class="seller_sell_mess">
         <p class="seller_sell_title">票面必填信息</p>
         <span>
           票号
           <input
-          v-model="paper_lists.orderOn"
           style="margin-left:152px;"
+          ref="orderOn"
           type="text" placeholder="点击输入"
           name="" value="">
           </span>
         <span>
           金额
           <input
-          v-model="paper_lists.amount"
           style="margin-left:152px;"
           type="text" placeholder="单位（FC）"
+          ref="amount"
           name="" value="">
           </span>
         <span>
           付款行
           <input
-          v-model="paper_lists.payingBank"
           style="margin-left:140px;"
           type="text" placeholder="点击输入"
           name="" value="">
@@ -57,7 +56,6 @@
         <span>
           兑现日期
           <input
-          v-model="paper_lists.date"
           style="margin-left:128px;"
           type="text" placeholder="例：20180804"
           name="" value="">
@@ -65,7 +63,6 @@
         <span>
           上一家备书企业
           <input
-          v-model="paper_lists.enterprise"
           style="margin-left:92px;"
           type="text" placeholder="点击输入"
           name="" value="">
@@ -73,20 +70,25 @@
         <span>
           票据可迁转
           <input
-          v-model="paper_lists.moving"
           style="margin-left:118px;"
           type="radio" name="true" value="">
           </span>
         <span>
           利率（年化）
           <input
-          v-model="paper_lists.rate"
           style="margin-left:108px;"
+          ref="rate"
           type="text" placeholder="例：4.5%" name="" value="">
           </span>
       </div>
       <p class="seller_sell_chose">
-        <button type="button" name="button" class="release" @click="release()">发布</button>
+        <button type="button"
+        name="button" class="release" @click="release()"
+        v-loading="loadingRelease"
+        element-loading-text="上传中..."
+        element-loading-spinner="el-icon-loading"
+        element-loading-background="#5277cc"
+        >发布</button>
         <button type="button" name="button" class="cancel" @click="sellBack()">取消</button>
         </p>
       <p class="warning_title">
@@ -109,15 +111,10 @@ export default {
       isShowInR:false,
       picIs:null,
       picThe:null,
-      paper_lists:{
-        orderNo:'',
-        amount:'',
-        payingBank:'',
-        data:'',
-        enterprise:'',
-        moving:'',
-        rate:''
-      }
+      picSub:null,
+      pciSubThe:null,
+      orderId:null,
+      loadingRelease:false
     };
   },
   methods: {
@@ -159,6 +156,9 @@ export default {
       };
       setTimeout(()=>{
         this.picIs=img.src
+        var Is=this.picIs.split('');
+        var IsStr=Is.splice(0,22);
+        this.picSub=Is.join('');
       },500)
     },
     uploadThe(e){
@@ -184,33 +184,76 @@ export default {
       };
       setTimeout(()=>{
         this.picThe=img.src
+        var The=this.picThe.split('');
+        var TheStr=The.splice(0,22);
+        this.pciSubThe=The.join('');
       },500)
     },
     release(){
       var Id=getCookie('mes')
-      this.axios.post(this.oUrl+'/fcexchange/bill/sellerorders',{
-        "billSellerOrder":{
-         "fcCounts": "9",
-         "expiredAt": "1530226624556",
-         "bankId":"cbc",
-         "interest":"1000000000000000000",
-         "maturityDate":1538819416043,
-         "feWalletAddress":"0xcbf6ff48ecad2820383e6e2adef8ce3020a54b3a"
-       },
-        "documentRequest":[
-          {"uid":Id,"file":this.picIs,"documentType":"1","mimeType":"jpg"},
-          {"uid":Id,"file":this.picThe,"documentType":"2","mimeType":"jpg"}
-       ]
-     },
-     {header:{
-       'Content-Type':'application/json',
-       'Accept':'application'
-     }}
-   ).then((res)=>{
-     console.log(res)
-   }).catch((error)=>{
-     console.log(error.response)
-   })
+      var ress=getCookie('ress')
+      var orderOn=this.$refs.orderOn.value;
+      var amount=this.$refs.amount.value;
+      var rate=this.$refs.rate.value;
+      if(orderOn===''){
+        this.$notify.error({
+          title: '错误',
+          message: '请输入票据编号！',
+          offset:100
+        });
+      }else if(amount===''){
+        this.$notify.error({
+          title: '错误',
+          message: '请输入票据金额！',
+          offset:100
+        });
+      }else if(rate===''){
+        this.$notify.error({
+          title: '错误',
+          message: '请输入利率！',
+          offset:100
+        });
+      }else{
+        this.loadingRelease=true;
+        this.axios.post(this.oUrl+'/fcexchange/bill/sellerorders',{
+          "billSellerOrder":{
+            "fcCounts": amount,
+            "billNumber":"MonthFuck",
+            "expiredAt": "1530226624556",
+            "bankId":orderOn,
+            "interest":rate+'00000000000000000',
+            "maturityDate":1538819416043,
+            "feWalletAddress":ress
+            },
+            "documentRequest":[{
+            "uid":Id,"file":this.picSub,"documentType":"1","mimeType":"jpg"},
+            {"uid":Id,"file":this.pciSubThe,"documentType":"2","mimeType":"jpg"}
+            ]
+          //1为票据正面，2为票据反面
+           },
+           {header:{
+             'Content-Type':'application/json',
+             'Accept':'application'
+               }}
+             ).then((res)=>{
+               console.log(res)
+               this.orderId=res.data.value.billSellerOrder.orderNumber
+               console.log(this.orderId)
+               this.axios.put(this.oUrl+'/fcexchange/bill/sellerorders/'+this.orderId,{
+                 "status":"published"
+               }).then((res)=>{
+                 console.log(res)
+                 this.axios.put(this.oUrl+'/fcexchange/bill/sellerorders',{
+                   "orderNumber":this.orderId
+                 }).then((res)=>{
+                   this.loadingRelease=false;
+                   console.log(res)
+                 })
+               })
+             }).catch((error)=>{
+               console.log(error.response)
+             })
+      }
     }
   },
   components:{

@@ -25,20 +25,21 @@
       <ul class="note_lists">
         <li v-for="(item,index) in roteList"
         @mouseleave="CancelMove(index)"
+        ref='noteList'
         >
           <span class="por">
             <span class="status"></span>
           </span>
-          <span class="vendor_name">{{item.VendorName}}</span>
-          <span class="rete">{{item.Rete}}</span>
-          <span class="time">{{item.Time}}</span>
-          <span class="total">{{item.Total}}FC</span>
-          <span class="limit">{{item.Limit}}</span>
-          <span class="oper" v-show="item.isShowOper">
+          <span class="vendor_name"></span>
+          <span class="rete">{{item.interest*0.000000000000000001}}%</span>
+          <span class="time"></span>
+          <span class="total">{{item.fcCounts}}.00&nbsp;&nbsp;FC</span>
+          <span class="limit"></span>
+          <span class="oper">
             <button type="button" name="button" class="prev" @click="showPaper">预览</button>
             <button type="button" name="button" class="buy" @click="buyChase(index)">购买</button>
           </span>
-          <span class="order" v-show="item.isShowOrder">
+          <span class="order" ref="order" style="display:none">
             <input type="text" name="" value="" v-model="much" style="padding-left:10px;">
             <span class="unit">FC</span>
             <button type="button" name="button" class="firm" @click="place(index)">下单</button>
@@ -77,7 +78,7 @@ export default {
         isShowOper:true,
         isShowOrder:false,
         disabled:true,
-        much:'',
+        much:null,
         options: [
           {
             value: '选项1',
@@ -93,44 +94,11 @@ export default {
             label: '蟹老板'
           }],
         value: '',
-        roteList:[
-          {
-            VendorName:'海绵海绵我是大星（123 | 97%）',
-            Rete:'9.45%',
-            Time:'6个月',
-            Total:'100000.00',
-            Limit:'3000-10000FC',
-            isShowOper:true,
-            isShowOrder:false
-          },
-          {
-            VendorName:'派大星（793 | 95%）',
-            Rete:'9.85%',
-            Time:'8个月',
-            Total:'300000.00',
-            Limit:'3000-10000FC',
-            isShowOper:true,
-            isShowOrder:false
-          },
-          {
-            VendorName:'章鱼哥（685 | 99%）',
-            Rete:'9.65%',
-            Time:'030天',
-            Total:'1000000.00',
-            Limit:'3000-10000FC',
-            isShowOper:true,
-            isShowOrder:false
-          },
-          {
-            VendorName:'蟹老板（3354 | 99%）',
-            Rete:'9.95%',
-            Time:'070天',
-            Total:'2300000.00',
-            Limit:'3000-10000FC',
-            isShowOper:true,
-            isShowOrder:false
-          }
-        ]
+        roteList:[],
+        contract:null,
+        orderNumberMarket:null,
+        orderNumberBuyer:null,
+        turnKey:null
       }
     },
   methods:{
@@ -146,19 +114,20 @@ export default {
       this.$refs.pass.style.top="-300px";
     },
     buyChase(index){
-      this.roteList[index].isShowOper=false;
-      this.roteList[index].isShowOrder=true;
+      this.$refs.noteList[index].childNodes[12].style.display='none'
+      this.$refs.noteList[index].childNodes[14].style.display='block'
       this.much='';
+      this.contract=this.roteList[index].contractAddress;
+      this.orderNumberMarket=this.roteList[index].orderNumber;
     },
     Cancel(index){
-      this.roteList[index].isShowOper=true;
-      this.roteList[index].isShowOrder=false;
+      this.$refs.noteList[index].childNodes[12].style.display='block'
+      this.$refs.noteList[index].childNodes[14].style.display='none'
       this.much='';
     },
     CancelMove(index){
-      this.roteList[index].isShowOper=true;
-      this.roteList[index].isShowOrder=false;
-      this.roteList[index].isShowPay=true;
+      this.$refs.noteList[index].childNodes[12].style.display='block'
+      this.$refs.noteList[index].childNodes[14].style.display='none'
     },
     place(index){
       if(this.much===''){
@@ -181,28 +150,42 @@ export default {
           offset:100
         });
       }else{
-        let key=this.$refs.tradePass.value
-        this.$router.push({
-          name:'MarketBuy',
-          params:{
-            turnKey:key,
-            much:this.much
+        var key=this.$refs.tradePass.value;
+        var Atanisi = Math.floor(Math.random() * 999999);
+        console.log(Atanisi);
+        var myDate = new Date();
+       	var tY = myDate.getFullYear();//年
+       	var tM = myDate.getMonth()+1;//月
+       	 if (tM >= 1 && tM <= 9) {
+              tM = "0" + tM;
           }
-        })
+       	var tD = myDate.getDate();//日
+       	 if (tD >= 1 && tD <= 9) {
+              tD = "0" + tD;
+          }
+          this.orderNumberBuyer=tY+tM+tD+Atanisi
+          this.turnKey=key
+          this.$router.push({
+            name:'MarketBuy',
+            params:{
+              turnkey:this.turnKey,
+              contract:this.contract,
+              much:this.much,
+              orderNumber:this.orderNumberMarket,
+              orderNumberBuyer:this.orderNumberBuyer
+            }
+          })
       }
     },
-    setWal(){
-      var Id=getCookie('mes');
-      this.axios.get(this.oUrl+'/fcexchange/wallets/'+Id).then((res)=>{
-        var waId=res.data[0].id;
-        var ress=res.data[0].address;
-        setCookie('waId',waId);
-        setCookie('ress',ress);
+    getlist(){
+      this.axios.get(this.oUrl+'/fcexchange/bill/sellerorders/availableorders/').then((res)=>{
+        console.log(res)
+        this.roteList=res.data.value;
       })
     }
   },
-  mounted(){
-    this.setWal()
+  created(){
+    this.getlist()
   },
   components:{
       HeaderMark,

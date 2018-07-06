@@ -41,6 +41,7 @@ import PersonalSet from '@/subpage/personal_setmes'
 import MarketBuy from '@/subpage/market_buy'
 Vue.use(Router)
 export default new Router({
+    mode:'history',
     routes:[
       {path:'/',redirect: "/page"},
       {

@@ -6,7 +6,7 @@
     <div class="marketBuy_cen">
       <p class="marketBuy_title">您正在向海绵海绵我是大星购买票据</p>
       <p class="marketBuy_much">购买份额：<span>30,000</span>CNY</p>
-      <p class="marketBuy_amount">总价：<span style="color:#53936C;">30,000.00FC</span></p>
+      <p class="marketBuy_amount">总价：<span style="color:#53936C;">{{much}}.00FC</span></p>
       <p class="marketBuy_status">待支付，请于<span style="color:#e60012;">19分58秒</span>内确认预支付<span style="color:#53936c;">30,000.00FC</span></p>
       <p class="marketBuy_oper">
         <button type="button" name="button" style="color:white;background:#5277cc;" @click="Markplace()">预支付</button>
@@ -26,26 +26,30 @@ export default {
   data(){
     return{
       a:null,
-      key:null,
-      much:null
+      key:null,//用户秘钥
+      much:null,//用户购买份额
+      contract:null,//合约地址
+      orderNumber:null,//票据订单编号
+      orderNumberBuyer:null//买家订单号码
     }
   },
   components:{
     HeaderPerson
   },
-  created(){
-    this.getkey()
-  },
+
   methods:{
     Buyback(){
       window.history.back()
-      console.log(this.$route.params)
     },
-    getKey(){
-      this.key=this.$route.params.turnKey;
-      this.much=this.$toute.params.much
+    getWal(){
+      this.key=this.$route.params.turnkey;
+      this.much=this.$route.params.much
+      this.contract=this.$route.params.contract;
+      this.orderNumber=this.$route.params.orderNumber;
+      this.orderNumberBuyer=this.$route.params.orderNumberBuyer;
     },
     Markplace(){
+      let ress=getCookie('ress')
       let httpProvider = "http://testnet.nebula-ai.com:8545";
         let web3 = new Web3(httpProvider);
 
@@ -281,6 +285,9 @@ export default {
 
 
     }
+  },
+  mounted(){
+    this.getWal()
   }
 }
 </script>

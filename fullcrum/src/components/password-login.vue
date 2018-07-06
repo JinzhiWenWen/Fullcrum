@@ -81,7 +81,7 @@ export default {
       submitForm(formName) {
         this.$refs[formName].validate((valid) => {
           if (valid) {
-          this.loadingLogin=true  
+          this.loadingLogin=true
           this.axios.post(this.oUrl+'/fcexchange/login',{
             "email":this.ruleForm2.phoneNum,
             "passcode":this.ruleForm2.pass
@@ -97,10 +97,12 @@ export default {
               var id=res.data.value.id;
               var token=res.data.value.appToken;
               var iden=res.data.value.identity;
+              var ress=res.data.value.feWalletAddress;
               sessionStorage.setItem('mes',id);
               setCookie('mes',id);
               setCookie('token',token);
               setCookie('ide',iden)
+              setCookie('ress',ress)
               if(iden==='buyer'){
                 this.$router.push('/mark')
               }else if(iden==='seller'){
