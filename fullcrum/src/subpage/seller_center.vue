@@ -253,8 +253,8 @@ export default {
       // var result=reader.result
       var img=new Image;
       reader.onload=function(e){
-        var width=1080,
-        quality=0.3,
+        var width=img.width,
+        quality=0.1,
         canvas=document.createElement("canvas"),
         drawer=canvas.getContext("2d");
         img.src=this.result;
@@ -266,7 +266,7 @@ export default {
         }
       };
       setTimeout(()=>{
-        // console.log(img.src)
+        console.log(img.src)
         //创建axios
         this.token= getCookie('token')
         var Id=getCookie('mes')

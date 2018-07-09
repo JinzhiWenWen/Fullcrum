@@ -40,8 +40,11 @@ import Paperorder from '@/components/buyer_paper_order'
 import PersonalSet from '@/subpage/personal_setmes'
 import SellerSet from '@/subpage/seller_setmes'
 import MarketBuy from '@/subpage/market_buy'
+import {getCookie} from '@/assets/util'
+import {delCookie} from '@/assets/util'
 Vue.use(Router)
-export default new Router({
+
+const router = new Router({
     mode:'history',
     routes:[
       {path:'/',redirect: "/page"},
@@ -146,3 +149,44 @@ export default new Router({
       {path:'/sellerSet',name:'sellerSet',component:SellerSet}
     ]
 })
+router.beforeEach((to, from, next) => {
+  const nextRoute = ['Personal', 'Seller', 'Sellerma', 'Mark', 'Personass','LogiUoSuccess','Merchat',
+  'MerchatAss','MerchatOr','MerchatSub','PersonalSet','Merchatap','MerchatMess','MarketBuy','SellerAss',
+  'WithDrawal','Release','Fcbuy','Fcsell','SellerOr','SellerSe','sellerSet'
+];
+  const nextRouteBuyer=['Merchat','MerchatAss','MerchatOr','MerchatSub','Merchatap','MerchatMess',
+  'Seller','SellerAss','WithDrawal','Release','Sellerma','SellerOr','SellerSe','sellerSet'
+]
+  const nextRouteSeller=['Personal','Merchat','MerchatAss','MerchatOr','MerchatSub','PersonalSet',
+  'Merchatap','MerchatMess','Mark','MarketBuy','Personass','Fcbuy','fcsell'
+]
+  // let isLogin = global.isLogin;  // 是否登录
+  // console.log(getCookie('mes'))
+  let mes=getCookie('mes')   //获取登陆者之后的CooKie
+  var iden=getCookie('ide')
+  console.log(iden)
+  // 未登录状态；当路由到nextRoute指定页时，跳转至login
+  if (nextRoute.indexOf(to.name) >= 0) {
+    if (mes===null) {
+      console.log('Surprise MonthFucker');
+      router.push({ name: 'Page' })
+    }
+  }else if(nextRouteBuyer.indexOf(to.name)>=0){
+    if (iden==='buyer') {
+      console.log('Surprise MonthFucker!!!');
+      router.push({ name: 'Personal' })
+    }
+  }else if (nextRouteSeller.indexOf(to.name)>=0){
+    if(iden==='seller'){
+      console.log('Surprise MonthFucker!!!!!!');
+      router.push({ name: 'Seller' })
+    }
+  }
+  // 判断用户身份
+  //
+  next();
+});
+export default router;
+// new Router.beforeEach((to,from,next)=>{
+//   console.log('navigation-guards')
+// })
