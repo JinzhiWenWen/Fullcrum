@@ -248,6 +248,8 @@ export default {
                  }).then((res)=>{
                    this.loadingRelease=false;
                    console.log(res)
+
+                   console.log("the end .........")
                  })
                })
              }).catch((error)=>{

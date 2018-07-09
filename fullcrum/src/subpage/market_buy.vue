@@ -56,10 +56,10 @@ export default {
         /**
          * sign 签名验证例子
          */
-        let addr='0x04443827409B356555feF22F76Efb91996f47d3E'
+        let addr='0x1553082796B8e62473E6E8EfE916690ed5736e20'
         // let addr = getCookie('ress')//已知用户的地址 this.address
-        // let pk = this.key
-        let pk = '0x637df8c55817926e7d38ad34dba0b0476a8a914bb61bad0b6760108582d225d6';//用户输入的私钥  this.key
+        // let pk = this.key 0x1553082796B8e62473E6E8EfE916690ed5736e20
+        let pk = '1eec6899290aa1249be5bf638fbef0f60173b71579b5aea39637b621585d1fc2';//用户输入的私钥  this.key
         let message = "Some data"; //自定义签名信息，随便是什么
         let signedMessage = web3.eth.accounts.sign('Some data', pk);//签名过后的信息
 
@@ -93,7 +93,7 @@ export default {
          */
         checkAllowance(sample_user_wallet, sample_groupon_ctr_addr) //确定allowance额度
             .then(()=>{
-                return increaseAllowance(sample_user_wallet, sample_groupon_ctr_addr, 10000);//this.much //增加allowance
+                return increaseAllowance(sample_user_wallet, sample_groupon_ctr_addr, 1000000);//this.much //增加allowance
             })
             // .then(()=>{
             //     return buyShare(sample_user_wallet, sample_groupon_ctr_addr, 1000);//购买份额
@@ -109,7 +109,7 @@ export default {
         //  const fccoin_ctr_instance = new web3.eth.Contract(fccoin_ctr_abi, fccoin_ctr_addr);//载入的合约对象
 
         const sample_user_wallet = addr;
-        const sample_groupon_ctr_addr = "0x7e40298219754ac7102e6d79edb3608c862a796f";
+        const sample_groupon_ctr_addr = "0x58244b4eeae33a47f761de8c89380bfadc800be0";
 
         //查看allowance
         //checkAllowance(sample_user_wallet, sample_groupon_ctr_addr); //
