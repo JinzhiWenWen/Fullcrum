@@ -44,9 +44,9 @@ export default {
       var iden=this.mes;
       console.log(iden)
       if(iden==='buyer'){
-        window.open(window.location.origin + '/#/mark')
+        window.open(window.location.origin + '/mark')
       }else{
-        window.open(window.location.origin + '/#/sellerma')
+        window.open(window.location.origin + '/sellerma')
       }
     },
     //接收传参

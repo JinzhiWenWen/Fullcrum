@@ -38,6 +38,7 @@ import Sell from '@/components/sell'
 import Fcorder from '@/components/buyer_fc_order'
 import Paperorder from '@/components/buyer_paper_order'
 import PersonalSet from '@/subpage/personal_setmes'
+import SellerSet from '@/subpage/seller_setmes'
 import MarketBuy from '@/subpage/market_buy'
 Vue.use(Router)
 export default new Router({
@@ -141,6 +142,7 @@ export default new Router({
       },
       {path:'/sellerma',name:'Sellerma',component:Sellerma},
       {path:'/selleror',name:'SellerOr',component:SellerOr},
-      {path:'/sellerse',name:'SellerSe',component:SellerSe}
+      {path:'/sellerse',name:'SellerSe',component:SellerSe},
+      {path:'/sellerSet',name:'sellerSet',component:SellerSet}
     ]
 })
