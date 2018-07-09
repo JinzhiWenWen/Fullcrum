@@ -170,8 +170,8 @@ export default {
       // var result=reader.result
       var img=new Image;
       reader.onload=function(e){
-        var width=1080,
-        quality=0.3,
+        var width=1080,//图片大小
+        quality=0.3,//图片质量
         canvas=document.createElement("canvas"),
         drawer=canvas.getContext("2d");
         img.src=this.result;
