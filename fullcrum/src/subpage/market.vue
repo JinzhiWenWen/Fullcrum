@@ -36,7 +36,7 @@
           <span class="total">{{item.fcCounts}}.00&nbsp;&nbsp;FC</span>
           <span class="limit"></span>
           <span class="oper">
-            <button type="button" name="button" class="prev" @click="showPaper">预览</button>
+            <button type="button" name="button" class="prev" @click="showPaper()">预览</button>
             <button type="button" name="button" class="buy" @click="buyChase(index)">购买</button>
           </span>
           <span class="order" ref="order" style="display:none">
