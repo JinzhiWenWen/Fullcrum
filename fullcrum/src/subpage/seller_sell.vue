@@ -236,16 +236,19 @@ export default {
              'Accept':'application'
                }}
              ).then((res)=>{
+              console.log("生成票据订单：")
                console.log(res)
                this.orderId=res.data.value.billSellerOrder.orderNumber
                console.log(this.orderId)
                this.axios.put(this.oUrl+'/fcexchange/bill/sellerorders/'+this.orderId,{
                  "status":"published"
                }).then((res)=>{
+                console.log("审核票据订单")
                  console.log(res)
                  this.axios.put(this.oUrl+'/fcexchange/bill/sellerorders',{
                    "orderNumber":this.orderId
                  }).then((res)=>{
+                  console.log("票据订单上链")
                    this.loadingRelease=false;
                    console.log(res)
 

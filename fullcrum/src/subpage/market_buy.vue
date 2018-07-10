@@ -50,6 +50,7 @@ export default {
       console.log(this.$route.params)
     },
     Markplace(){
+      var self=this;
       let ress=getCookie('ress')
       let httpProvider = "http://testnet.nebula-ai.com:8545";
         let web3 = new Web3(httpProvider);
@@ -57,10 +58,10 @@ export default {
         /**
          * sign 签名验证例子
          */
-        let addr='0x1553082796B8e62473E6E8EfE916690ed5736e20'
+        let addr='0x04443827409B356555feF22F76Efb91996f47d3E'
         // let addr = getCookie('ress')//已知用户的地址 this.address
         // let pk = this.key 0x1553082796B8e62473E6E8EfE916690ed5736e20
-        let pk = '1eec6899290aa1249be5bf638fbef0f60173b71579b5aea39637b621585d1fc2';//用户输入的私钥  this.key
+        let pk = '0x637df8c55817926e7d38ad34dba0b0476a8a914bb61bad0b6760108582d225d6';//用户输入的私钥  this.key
         let message = "Some data"; //自定义签名信息，随便是什么
         let signedMessage = web3.eth.accounts.sign('Some data', pk);//签名过后的信息
 
@@ -94,11 +95,13 @@ export default {
          */
         checkAllowance(sample_user_wallet, sample_groupon_ctr_addr) //确定allowance额度
             .then(()=>{
-                return increaseAllowance(sample_user_wallet, sample_groupon_ctr_addr, 1000000);//this.much //增加allowance
+              console.log("this.much1.....");
+              console.log(this.much);
+                return increaseAllowance(sample_user_wallet, sample_groupon_ctr_addr, this.much);//this.much //增加allowance
             })
-            // .then(()=>{
-            //     return buyShare(sample_user_wallet, sample_groupon_ctr_addr, 1000);//购买份额
-            // })
+             .then(()=>{
+                 return buyShare(sample_user_wallet, sample_groupon_ctr_addr, this.much);//购买份额
+             })
             .then(checkCap)//查看上限
             .then(checkFcRaised)//查看易购额度
             .then(()=>{return checkAllowance(sample_user_wallet, sample_groupon_ctr_addr)})
@@ -261,6 +264,24 @@ export default {
                         console.log(signed);
                         return web3.eth.sendSignedTransaction(signed.rawTransaction)
                             .on('transactionHash', hash => {
+                                self.axios.post(self.oUrl+'/fcexchange/bill/buyerorders',
+                                  {
+                                    "feUserid":getCookie('mes'),
+                                    "billPrice": self.much,
+                                    "hash":hash,
+                                    "billSellerOrderNumber":self.orderNumber,
+                                    "contractAddress":self.contract
+                                  },
+                                  {header:{
+                                    "Content-Type":"application/json",
+                                    "Accept":"application/json",
+                                    "Authorization":self.token
+                                  }}
+                                  ).then((res)=>{
+                                  console.log(res)
+                                }).catch((error)=>{
+                                  console.log(error)
+                                })
                                 console.log("Purchase transaction hash: "+hash);
                             })
                             .on('receipt', receipt=>{
@@ -281,6 +302,9 @@ export default {
                     });
             });
         }
+
+
+        /*save end*/
 
 
 
