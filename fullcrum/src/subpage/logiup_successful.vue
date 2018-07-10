@@ -23,7 +23,8 @@ export default {
   data(){
     return{
       wallet_address:'GYgvuyt5763GVJHVUGY26VJH43',
-      mes:'',
+      mes:null,
+      ress:null
     }
   },
   components:{
@@ -35,9 +36,9 @@ export default {
       var iden=this.mes;
       console.log(iden)
       if(iden==='buyer'){
-        window.open(window.location.origin + '/#/person')
+        window.open(window.location.origin + '/person')
       }else{
-        window.open(window.location.origin + '/#/seller')
+        window.open(window.location.origin + '/seller')
       }
     },
     market(){
@@ -53,6 +54,8 @@ export default {
     getParams(){
       var routerParams=this.$route.params.iden;
       this.mes=routerParams;//赋值参数
+      this.ress=this.$route.params.ress
+      console.log(this.$route.params)
     },
     CreateWal(){
       var Id=getCookie('mes');

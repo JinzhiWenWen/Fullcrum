@@ -174,8 +174,8 @@ export default {
     obUser(){
       var Id=getCookie('mes');
       this.axios.get(this.oUrl+'/fcexchange/feuser/'+Id).then((res)=>{
-        this.userMessage=res.data.value
         console.log(res)
+        this.userMessage=res.data.value
       });
       if(getCookie('ide')==='buyer'){
         this.$router.push('/')
