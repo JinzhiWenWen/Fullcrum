@@ -11,22 +11,19 @@ import Axios from 'axios'
 import 'jquery'
 import './index.css'
 import Web3 from '@/assets/web3/web3.js'
+import {getCookie} from '@/assets/util'
 Vue.config.productionTip = false;
 Vue.use(ElementUI);
 Vue.use(VueResource);
 Vue.prototype.axios=Axios;
 Vue.prototype.oUrl='http://52.69.162.140:8080';
 /* eslint-disable no-new */
-//跳转页面默认返回顶部
+// 跳转页面默认返回顶部
 router.afterEach((to,from,next) => {
   setTimeout(()=>{
     window.scrollTo(0,0);
   },100)
 })
-//路由守卫
-// router.beforeEach((to,from,next)=>{
-//
-// })
 new Vue({
   el: '#app',
   router,

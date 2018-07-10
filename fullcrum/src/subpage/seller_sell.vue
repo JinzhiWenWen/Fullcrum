@@ -142,8 +142,8 @@ export default {
       // var result=reader.result
       var img=new Image;
       reader.onload=function(e){
-        var width=1080,
-        quality=0.3,
+        var width=400,
+        quality=0.1,
         canvas=document.createElement("canvas"),
         drawer=canvas.getContext("2d");
         img.src=this.result;
@@ -155,6 +155,7 @@ export default {
         }
       };
       setTimeout(()=>{
+        console.log(img.src)
         this.picIs=img.src
         var Is=this.picIs.split('');
         var IsStr=Is.splice(0,22);

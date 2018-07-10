@@ -10,11 +10,11 @@
         <div class="account_message">
           <p class="user_name">
             <span class="nick_name">昵称</span>
-            <span class="nick_name_last">{{userMessage.userName}}</span>
+            <span class="nick_name_last">{{userMessage.username}}</span>
           </p>
           <p class="user_email">
             <span class="nick_email">邮箱</span>
-            <span class="nick_email_last" ref="nick_email">{{userMessage.Email}}</span>
+            <span class="nick_email_last" ref="nick_email">{{userMessage.email}}</span>
           </p>
           <p class="user_phone">
             <span class="nick_phone">手机</span>
@@ -108,7 +108,13 @@
         </div>
       </div>
       <p class="save_seller">
-        <button type="button" name="button">保存</button>
+        <button type="button" name="button"
+        @click="setMesSeller()"
+        v-loading="loadingSellerSet"
+        element-loading-text="保存中"
+        element-loading-spinner="el-icon-loading"
+        element-loading-background="#5277cc"
+        >保存</button>
       </p>
     </div>
   </div>
@@ -123,9 +129,48 @@ export default {
     return{
       userMessage:{},
       token:null,
+      loadingSellerSet:false
     }
   },
   methods:{
+    setMesSeller(){                                    //卖家个人信息保存
+      var phone=/^1[34578]\d{9}$/;
+      var Id=getCookie('mes');
+      this.token=getCookie('token');
+      var tradePass=this.$refs.change_trade.value;
+      var phoneNum=this.$refs.change_phone.value;
+      this.loadingMesset=true;
+      if(phone.test(phoneNum)){
+        this.axios.post(this.oUrl+'/fcexchange/feusers/updateFeUser',
+        {
+        "id":Id,
+        'phone':phoneNum,
+        "firstName":"ccc",
+        "lastName":"ddd",
+        "status":1,
+        "margin":"0",
+        "tradePassword":tradePass,
+        "aliPay": "thisisaalipayURL",
+        "wechatPay": "THISISAWECHATPAYURL"
+      },
+      {headers:{
+        "Content-Type":"application/json",
+        "Accept":"application/json",
+        "Authorization":this.token
+      }}
+      ).then((res)=>{
+        console.log(res.data)
+        this.$router.push('/seller')
+      })
+      }else{
+        this.loadingMesset=false
+        this.$notify.error({
+          title: '错误',
+          message: '请输入正确的手机号',
+          offset:100
+        });
+      }
+    },
     obUser(){
       var Id=getCookie('mes');
       this.axios.get(this.oUrl+'/fcexchange/feuser/'+Id).then((res)=>{
