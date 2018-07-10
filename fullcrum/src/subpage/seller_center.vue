@@ -10,7 +10,7 @@
         <div class="account_message">
           <p class="user_name">
             <span class="nick_name">昵称</span>
-            <span class="nick_name_last">{{userMessage.username}}</span>
+            <span class="nick_name_last">{{userMessage.userName}}</span>
             <span class="nick_mod" @click="change_name">修改</span>
             <input type="text" name=""
             ref="change_name" value=""
@@ -284,7 +284,7 @@ export default {
           }}
         ).then((res)=>{
           this.selLoading=false
-          console.log(res)
+          console.log(img.src)
         }).catch((error)=>{
           this.selLoading=false
           console.log(error.response)
@@ -334,6 +334,17 @@ export default {
         ).then((res)=>{
           this.selIdLoading=false
           console.log(res)
+          console.log(img.src)
+          function dataURLtoFile(dataurl, filename) {
+              var arr = dataurl.split(','), mime = arr[0].match(/:(.*?);/)[1],
+              bstr = atob(arr[1]), n = bstr.length, u8arr = new Uint8Array(n);
+              while(n--){
+                u8arr[n] = bstr.charCodeAt(n);
+              }
+              return new File([u8arr], filename, {type:mime});
+            }
+         dataURLtoFile(img.src, filename)
+
         }).catch((error)=>{
           this.selIdLoading=false
           console.log(error.response)
@@ -405,6 +416,7 @@ export default {
       var Id=getCookie('mes');
       this.axios.get(this.oUrl+'/fcexchange/feuser/'+Id).then((res)=>{
         this.userMessage=res.data.value
+
         console.log(res)
         if(this.userMessage.tradePassword===null){
           this.$router.push('/sellerSet')

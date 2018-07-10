@@ -24,11 +24,11 @@
         </p>
       <ul class="seller_order_lists">
         <li v-for="(item,index) in note_lists" :key="index">
-          <span>{{item.num}}</span>
+          <span>{{item.orderNumber}}</span>
           <span class="time">{{item.time}}</span>
-          <span class="much">{{item.much}}</span>
+          <span class="much">{{item.fcCounts}}.00 FC</span>
           <span
-          v-show="item.status=='deal'" class="statu"
+          v-show="item.status=='successful'" class="statu"
           style="color:#009944;">已成交
         </span>
           <span
@@ -40,8 +40,12 @@
           v-show="item.status=='published'" class="statu"
           style="color:#f8b551;"
           >已发布</span>
-          <span v-show="item.status=='cancel'" class="statu">已取消</span>
-          <span v-show="item.status=='have'" class="statu">已提现</span>
+          <span
+          v-show="item.status=='audit'" class="statu"
+          style="color:#369c27;"
+          >审核中</span>
+          <span v-show="item.status=='failure'" class="statu">已取消</span>
+          <span v-show="item.status=='withdrawal'" class="statu">已提现</span>
           <span>
             <button
              type="button"
@@ -155,64 +159,7 @@ export default {
         ]
         }
       ],
-      note_lists:[
-        {
-          num:'2018050300001',
-          time:'2018/5/3',
-          much:'200000.00FC',
-          status:'published',
-          word:''
-        },
-        {
-          num:'2018050300001',
-          time:'2018/5/3',
-          much:'200000.00FC',
-          status:'cancel',
-          word:''
-        },
-        {
-          num:'2018050300001',
-          time:'2018/5/3',
-          much:'200000.00FC',
-          status:'published',
-          word:''
-        },
-        {
-          num:'2018050300001',
-          time:'2018/5/3',
-          much:'200000.00FC',
-          status:'trading',
-          word:''
-        },
-        {
-          num:'2018050300001',
-          time:'2018/5/3',
-          much:'200000.00FC',
-          status:'deal',
-          word:''
-        },
-        {
-          num:'2018050300001',
-          time:'2018/5/3',
-          much:'200000.00FC',
-          status:'published',
-          word:''
-        },
-        {
-          num:'2018050300001',
-          time:'2018/5/3',
-          much:'200000.00FC',
-          status:'cancel',
-          word:''
-        },
-        {
-          num:'2018050300001',
-          time:'2018/5/3',
-          much:'200000.00FC',
-          status:'have',
-          word:''
-        }
-      ]
+      note_lists:[]
     }
   },
   methods:{
@@ -220,12 +167,16 @@ export default {
       // var waId=sessionStorage.getItem('waId');
       var Id=getCookie('mes')
       this.axios.get(this.oUrl+'/fcexchange/bill/sellerorders/sellerorder/'+Id).then((res)=>{
-      	console.log(res);
+      	// console.log(res.data.value);
+        this.note_lists=res.data.value;
+        console.log(this.note_lists);
       })
     }
   },
   created(){
+    var _this=this;
     this.getOrder()
+
   },
   components:{
     HeaderSeller,
