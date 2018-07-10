@@ -30,7 +30,6 @@
             element-loading-text="注册中"
             element-loading-spinner="el-icon-loading"
             element-loading-background="#5277cc"
-            :data="tableData"
             style="font-size:2.2rem;width:170px;height:60px;color:white;" type="primary"
             @click="submitForm('ruleForm2')"
             >下一步</el-button>
@@ -143,12 +142,13 @@ export default {
             }
             ,{headers:{'Content-Type':'application/json'}}
             ).then((res)=>{
+              console.log(res)
               var sta=res.status;
               var iden=res.data.value.identity;
               var id=res.data.value.id;
               var token=res.data.value.appToken;
               var iden=res.data.value.identity;
-              sessionStorage.setItem('mes',id);
+              var ress=res.data.value.feWalletAddress
               setCookie('mes',id);
               setCookie('token',token);
               setCookie('ide',iden)
@@ -157,6 +157,7 @@ export default {
                 this.$router.push({
                   name:'LogiUoSuccess',
                   params:{
+                    ress:ress
                     // iden:this.ruleForm2.identity//传递参数到注册完成页面
                   }
                 })
