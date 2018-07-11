@@ -193,11 +193,11 @@ export default {
   }
 }
 .person_content{
-  width: 756px;
+  width: 50%;
   height:1000px;
   position: absolute;
   left:50%;
-  margin-left: -378px;
+  margin-left: -25%;
   padding-top:64px;
   .fc{
     width:100%;
@@ -226,7 +226,7 @@ export default {
         color:#b8b8b8;
       }
       .buy{
-        margin-left: 146px;
+        margin-left: 35%;
         background: #5277cc;
         color:white;
       }
@@ -266,7 +266,7 @@ export default {
         color:#b8b8b8;
       }
       .buy{
-        margin-left: 126px;
+        margin-left: 33%;
         background: #5277cc;
         color:white;
       }
