@@ -15,7 +15,7 @@
     <div class="showKey" ref="showKey">
       <p>这是系统为您自动生成平台数字钱包的秘钥，请妥善保存！</p>
       <span>（此私钥只提供一次，请即刻储存！）</span>
-      <p style="color:#5277cc;padding-left:5%;font-size:1.6rem;">c4054747b26f8ad387944a8eece724e13ea0ab0ba1dee9ea6f8ca6abb32bbba4</p>
+      <p style="color:#5277cc;padding-left:5%;font-size:1.6rem;">{{privateKey}}</p>
       <button class="turnSucc" @click="closeMaskSucc()">确认</button>
     </div>
     <div class="mask_succ" v-show="maskSucc"></div>
