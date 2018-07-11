@@ -113,7 +113,7 @@ export default {
         //  const fccoin_ctr_instance = new web3.eth.Contract(fccoin_ctr_abi, fccoin_ctr_addr);//载入的合约对象
 
         const sample_user_wallet = addr;
-        const sample_groupon_ctr_addr = "0x58244b4eeae33a47f761de8c89380bfadc800be0";
+        const sample_groupon_ctr_addr = this.contract;
 
         //查看allowance
         //checkAllowance(sample_user_wallet, sample_groupon_ctr_addr); //
