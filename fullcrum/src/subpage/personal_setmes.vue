@@ -144,7 +144,7 @@ export default {
         "Authorization":this.token
       }}
       ).then((res)=>{
-        console.log(res.data)
+        console.log(res)
         this.$router.push('/person')
       })
       }else{

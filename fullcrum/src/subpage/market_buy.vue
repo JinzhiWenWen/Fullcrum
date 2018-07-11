@@ -5,9 +5,9 @@
     </HeaderPerson>
     <div class="marketBuy_cen">
       <p class="marketBuy_title">您正在向海绵海绵我是大星购买票据</p>
-      <p class="marketBuy_much">购买份额：<span>30,000</span>CNY</p>
+      <p class="marketBuy_much">购买份额：<span>{{much}}.00FC</span>CNY</p>
       <p class="marketBuy_amount">总价：<span style="color:#53936C;">{{much}}.00FC</span></p>
-      <p class="marketBuy_status">待支付，请于<span style="color:#e60012;">19分58秒</span>内确认预支付<span style="color:#53936c;">30,000.00FC</span></p>
+      <p class="marketBuy_status">待支付，请于<span style="color:#e60012;">19分58秒</span>内确认预支付<span style="color:#53936c;">{{much}}.00FC</span></p>
       <p class="marketBuy_oper">
         <button type="button" name="button" style="color:white;background:#5277cc;" @click="Markplace()">预支付</button>
         <button type="button" name="button" style="color:#5277cc;background:white;border:2px solid #5277cc;margin-left:5%;" @click="Buyback()">取消订单</button>
