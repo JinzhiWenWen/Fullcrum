@@ -80,6 +80,7 @@ export default {
         let fccoin_ctr_instance = null;
         let groupon_instance = null;
         this.$http.get('../../static/json/fc_coin_abi.json').then(response=>{
+          console.log("get fc abi >>>>>>>>>>")
           return response.body;
         }).then(fccoin_ctr_abi=>{
           fccoin_ctr_instance = new web3.eth.Contract(fccoin_ctr_abi, fccoin_ctr_addr);
@@ -97,7 +98,7 @@ export default {
             .then(()=>{
               console.log("this.much1.....");
               console.log(this.much);
-                return increaseAllowance(sample_user_wallet, sample_groupon_ctr_addr, this.much);//this.much //增加allowance
+                return increaseAllowance(sample_user_wallet, sample_groupon_ctr_addr, this.much+'000000000000000000');//this.much //增加allowance
             })
              .then(()=>{
                  return buyShare(sample_user_wallet, sample_groupon_ctr_addr, this.much);//购买份额
@@ -128,7 +129,7 @@ export default {
                     .call()
                     .then(result=>{
                         //sample_user_wallet允许sample_groupon_ctr_addr使用的额度
-                        console.log("sample_user_wallet 允许 sample_groupon_ctr_addr 使用的额度:"+result);
+                        console.log("sample_user_wallet 允许 sample_groupon_ctr_addr 使用的额度:"+result*0.000000000000000001);
                         resolve();
                     })
                     .catch(error => {
