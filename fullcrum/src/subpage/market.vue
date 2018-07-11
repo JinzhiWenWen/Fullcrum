@@ -33,7 +33,7 @@
           <span class="vendor_name"></span>
           <span class="rete">{{item.interest*0.00000000000000001}}%</span>
           <span class="time"></span>
-          <span class="total">{{item.fcCounts}}.00&nbsp;&nbsp;FC</span>
+          <span class="total">{{item.billBalance}}.00&nbsp;&nbsp;FC</span>
           <span class="limit"></span>
           <span class="oper">
             <button type="button" name="button" class="prev" @click="showPaper()">预览</button>
@@ -79,6 +79,7 @@ export default {
         isShowOrder:false,
         disabled:true,
         much:null,
+        toBuy:null,
         options: [
           {
             value: '选项1',
@@ -179,10 +180,33 @@ export default {
       }
     },
     getlist(){
+      var _this=this;
       this.axios.get(this.oUrl+'/fcexchange/bill/sellerorders/availableorders/').then((res)=>{
-        console.log(res)
         this.roteList=res.data.value;
-      })
+        let httpProvider = "http://testnet.nebula-ai.com:8545";
+        let web3 = new Web3(httpProvider);
+       console.log(this.roteList)
+       for (let i in this.roteList){
+        const groupon_ctr_addr=this.roteList[i].contractAddress;//合约地址
+        this.$http.get('../../static/json/groupon_erc20_abi.json').then((response)=>{
+              return response.body;
+            }).then((groupon_ctr_abi)=>{
+              return new web3.eth.Contract(groupon_ctr_abi, groupon_ctr_addr);
+            }).then((groupon_ctr_instance)=>{
+              return new Promise((resolve,reject)=>{
+                groupon_ctr_instance.methods.fcRaised().call().then(result=>{
+                    console.log("FcRaised : "+result);
+                    _this.roteList[i].billBalance-result
+                    resolve();
+                }).catch(reject);
+            })
+          })
+       }
+       
+        
+      });
+
+        
     }
   },
   created(){
