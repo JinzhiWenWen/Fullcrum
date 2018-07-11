@@ -50,7 +50,7 @@ export default {
       console.log(this.$route.params)
     },
     Markplace(){
-      var self=this;
+      var _this=this;
       let ress=getCookie('ress')
       let httpProvider = "http://testnet.nebula-ai.com:8545";
         let web3 = new Web3(httpProvider);
@@ -264,18 +264,18 @@ export default {
                         console.log(signed);
                         return web3.eth.sendSignedTransaction(signed.rawTransaction)
                             .on('transactionHash', hash => {
-                                self.axios.post(self.oUrl+'/fcexchange/bill/buyerorders',
+                                _this.axios.post(_this.oUrl+'/fcexchange/bill/buyerorders',
                                   {
                                     "feUserid":getCookie('mes'),
-                                    "billPrice": self.much,
+                                    "billPrice": _this.much,
                                     "hash":hash,
-                                    "billSellerOrderNumber":self.orderNumber,
-                                    "contractAddress":self.contract
+                                    "billSellerOrderNumber":_this.orderNumber,
+                                    "contractAddress":_this.contract
                                   },
                                   {header:{
                                     "Content-Type":"application/json",
                                     "Accept":"application/json",
-                                    "Authorization":self.token
+                                    "Authorization":_this.token
                                   }}
                                   ).then((res)=>{
                                   console.log(res)

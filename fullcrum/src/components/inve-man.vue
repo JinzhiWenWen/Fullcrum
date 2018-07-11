@@ -157,7 +157,7 @@ export default {
                 this.$router.push({
                   name:'LogiUoSuccess',
                   params:{
-                    ress:ress
+                    ress:ress//用户钱包地址
                     // iden:this.ruleForm2.identity//传递参数到注册完成页面
                   }
                 })
