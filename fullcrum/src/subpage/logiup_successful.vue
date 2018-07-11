@@ -6,12 +6,19 @@
       <span class="statu_alt">欢迎来到世界票据交易市场！</span>
       <div class="qr_code">
         <img src="../img/qr.png" alt="">
-        <p class="wallet_address">{{wallet_address}}</p>
+        <p class="wallet_address">{{ress}}</p>
         <p>这是系统为您生成的数字钱包地址，可在个人中心查看。</p>
       </div>
       <button class="personal" type="button" name="button" @click="personal()">进入个人中心</button>
       <button class="succ_market" type="button" name="button" @click="market()">进入票据市场</button>
     </div>
+    <div class="showKey" ref="showKey">
+      <p>这是系统为您自动生成平台数字钱包的秘钥，请妥善保存！</p>
+      <span>（此私钥只提供一次，请即刻储存！）</span>
+      <p style="color:#5277cc;padding-left:5%;font-size:1.6rem;">c4054747b26f8ad387944a8eece724e13ea0ab0ba1dee9ea6f8ca6abb32bbba4</p>
+      <button class="turnSucc" @click="closeMaskSucc()">确认</button>
+    </div>
+    <div class="mask_succ" v-show="maskSucc"></div>
   </div>
 </template>
 
@@ -22,9 +29,10 @@ import {getCookie} from '@/assets/util'
 export default {
   data(){
     return{
-      wallet_address:'GYgvuyt5763GVJHVUGY26VJH43',
       mes:null,
-      ress:null
+      ress:null,
+      privateKey:null,
+      maskSucc:false
     }
   },
   components:{
@@ -52,23 +60,30 @@ export default {
     },
     //接收传参
     getParams(){
-      var routerParams=this.$route.params.iden;
-      this.mes=routerParams;//赋值参数
-      this.ress=this.$route.params.ress
+      this.mes=this.$route.params.iden;//用户身份
+      this.ress=this.$route.params.ress;//用户钱包地址
+      this.privateKey=this.$route.params.privateKey;//买家私钥
       console.log(this.$route.params)
     },
-    CreateWal(){
-      var Id=getCookie('mes');
-      var token=getCookie('token');
-      this.axios.post(this.oUrl+'/fcexchange/wallets/'+Id).then((res)=>{
-      console.log(res)
-      var waId=res.data.id;
-    })
+    showKey(){
+      var _this=this;
+      setTimeout(()=>{
+        _this.maskSucc=true
+        _this.$refs.showKey.style.top='30%';
+        _this.$refs.showKey.style.opacity='1';
+      },500)
+    },
+    closeMaskSucc(){
+      this.maskSucc=false;
+      this.$refs.showKey.style.top='15%';
+      this.$refs.showKey.style.opacity='0';
     }
   },
   created(){
     this.getParams();
-    this.CreateWal();
+  },
+  mounted(){
+    this.showKey()
   },
   //检测路由变化
   watch:{
@@ -145,6 +160,49 @@ export default {
       font-size: 2.4rem;
       margin-top:100px;
     }
+
+  }
+  .showKey{
+    width: 35%;
+    height:18%;
+    border-radius: 5px;
+    position: fixed;
+    top:15%;
+    left:50%;
+    background: white;
+    margin-left:-17.5%;
+    z-index: 501;
+    opacity: 0;
+    transition: all 1s;
+    span{
+      width: 100%;
+      padding-left: 2%;
+      text-align: left;
+      color:#999;
+    }
+    p{
+      text-align: left;
+      font-size: 1.8rem;
+      padding:2%;
+
+    }
+    .turnSucc{
+      width: 12%;
+      height:22%;
+      color:white;
+      background: #5277cc;
+      border-radius:5px;
+      margin-left: 70%;
+    }
+  }
+  .mask_succ{
+    width: 100%;
+    height:100%;
+    background: rgba(0,0,0,.5);
+    position: fixed;
+    top:0;
+    left:0;
+    z-index: 500;
   }
 }
 </style>

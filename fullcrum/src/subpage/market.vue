@@ -31,35 +31,12 @@
             <span class="status"></span>
           </span>
           <span class="vendor_name"></span>
-          <span class="rete">{{item.interest*0.000000000000000001}}%</span>
+          <span class="rete">{{item.interest*0.00000000000000001}}%</span>
           <span class="time"></span>
           <span class="total">{{item.fcCounts}}.00&nbsp;&nbsp;FC</span>
           <span class="limit"></span>
           <span class="oper">
             <button type="button" name="button" class="prev" @click="showPaper()">预览</button>
-            <button type="button" name="button" class="buy" @click="buyChase(index)">购买</button>
-          </span>
-          <span class="order" ref="order" style="display:none">
-            <input type="text" name="" value="" v-model="much" style="padding-left:10px;">
-            <span class="unit">FC</span>
-            <button type="button" name="button" class="firm" @click="place(index)">下单</button>
-            <button type="button" name="button" class="cancel" @click="Cancel(index)">取消</button>
-          </span>
-        </li>
-        <li v-for="(item,index) in roteList"
-        @mouseleave="CancelMove(index)"
-        ref='noteList'
-        >
-          <span class="por">
-            <span class="status"></span>
-          </span>
-          <span class="vendor_name"></span>
-          <span class="rete">{{item.interest*0.000000000000000001}}%</span>
-          <span class="time"></span>
-          <span class="total">{{item.fcCounts}}.00&nbsp;&nbsp;FC</span>
-          <span class="limit"></span>
-          <span class="oper">
-            <button type="button" name="button" class="prev" @click="showPaper">预览</button>
             <button type="button" name="button" class="buy" @click="buyChase(index)">购买</button>
           </span>
           <span class="order" ref="order" style="display:none">

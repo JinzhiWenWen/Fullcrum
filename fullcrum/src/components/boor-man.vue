@@ -147,6 +147,8 @@ export default {
               var id=res.data.value.id;
               var token=res.data.value.appToken;
               var iden=res.data.value.identity;
+              var key=res.data.value.buyerPrivateKey;
+              var ress=res.data.value.feWalletAddress
               sessionStorage.setItem('mes',id);
               setCookie('mes',id);
               setCookie('token',token);
@@ -155,7 +157,9 @@ export default {
                 this.$router.push({
                   name:'LogiUoSuccess',
                   params:{
-                    iden:this.ruleForm2.identity//传递参数到注册完成页面
+                    iden:this.ruleForm2.identity,//传递参数到注册完成页面   用户身份
+                    privateKey:key, //买家私钥
+                    ress:ress//用户钱包地址
                   }
                 })
               }

@@ -162,9 +162,8 @@ router.beforeEach((to, from, next) => {
 ]
   // let isLogin = global.isLogin;  // 是否登录
   // console.log(getCookie('mes'))
-  let mes=getCookie('mes')   //获取登陆者之后的CooKie
+  let mes=getCookie('mes')   //获取登陆之后的CooKie
   var iden=getCookie('ide')
-  console.log(iden)
   // 未登录状态；当路由到nextRoute指定页时，跳转至login
   if (nextRoute.indexOf(to.name) >= 0) {
     if (mes===null) {
