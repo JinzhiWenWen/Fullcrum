@@ -259,7 +259,7 @@ export default {
         color:#b8b8b8;
       }
       .buy{
-        margin-left: 35%;
+        margin-left: 146px;
         background: #5277cc;
         color:white;
       }
@@ -299,7 +299,7 @@ export default {
         color:#b8b8b8;
       }
       .buy{
-        margin-left: 33%;
+        margin-left: 126px;
         background: #5277cc;
         color:white;
       }

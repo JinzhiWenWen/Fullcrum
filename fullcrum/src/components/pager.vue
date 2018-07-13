@@ -18,5 +18,7 @@ export default {
   width: 100%;
   text-align: center;
   margin-top: 60px;
+  position: absolute;
+  bottom:10vh;
 }
 </style>

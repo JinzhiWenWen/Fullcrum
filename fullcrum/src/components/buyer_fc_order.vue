@@ -7,7 +7,7 @@
       <span style="margin-left:534px;">订单状态</span>
       <span style="margin-left:82px;">操作 </span>
     </p>
-    <ul class="note_lists">
+    <ul class="note_lists" v-loading="loaDingBuyerFcorder">
       <li v-for="(item,index) in noteLists">
         <span class="num">{{item.orderNumber}}</span>
         <span class="time">{{item.createAt}}</span>
@@ -24,17 +24,18 @@ import Pager from '@/components/pager'
 export default {
   data(){
     return{
-      noteLists:null
+      noteLists:[],
+      loaDingBuyerFcorder:true
     }
   },
   methods:{
     getOrder(){
       // var waId=sessionStorage.getItem('waId');
-      var waId='wid001';
-      this.axios.get(this.oUrl+'/fcexchange/fcorders/'+waId).then((res)=>{
-        this.noteLists=res.data;
-        console.log(this.noteLists)
-      })
+      // var waId='wid001';
+      // this.axios.get(this.oUrl+'/fcexchange/fcorders/'+waId).then((res)=>{
+      //   this.noteLists=res.data.value;
+      //   console.log(this.noteLists)
+      // })
     }
   },
   mounted(){

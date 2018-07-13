@@ -22,7 +22,7 @@
         <span style="margin-left:130px;">限额 </span>
         <span style="margin-left:230px;">操作</span>
         </p>
-      <ul class="note_lists">
+      <ul class="note_lists" v-loading="loaDingMark">
         <li v-for="(item,index) in roteList"
         @mouseleave="CancelMove(index)"
         ref='noteList'
@@ -31,7 +31,7 @@
             <span class="status"></span>
           </span>
           <span class="vendor_name"></span>
-          <span class="rete">{{item.interest*0.00000000000000001}}%</span>
+          <span class="rete">{{item.interest/1000000000000000000}}%</span>
           <span class="time"></span>
           <span class="total">{{item.billBalance}}.00&nbsp;&nbsp;FC</span>
           <span class="limit"></span>
@@ -80,6 +80,7 @@ export default {
         disabled:true,
         much:null,
         toBuy:null,
+        loaDingMark:false,
         options: [
           {
             value: '选项1',
@@ -181,7 +182,9 @@ export default {
     },
     getlist(){
       var _this=this;
+      _this.loaDingMark=true;
       this.axios.get(this.oUrl+'/fcexchange/bill/sellerorders/availableorders/').then((res)=>{
+        _this.loaDingMark=false;
         this.roteList=res.data.value;
         let httpProvider = "http://testnet.nebula-ai.com:8545";
         let web3 = new Web3(httpProvider);
@@ -202,11 +205,11 @@ export default {
             })
           })
        }
-       
-        
+
+
       });
 
-        
+
     }
   },
   created(){
