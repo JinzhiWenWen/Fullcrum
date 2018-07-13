@@ -7,7 +7,7 @@
       <div class="fc" ref="fc">
         <p class="spec_fc">FC</p>
         <p class="blance">
-          <span class="num">账户余额：100000.00FC</span>
+          <span class="num">账户余额：{{balance*0.000000000000000001}}.00FC</span>
           <router-link to="/fcshop" tag='button' class="buy">购买</router-link>
           <button type="button" name="button" class="sell">出售</button>
           <button type="button" name="button" class="sell" @click="ex">兑换</button>
@@ -59,12 +59,14 @@
 
 <script>
 import HeaderPerson from '@/components/header-user'
+import {getCookie} from '@/assets/util'
 export default {
   data(){
     return{
       isShow:false,
       num:0,
-      isShowMask:false
+      isShowMask:false,
+      balance:null
     }
   },
   methods:{
@@ -86,7 +88,34 @@ export default {
     closeQr(){
       this.isShowMask=false;
       this.$refs.TopUp.style.top="-560px"
+    },
+    getBalance(){
+      var _this=this;
+      let httpProvider = "http://testnet.nebula-ai.com:8545";
+      let web3 = new Web3(httpProvider);
+      const fccoin_ctr_addr = "0x2884f15db1de2e00af1442030bf828ecde470d0c";//合约地址
+            let fccoin_ctr_instance = null;
+            this.$http.get('../../static/json/fc_coin_abi.json').then((response)=>{
+              return response.body;
+            }).then((fccoin_ctr_abi)=>{
+              return new web3.eth.Contract(fccoin_ctr_abi, fccoin_ctr_addr);
+            }).then((fccoin_ctr_instance)=>{
+              return new Promise((resolve,reject)=>{
+                console.log("fccoin_ctr_instance log")
+                console.log(fccoin_ctr_instance);
+                console.log(fccoin_ctr_instance.methods.balanceOf(getCookie('ress')).call())
+                fccoin_ctr_instance.methods.balanceOf(getCookie('ress')).call().then((number)=>{
+                  console.log("balance of wallet xxxxxxx");
+                  console.log(number)
+                  _this.balance=number
+                })
+
+              })
+            })
     }
+  },
+  created(){
+    this.getBalance()
   },
   components:{
     HeaderPerson

@@ -22,9 +22,7 @@
         <span style="margin-left:130px;">限额 </span>
         <span style="margin-left:230px;">操作</span>
         </p>
-      <ul class="note_lists"
-      v-loading="loaDingMark"
-      >
+      <ul class="note_lists" v-loading="loaDingMark">
         <li v-for="(item,index) in roteList"
         @mouseleave="CancelMove(index)"
         ref='noteList'
@@ -35,7 +33,7 @@
           <span class="vendor_name"></span>
           <span class="rete">{{item.interest/1000000000000000000}}%</span>
           <span class="time"></span>
-          <span class="total">{{item.fcCounts}}.00&nbsp;&nbsp;FC</span>
+          <span class="total">{{item.billBalance}}.00&nbsp;&nbsp;FC</span>
           <span class="limit"></span>
           <span class="oper">
             <button type="button" name="button" class="prev" @click="showPaper()">预览</button>
@@ -81,7 +79,8 @@ export default {
         isShowOrder:false,
         disabled:true,
         much:null,
-        loaDingMark:true,
+        toBuy:null,
+        loaDingMark:false,
         options: [
           {
             value: '选项1',
@@ -182,12 +181,35 @@ export default {
       }
     },
     getlist(){
-      this.loaDingMark=true;
+      var _this=this;
+      _this.loaDingMark=true;
       this.axios.get(this.oUrl+'/fcexchange/bill/sellerorders/availableorders/').then((res)=>{
-        console.log(res)
+        _this.loaDingMark=false;
         this.roteList=res.data.value;
-        this.loaDingMark=false;
-      })
+        let httpProvider = "http://testnet.nebula-ai.com:8545";
+        let web3 = new Web3(httpProvider);
+       console.log(this.roteList)
+       for (let i in this.roteList){
+        const groupon_ctr_addr=this.roteList[i].contractAddress;//合约地址
+        this.$http.get('../../static/json/groupon_erc20_abi.json').then((response)=>{
+              return response.body;
+            }).then((groupon_ctr_abi)=>{
+              return new web3.eth.Contract(groupon_ctr_abi, groupon_ctr_addr);
+            }).then((groupon_ctr_instance)=>{
+              return new Promise((resolve,reject)=>{
+                groupon_ctr_instance.methods.fcRaised().call().then(result=>{
+                    console.log("FcRaised : "+result);
+                    _this.roteList[i].billBalance-result
+                    resolve();
+                }).catch(reject);
+            })
+          })
+       }
+
+
+      });
+
+
     }
   },
   created(){
