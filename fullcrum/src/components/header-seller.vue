@@ -105,7 +105,7 @@ export default {
     }
     .right{
       position:absolute;
-      right:5%;
+      right:20vh;
       top:.5%;
       display:flex;
       .user_pic{

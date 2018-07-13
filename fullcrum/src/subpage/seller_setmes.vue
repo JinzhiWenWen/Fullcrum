@@ -174,7 +174,6 @@ export default {
     obUser(){
       var Id=getCookie('mes');
       this.axios.get(this.oUrl+'/fcexchange/feuser/'+Id).then((res)=>{
-        console.log(res)
         this.userMessage=res.data.value
       });
       if(getCookie('ide')==='buyer'){

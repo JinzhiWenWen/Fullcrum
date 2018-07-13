@@ -10,8 +10,8 @@
       <ul class="more_chose">
         <li ref="more_login" @click="moreLogin()">登录</li>
         <li ref="more_page" @click="morePage()">首页</li>
-        <li ref="more_center">个人中心</li>
-        <li ref="more_market">票据市场</li>
+        <li ref="more_center" @click="moreCenter()">个人中心</li>
+        <li ref="more_market" @click="moreMark()">票据市场</li>
         <li ref="more_about" @click="moreAbout()">关于我们</li>
       </ul>
     </div>
@@ -141,6 +141,30 @@ export default {
     moreAbout(){
       this.$router.push('/about')
     },
+    moreCenter(){
+      if(getCookie('mes')==null){
+        this.$notify.error({
+         title: '错误',
+         message: '请先登录！',
+         offset:100
+       });
+     }else if(getCookie('ide')==='buyer'){
+       this.$router.push('/person')
+     }else if(getCookie('ide')==='seller'){
+       this.$router.push('/seller')
+     }
+   },
+   moreMark(){
+     if(getCookie('mes')==null){
+       this.$notify.error({
+        title: '错误',
+        message: '请先登录！',
+        offset:100
+      });
+    }else{
+      this.$router.push('/mark')
+    }
+   },
     query(){
       var Id=getCookie('mes');
       if(Id!=null){
@@ -168,7 +192,7 @@ export default {
   }
   .icon{
     position: absolute;
-    right:22px;
+    right:2vh;
     top:16px;
     transition: .3s;
     font-size: 3.4rem;
@@ -178,7 +202,7 @@ export default {
   }
   .icon_close{
     position: absolute;
-    right:22px;
+    right:2vh;
     top:16px;
     display: none;
     font-size: 3.4rem;
