@@ -53,7 +53,7 @@ export default {
   methods:{
   	order(){
   		var Id=getCookie('mes')
-  		this.axios.get(this.oUrl+'/fcexchange/feuser/'+Id).then((res)=>{
+  		this.axios.get(this.oUrl+'/fcexchange/bill/buyerorders/'+Id).then((res)=>{
         console.log(res)
       })
   	}

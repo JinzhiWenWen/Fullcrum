@@ -22,7 +22,7 @@
         <span style="margin-left:236px;">订单状态</span>
         <span style="margin-left:186px;">操作 </span>
         </p>
-      <ul class="seller_order_lists">
+      <ul class="seller_order_lists" v-loading="loaDingSellerOrder">
         <li v-for="(item,index) in note_lists" :key="index">
           <span>{{item.orderNumber}}</span>
           <span class="time">{{item.time}}</span>
@@ -73,7 +73,8 @@ import {getCookie} from '@/assets/util'
 export default {
   data(){
     return{
-      value:'',
+      value:null,
+      loaDingSellerOrder:false,
       options: [
         {
           value: 'riqi',
@@ -165,11 +166,13 @@ export default {
   methods:{
     getOrder(){
       // var waId=sessionStorage.getItem('waId');
+      this.loaDingSellerOrder=true;
       var Id=getCookie('mes')
       this.axios.get(this.oUrl+'/fcexchange/bill/sellerorders/sellerorder/'+Id).then((res)=>{
       	// console.log(res.data.value);
         this.note_lists=res.data.value;
         console.log(this.note_lists);
+        this.loaDingSellerOrder=false;
       })
     }
   },

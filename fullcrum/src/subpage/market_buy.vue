@@ -9,7 +9,14 @@
       <p class="marketBuy_amount">总价：<span style="color:#53936C;">{{much}}.00FC</span></p>
       <p class="marketBuy_status">待支付，请于<span style="color:#e60012;">19分58秒</span>内确认预支付<span style="color:#53936c;">{{much}}.00FC</span></p>
       <p class="marketBuy_oper">
-        <button type="button" name="button" style="color:white;background:#5277cc;" @click="Markplace()">预支付</button>
+        <button
+        type="button" name="button"
+        style="color:white;background:#5277cc;" @click="Markplace()"
+        v-loading="loadingPlace"
+        element-loading-text="支付中"
+        element-loading-spinner="el-icon-loading"
+        element-loading-background="#5277cc"
+        >预支付</button>
         <button type="button" name="button" style="color:#5277cc;background:white;border:2px solid #5277cc;margin-left:5%;" @click="Buyback()">取消订单</button>
       </p>
       <p class="marketBuy_alt">1、您的数字货币将暂时被冻结由平台保管，交易达成后系统将自动将其划转到卖方的数字钱包内，如交易失效将为您解冻。</p>
@@ -26,6 +33,7 @@ export default {
   data(){
     return{
       a:null,
+      loadingPlace:false,
       key:null,//用户秘钥
       much:null,//用户购买份额
       contract:null,//合约地址
@@ -51,6 +59,7 @@ export default {
     },
     Markplace(){
       var _this=this;
+      _this.loadingPlace=true;
       let ress=getCookie('ress')
       let httpProvider = "http://testnet.nebula-ai.com:8545";
         let web3 = new Web3(httpProvider);
@@ -97,10 +106,10 @@ export default {
             .then(()=>{
               console.log("this.much1.....");
               console.log(this.much);
-                return increaseAllowance(sample_user_wallet, sample_groupon_ctr_addr, this.much);//this.much //增加allowance
+                return increaseAllowance(sample_user_wallet, sample_groupon_ctr_addr, this.much+'000000000000000000');//this.much //增加allowance
             })
              .then(()=>{
-                 return buyShare(sample_user_wallet, sample_groupon_ctr_addr, this.much);//购买份额
+                 return buyShare(sample_user_wallet, sample_groupon_ctr_addr, this.much+'000000000000000000');//购买份额
              })
             .then(checkCap)//查看上限
             .then(checkFcRaised)//查看易购额度
@@ -279,8 +288,20 @@ export default {
                                   }}
                                   ).then((res)=>{
                                   console.log(res)
+                                  _this.loadingPlace=false;
+                                  this.$notify({
+                                    title: '成功',
+                                    message: '支付成功！',
+                                    type: 'success',
+                                    offset:100
+                                  });
                                 }).catch((error)=>{
                                   console.log(error)
+                                  this.$notify.error({
+                                    title: '错误',
+                                    message: '支付失败，请检查您的账户余额或稍后再试！',
+                                    offset:100
+                                  });
                                 })
                                 console.log("Purchase transaction hash: "+hash);
                             })

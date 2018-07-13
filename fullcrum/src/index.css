@@ -71,6 +71,12 @@ button{
 .slot-mine{
   font-size: 4.6rem;
 }
+.el-loading-mask{
+  z-index: 1;
+}
+.el-loading-spinner .circular{
+  margin-top: 300px;
+}
 input::-webkit-input-placeholder{
             color:#b0b0b0;
             font-family: "微软雅黑";

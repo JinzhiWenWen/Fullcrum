@@ -25,17 +25,19 @@
         <span style="margin-left:142px;">限额 </span>
         <span style="margin-left:300px;">操作</span>
         </p>
-      <ul class="seller_lists">
+      <ul class="seller_lists"
+      v-loading="loaDingSellerMark"
+      >
         <li
         v-for="(item,index) in roteList"
         >
           <span class="por">
             <span class="status"></span>
           </span>
-          <span class="vendor_name">{{item.VendorName}}</span>
-          <span class="rete">{{item.rate}}</span>
+          <span class="vendor_name"></span>
+          <span class="rete">{{item.interest/1000000000000000000}}%</span>
           <span class="time">{{item.time}}</span>
-          <span class="total">{{item.total}}</span>
+          <span class="total">{{item.fcCounts}}.00 FC</span>
           <span class="limit">{{item.limit}}</span>
           <span class="oper">
             <button type="button" name="button" class="buy" @click="view(index)">预览</button>
@@ -62,8 +64,9 @@ import Pager from '@/components/pager'
 export default {
   data(){
     return{
-      value:'',
-      much:'',
+      value:null,
+      much:null,
+      loaDingSellerMark:false,
       options: [
         {
           value: '选项1',
@@ -79,36 +82,7 @@ export default {
           label: '蟹老板'
         }
       ],
-      roteList:[
-        {
-          VendorName:'海绵海绵我是大星（123 | 97%）',
-          rate:'9.45%',
-          time:'6个月',
-          total:'2000000.00FC',
-          limit:'1,000-50,000CNY'
-        },
-        {
-          VendorName:'派大星（793 | 95%）',
-          rate:'9.45%',
-          time:'6个月',
-          total:'2000000.00FC',
-          limit:'1,000-50,000CNY'
-        },
-        {
-          VendorName:'章鱼哥（685 | 99%）',
-          rate:'9.45%',
-          time:'6个月',
-          total:'2000000.00FC',
-          limit:'1,000-50,000CNY'
-        },
-        {
-          VendorName:'蟹老板（3354 | 99%）',
-          rate:'9.45%',
-          time:'6个月',
-          total:'2000000.00FC',
-          limit:'1,000-50,000CNY'
-        }
-      ]
+      roteList:[]
     }
   },
   methods:{
@@ -119,7 +93,21 @@ export default {
     closePic(){
       this.$refs.mask.style.display='none';
       this.$refs.paperPic.style.top="-500px";
+    },
+    getListSellerMark(){
+      var _this=this;
+      _this.loaDingSellerMark=true;
+      _this.axios.get(_this.oUrl+'/fcexchange/bill/sellerorders/availableorders/').then((res)=>{
+        console.log(res);
+        _this.loaDingSellerMark=false;
+        _this.roteList=res.data.value;
+      }).catch((error)=>{
+        console.log(error.response)
+      })
     }
+  },
+  created(){
+    this.getListSellerMark()
   },
   components:{
     HeaderSeller,
@@ -128,7 +116,7 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
   .mark{
     width: 1128px;
     height:1000px;
@@ -228,7 +216,7 @@ export default {
         }
         .rete{
           position: absolute;
-          left:286px;
+          left:290px;
           top:24px;
         }
         .time{
@@ -278,7 +266,7 @@ export default {
           top:34px;
         }
         .rete{
-          left:302px;
+          left:306px;
           top:34px;
         }
         .time{

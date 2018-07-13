@@ -22,7 +22,9 @@
         <span style="margin-left:130px;">限额 </span>
         <span style="margin-left:230px;">操作</span>
         </p>
-      <ul class="note_lists">
+      <ul class="note_lists"
+      v-loading="loaDingMark"
+      >
         <li v-for="(item,index) in roteList"
         @mouseleave="CancelMove(index)"
         ref='noteList'
@@ -31,7 +33,7 @@
             <span class="status"></span>
           </span>
           <span class="vendor_name"></span>
-          <span class="rete">{{item.interest*0.00000000000000001}}%</span>
+          <span class="rete">{{item.interest/1000000000000000000}}%</span>
           <span class="time"></span>
           <span class="total">{{item.fcCounts}}.00&nbsp;&nbsp;FC</span>
           <span class="limit"></span>
@@ -79,6 +81,7 @@ export default {
         isShowOrder:false,
         disabled:true,
         much:null,
+        loaDingMark:true,
         options: [
           {
             value: '选项1',
@@ -179,9 +182,11 @@ export default {
       }
     },
     getlist(){
+      this.loaDingMark=true;
       this.axios.get(this.oUrl+'/fcexchange/bill/sellerorders/availableorders/').then((res)=>{
         console.log(res)
         this.roteList=res.data.value;
+        this.loaDingMark=false;
       })
     }
   },
