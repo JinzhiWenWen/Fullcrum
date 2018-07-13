@@ -3,7 +3,7 @@
     <HeaderSeller>
       <p class="slot-mine">资产</p>
     </HeaderSeller>
-    <div class="person_content">
+    <div class="person_content" v-loading="loaDingSellerAss">
       <p class="title">累计销售：2500000FC   在线票据：700000（元） 可提现金额：300000（元）
         累计提现：520000（元）
       </p>
@@ -44,7 +44,8 @@ import {getCookie} from '@/assets/util'
 export default {
   data(){
     return{
-      orderList:[]
+      orderList:[],
+      loaDingSellerAss:false
     }
   },
   methods:{
@@ -58,9 +59,11 @@ export default {
     },
     getSellerOrder(){
       var Id=getCookie('mes')
+      this.loaDingSellerAss=true;
       this.axios.get(this.oUrl+'/fcexchange/bill/sellerorders/sellerorder/'+Id).then((res)=>{
         console.log(res)
         this.orderList=res.data.value;
+        this.loaDingSellerAss=false;
       })
     }
   },
@@ -73,10 +76,13 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
+.el-loading-spinner .circular{
+  margin-top: 0!important;
+}
 .person_content{
   width: 756px;
-  height:1000px;
+  height:700px;
   position: absolute;
   left:50%;
   margin-left: -378px;
