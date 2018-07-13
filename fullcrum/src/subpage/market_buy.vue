@@ -292,20 +292,11 @@ export default {
                                   }}
                                   ).then((res)=>{
                                   console.log(res)
-                                  _this.loadingPlace=false;
-                                  _this.$notify({
-                                    title: '成功',
-                                    message: '支付成功！',
-                                    type: 'success',
-                                    offset:100
-                                  });
+                                  
+                                  
                                 }).catch((error)=>{
                                   console.log(error)
-                                  _this.$notify.error({
-                                    title: '错误',
-                                    message: '支付失败，请检查您的账户余额或稍后再试！',
-                                    offset:100
-                                  });
+                                  
                                 })
                                 console.log("Purchase transaction hash: "+hash);
                             })
@@ -315,12 +306,24 @@ export default {
                                 if(receipt.logs.length>0) {
                                     console.log("purchase successful");
                                     console.log(fccoin_ctr_instance.methods.balanceOf(getCookie('ress')).call())
+                                    _this.loadingPlace=false;
+                                    _this.$notify({
+                                    title: '成功',
+                                    message: '支付成功！',
+                                    type: 'success',
+                                    offset:100
+                                  });
                                     resolve();
                                 }
                                 else throw "Approval failed";
                             })
                             .on('error', error =>{
                                 throw error;
+                                _this.$notify.error({
+                                    title: '错误',
+                                    message: '支付失败，请检查您的账户余额或稍后再试！',
+                                    offset:100
+                                  });
                             });
                     })
                     .catch(error=>{
