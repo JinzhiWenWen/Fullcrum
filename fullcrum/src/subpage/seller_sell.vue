@@ -216,13 +216,17 @@ export default {
         });
       }else{
         this.loadingRelease=true;
+        let const_str = '000000000000000000';
+        let n_str = String(rate);
+        let d_len = n_str.split('.')[1].length;
+        var turnrate=n_str.split('.')[0] + n_str.split('.')[1] + const_str.slice(d_len);
         this.axios.post(this.oUrl+'/fcexchange/bill/sellerorders',{
           "billSellerOrder":{
             "fcCounts": amount,
             "billNumber":"MonthFuck",
             "expiredAt": "1530226624556",
             "bankId":orderOn,
-            "interest":rate+'00000000000000000',
+            "interest":turnrate,
             "maturityDate":1538819416043,
             "feWalletAddress":ress
             },

@@ -22,3 +22,10 @@ export function delCookie (name) {
  if (cval != null)
   document.cookie = name + "=" + cval + ";expires=" + exp.toGMTString();
 };
+//去小数点，补0
+export function decimalAppend(decimal){
+	let const_str = '000000000000000000';
+	let n_str = String(decimal);
+	let d_len = n_str.split('.')[1].length;
+	return n_str.split('.')[0] + n_str.split('.')[1] + const_str.slice(d_len); 
+};

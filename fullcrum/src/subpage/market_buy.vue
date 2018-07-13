@@ -50,18 +50,19 @@ export default {
       console.log(this.$route.params)
     },
     Markplace(){
-      var _this=this;
-      let ress=getCookie('ress')
-      let httpProvider = "http://testnet.nebula-ai.com:8545";
+        var _this=this;
+        let ress=getCookie('ress')
+        let httpProvider = "http://testnet.nebula-ai.com:8545";
         let web3 = new Web3(httpProvider);
 
         /**
          * sign 签名验证例子
          */
-        let addr='0x04443827409B356555feF22F76Efb91996f47d3E'
+        //let addr='0x04443827409B356555feF22F76Efb91996f47d3E'
+        let addr = ress;
         // let addr = getCookie('ress')//已知用户的地址 this.address
-        // let pk = this.key 0x1553082796B8e62473E6E8EfE916690ed5736e20
-        let pk = '0x637df8c55817926e7d38ad34dba0b0476a8a914bb61bad0b6760108582d225d6';//用户输入的私钥  this.key
+        let pk = '0x'+this.key
+        //let pk = '0x637df8c55817926e7d38ad34dba0b0476a8a914bb61bad0b6760108582d225d6';//用户输入的私钥  this.key
         let message = "Some data"; //自定义签名信息，随便是什么
         let signedMessage = web3.eth.accounts.sign('Some data', pk);//签名过后的信息
 
@@ -101,7 +102,7 @@ export default {
                 return increaseAllowance(sample_user_wallet, sample_groupon_ctr_addr, this.much+'000000000000000000');//this.much //增加allowance
             })
              .then(()=>{
-                 return buyShare(sample_user_wallet, sample_groupon_ctr_addr, this.much);//购买份额
+                 return buyShare(sample_user_wallet, sample_groupon_ctr_addr, this.much+'000000000000000000');//购买份额
              })
             .then(checkCap)//查看上限
             .then(checkFcRaised)//查看易购额度
@@ -209,7 +210,7 @@ export default {
         function checkCap(){
             return new Promise((resolve,reject)=>{
                 groupon_instance.methods.cap().call().then(cap=>{
-                    console.log("Cap: " + cap);
+                    console.log("Cap: " + cap*0.000000000000000001);
                     resolve();
                 }).catch(reject);
             })
@@ -287,8 +288,10 @@ export default {
                             })
                             .on('receipt', receipt=>{
                                 console.log(receipt);
+                                console.log(receipt.logs)
                                 if(receipt.logs.length>0) {
                                     console.log("purchase successful");
+                                    console.log(fccoin_ctr_instance.methods.balanceOf(getCookie('ress')).call())
                                     resolve();
                                 }
                                 else throw "Approval failed";

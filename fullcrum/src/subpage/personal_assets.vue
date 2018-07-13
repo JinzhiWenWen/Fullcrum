@@ -60,6 +60,7 @@
 <script>
 import HeaderPerson from '@/components/header-user'
 import {getCookie} from '@/assets/util'
+import {decimalAppend} from '@/assets/util'
 export default {
   data(){
     return{
@@ -104,9 +105,12 @@ export default {
                 console.log("fccoin_ctr_instance log")
                 console.log(fccoin_ctr_instance);
                 console.log(fccoin_ctr_instance.methods.balanceOf(getCookie('ress')).call())
+                //balance of 查询的结果是？？？
                 fccoin_ctr_instance.methods.balanceOf(getCookie('ress')).call().then((number)=>{
                   console.log("balance of wallet xxxxxxx");
                   console.log(number)
+                  console.log("decimalAppend$$$$$$$$$$$$$$$$$$$$$")
+                  console.log(decimalAppend(35.12345))
                   _this.balance=number
                 })
 
