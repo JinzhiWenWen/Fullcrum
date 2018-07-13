@@ -155,7 +155,6 @@ export default {
         }
       };
       setTimeout(()=>{
-        console.log(img.src)
         this.picIs=img.src
         var Is=this.picIs.split('');
         var IsStr=Is.splice(0,22);

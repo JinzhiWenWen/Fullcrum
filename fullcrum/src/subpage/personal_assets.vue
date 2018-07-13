@@ -6,11 +6,13 @@
     <div class="person_content">
       <div class="fc" ref="fc">
         <p class="spec_fc">FC</p>
-        <p class="blance">
+        <div class="blance">
           <span class="num">账户余额：{{balance/1000000000000000000}}.00FC</span>
-          <router-link to="/fcshop" tag='button' class="buy">购买</router-link>
-          <button type="button" name="button" class="sell">出售</button>
-          <button type="button" name="button" class="sell" @click="ex">兑换</button>
+          <p class="oper_personAss">
+            <router-link to="/fcshop" tag='button' class="buy">购买</router-link>
+            <button type="button" name="button" class="sell">出售</button>
+            <button type="button" name="button" class="sell" @click="ex">兑换</button>
+          </p>
           <div style="margin-top: 40px;height: 152px;" class="al_ex">
             <el-collapse-transition>
               <div v-show="isShow">
@@ -34,16 +36,18 @@
               </div>
             </el-collapse-transition>
           </div>
-        </p>
+        </div>
       </div>
       <div class="usdt" :class="{active:num==1}">
         <p class="spec_fc">USDT</p>
-        <p class="blance">
+        <div class="blance">
           <span class="num">账户余额：233333.00USDT</span>
-          <button type="button" name="button" class="buy" @click="topUp">充值</button>
-          <button type="button" name="button" class="sell">兑换</button>
-          <button type="button" name="button" class="sell">提币</button>
-        </p>
+          <p class="oper_personAss">
+            <button type="button" name="button" class="buy" @click="topUp">充值</button>
+            <button type="button" name="button" class="sell">兑换</button>
+            <button type="button" name="button" class="sell">提币</button>
+          </p>
+        </div>
       </div>
     </div>
     <div class="mask" @click="closeQr" v-show="isShowMask">
@@ -235,6 +239,7 @@ export default {
   .fc{
     width:100%;
     height:152px;
+    min-width:450px;
     border-radius: 12px;
     box-shadow: 0 5px 10px #ddd;
     padding-left:34px;
@@ -247,26 +252,37 @@ export default {
     }
     .blance{
       padding-top:20px;
-      button{
-        width: 120px;
-        height:40px;
-        border-radius: 5px;
-        background: white;
-        font-size: 1.8rem;
-      }
+      width: 100%;
+      position: relative;
       .num{
         font-size: 1.4rem;
         color:#b8b8b8;
+        margin-top: 1%;
       }
-      .buy{
-        margin-left: 146px;
-        background: #5277cc;
-        color:white;
-      }
-      .sell{
-        margin-left: 6px;
-        border:2px solid #5277cc;
-        color:#5277cc;
+      .oper_personAss{
+        width: 60%;
+        position: absolute;
+        right:0;
+        padding-left:10px;
+        text-align: right;
+        top:8%;
+        button{
+          width: 20%;
+          height:40px;
+          min-width:55px;
+          border-radius: 5px;
+          background: white;
+          font-size: 1.8rem;
+        }
+        .buy{
+          background: #5277cc;
+          color:white;
+        }
+        .sell{
+          margin-left: 6px;
+          border:2px solid #5277cc;
+          color:#5277cc;
+        }
       }
     }
   }
@@ -274,6 +290,7 @@ export default {
     margin-top:60px;
     width:100%;
     height:152px;
+    min-width:450px;
     border-radius: 12px;
     box-shadow: 0 5px 10px #ddd;
     padding-left:34px;
@@ -287,26 +304,37 @@ export default {
     }
     .blance{
       padding-top:20px;
-      button{
-        width: 120px;
-        height:40px;
-        border-radius: 5px;
-        background: white;
-        font-size: 1.8rem;
-      }
+      width: 100%;
+      position: relative;
       .num{
         font-size: 1.4rem;
         color:#b8b8b8;
+        margin-top: 1%;
       }
-      .buy{
-        margin-left: 126px;
-        background: #5277cc;
-        color:white;
-      }
-      .sell{
-        margin-left: 6px;
-        border:2px solid #5277cc;
-        color:#5277cc;
+      .oper_personAss{
+        width: 60%;
+        position: absolute;
+        right:0;
+        padding-left:10px;
+        text-align: right;
+        top:36%;
+        button{
+          width: 20%;
+          height:40px;
+          min-width:55px;
+          border-radius: 5px;
+          background: white;
+          font-size: 1.8rem;
+        }
+        .buy{
+          background: #5277cc;
+          color:white;
+        }
+        .sell{
+          margin-left: 6px;
+          border:2px solid #5277cc;
+          color:#5277cc;
+        }
       }
     }
   }
