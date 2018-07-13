@@ -65,10 +65,46 @@ export default {
         this.orderList=res.data.value;
         this.loaDingSellerAss=false;
       })
+    },
+
+/*查询卖家fc钱包余额*/
+    getSellerBalance(){
+      var _this=this;
+      let httpProvider = "http://testnet.nebula-ai.com:8545";
+      let web3 = new Web3(httpProvider);
+      const fccoin_ctr_addr = "0x2884f15db1de2e00af1442030bf828ecde470d0c";//合约地址
+            let fccoin_ctr_instance = null;
+            this.$http.get('../../static/json/fc_coin_abi.json').then((response)=>{
+              return response.body;
+            }).then((fccoin_ctr_abi)=>{
+              return new web3.eth.Contract(fccoin_ctr_abi, fccoin_ctr_addr);
+            }).then((fccoin_ctr_instance)=>{
+              return new Promise((resolve,reject)=>{
+                console.log("fccoin_ctr_instance log")
+                console.log(fccoin_ctr_instance);
+                console.log(fccoin_ctr_instance.methods.balanceOf(getCookie('ress')).call())
+                //balance of 查询的结果是？？？
+                fccoin_ctr_instance.methods.balanceOf(getCookie('ress')).call().then((number)=>{
+                  console.log("balance of wallet xxxxxxx");
+                  console.log(number)
+                  console.log("decimalAppend$$$$$$$$$$$$$$$$$$$$$")
+                  //console.log(decimalAppend(35.12345))
+                  _this.balance=number
+                })
+
+              })
+            })
     }
+
+
+/*end*/
+
+
+
   },
   created(){
-    this.getSellerOrder()
+    this.getSellerOrder();
+    this.getSellerBalance()
   },
   components:{
     HeaderSeller
