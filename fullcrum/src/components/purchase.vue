@@ -12,10 +12,10 @@
         </p> -->
       <p class="mark_title">
         <span>商家（成单数 | 完成率）</span>
-        <span style="margin-left:120px;">收购数量</span>
-        <span style="margin-left:74px;">限额</span>
-        <span style="margin-left:118px;">收购单价</span>
-        <span style="margin-left:126px;">支付方式 </span>
+        <span style="margin-left:120px;">数量</span>
+        <span style="margin-left:86px;">限额</span>
+        <span style="margin-left:146px;">单价</span>
+        <span style="margin-left:148px;">支付方式 </span>
         <span style="margin-left:200px;">操作</span>
       </p>
       <ul class="note_lists">
@@ -42,7 +42,7 @@
             <span class="icon"></span>
             <input type="text" name="" ref="aaa" value="item.val" v-model="much" style="padding-left:10px;margin-bottom:6px;">
             <span class="unit">FC</span>
-            <input type="text" name="" value="1" style="padding-left:10px;color:#ccc;">
+            <input type="text" name="" v-model="much" placeholder="1" style="padding-left:10px;color:#ccc;">
             <span class="cnyt">CNY</span>
             <button type="button" name="button" class="firm" @click="place(index)">下单</button>
             <button type="button" name="button" class="cancel" @click="Cancel(index)">取消</button>
@@ -56,7 +56,12 @@
       <div class="pass_pur" ref="pass_pur">
         <span>交易密码：</span>
         <input type="password" ref="tradePass" name=""  value="">
-        <button type="button" name="button" @click="turnPlace()">确认</button>
+        <button type="button" name="button" @click="turnPlace()"
+        v-loading="loaDingFcBuy"
+        element-loading-text="验证中"
+        element-loading-spinner="el-icon-loading"
+        element-loading-background="#5277cc"
+        >确认</button>
         <button type="button" name="button" style="margin-left:94px;"  @click="closePic()">取消</button>
       </div>
     </div>
@@ -89,39 +94,13 @@ export default {
         ress:null,
         token:null,
         turnPass:null,
+        loaDingFcBuy:false,
         roteList:[
           {
             VendorName:'海绵海绵我是大星（123 | 97%）',
-            Num:'100000.00FC',
-            Limit:'1000-5000FC',
-            Per:'.99CNY',
-            isShowOper:true,
-            isShowOrder:false,
-            isShowPay:true
-          },
-          {
-            VendorName:'派大星（793 | 95%）',
-            Num:'100000.00FC',
-            Limit:'1000-5000FC',
-            Per:'.99CNY',
-            isShowOper:true,
-            isShowOrder:false,
-            isShowPay:true
-          },
-          {
-            VendorName:'章鱼哥（685 | 99%）',
-            Num:'100000.00FC',
-            Limit:'1000-5000FC',
-            Per:'.99CNY',
-            isShowOper:true,
-            isShowOrder:false,
-            isShowPay:true
-          },
-          {
-            VendorName:'蟹老板（3354 | 99%）',
-            Num:'100000.00FC',
-            Limit:'1000-5000FC',
-            Per:'.99CNY',
+            Num:'无上限',
+            Limit:'1000FC',
+            Per:'1CNY',
             isShowOper:true,
             isShowOrder:false,
             isShowPay:true
@@ -175,51 +154,33 @@ export default {
     },
     turnPlace(){
       var tradePass=this.$refs.tradePass.value;
+      this.loaDingFcBuy=true;
       var Id=getCookie('mes')
       this.waId=getCookie('waId');
       this.ress=getCookie('ress')
       this.token=getCookie('token')
       this.axios.get(this.oUrl+'/fcexchange/feuser/'+Id).then((res)=>{
-        console.log(res)
-        this.turnPass=res.data.tradePassword;
-      })
+        this.turnPass=res.data.value.tradePassword;
+        this.loaDingFcBuy=false;
         if(tradePass===''){
           this.$notify.error({
             title: '错误',
             message: '请输入交易密码',
             offset:100
           });
-        }else if(this.turnPass===''){
+        }else if(res.data.value.tradePassword===null){
           this.$notify.error({
             title:'错误',
             message:'交易密码未设置',
             offset:100
           })
-        }else if(tradePass!==this.turnPass){
+        }else if(tradePass!==res.data.value.tradePassword){
           this.$notify.error({
               title:'错误',
               message:'交易密码错误',
               offset:100
             })
           }else{
-          this.axios.post(this.oUrl+'/fcexchange/fcorder',
-          {
-            'fcCounts':this.much,
-            'orderType':'buy',
-            'feWallet':{
-              'id':this.waId,
-              'address':this.ress
-            }
-          },
-          {
-            header:{
-              'Content-Type':'application/json',
-              'Accept':'application/json',
-              'Authorization':this.token
-            }
-          },
-        ).then((res)=>{
-          if(res.status==200){
             this.$router.push({
               name:'Fcbuy',
               query:{
@@ -227,9 +188,9 @@ export default {
               }
             })
           }
-        })
+      })
+
         }
-    }
   },
   components:{
     Pager
@@ -252,16 +213,17 @@ export default {
     display: none;
   }
   .pass_pur{
-    width: 300px;
-    height:150px;
+    width: 350px;
+    height:200px;
     position: fixed;
     top:-100%;
     left:50%;
-    margin-left: -150px;
+    border-radius: 12px;
+    margin-left: -175px;
     background: white;
     transition:all .5s;
     padding-top:50px;
-    padding-left:20px;
+    padding-left:45px;
     span{
       font-size: 1.6rem;
     }
@@ -270,9 +232,9 @@ export default {
     }
     button{
       width: 82px;
-      height:32px;
+      height:40px;
       border-radius: 5px;
-      margin-top: 30px;
+      margin-top: 40px;
       background: #5277cc;
       color:white;
     }
@@ -338,7 +300,8 @@ export default {
         width: 36px;
         height:36px;
         border-radius: 50%;
-        background: #999;
+        background: url('../img/UserPic.png');
+        background-size: 100% 100%;
         position: relative;
         .status{
           width:8px;
@@ -358,7 +321,7 @@ export default {
       }
       .rete{
         position: absolute;
-        left:286px;
+        left:296px;
         top:24px;
       }
       .time{
@@ -485,7 +448,7 @@ export default {
         top:34px;
       }
       .rete{
-        left:302px;
+        left:312px;
         top:34px;
       }
       .time{

@@ -1,5 +1,5 @@
 <template lang="html">
-    <div class="purchase">
+    <div class="sell">
       <!-- <p class="select_btn">
         <el-select class="chose_btn" v-model="value" placeholder="支付方式">
           <el-option
@@ -18,7 +18,7 @@
         <span style="margin-left:126px;">支付方式 </span>
         <span style="margin-left:200px;">操作</span>
       </p>
-      <ul class="note_lists">
+      <ul class="note_lists" v-loading="loaDingFcSell">
         <li
         v-for="(item,index) in roteList"
         @mouseleave="CancelMove(index)"
@@ -84,44 +84,8 @@ export default {
           }],
         value: '',
         much:'',
-        roteList:[
-          {
-            VendorName:'海绵海绵我是大星（123 | 97%）',
-            Num:'100000.00FC',
-            Limit:'1000-5000FC',
-            Per:'.99CNY',
-            isShowOper:true,
-            isShowOrder:false,
-            isShowPay:true
-          },
-          {
-            VendorName:'派大星（793 | 95%）',
-            Num:'100000.00FC',
-            Limit:'1000-5000FC',
-            Per:'.99CNY',
-            isShowOper:true,
-            isShowOrder:false,
-            isShowPay:true
-          },
-          {
-            VendorName:'章鱼哥（685 | 99%）',
-            Num:'100000.00FC',
-            Limit:'1000-5000FC',
-            Per:'.99CNY',
-            isShowOper:true,
-            isShowOrder:false,
-            isShowPay:true
-          },
-          {
-            VendorName:'蟹老板（3354 | 99%）',
-            Num:'100000.00FC',
-            Limit:'1000-5000FC',
-            Per:'.99CNY',
-            isShowOper:true,
-            isShowOrder:false,
-            isShowPay:true
-          }
-        ]
+        loaDingFcSell:true,
+        roteList:[]
       }
     },
   methods:{
@@ -200,7 +164,7 @@ export default {
 </script>
 
 <style lang="scss">
-.purchase{
+.sell{
   width: 1040px;
   height:1116px;
   .mask_pur{

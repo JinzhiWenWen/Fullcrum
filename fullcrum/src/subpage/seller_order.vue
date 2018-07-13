@@ -28,20 +28,20 @@
           <span class="time">{{item.time}}</span>
           <span class="much">{{item.fcCounts}}.00 FC</span>
           <span
-          v-show="item.status=='successful'" class="statu"
+          v-show="item.status==='successful'" class="statu"
           style="color:#009944;">已成交
         </span>
           <span
-          v-show="item.status=='trading'" class="statu"
+          v-show="item.status==='trading'" class="statu"
           style="color:#5277cc;">
           交易中
         </span>
           <span
-          v-show="item.status=='published'" class="statu"
+          v-show="item.status==='published'" class="statu"
           style="color:#f8b551;"
           >已发布</span>
           <span
-          v-show="item.status=='audit'" class="statu"
+          v-show="item.status==='audit'" class="statu"
           style="color:#369c27;"
           >审核中</span>
           <span v-show="item.status=='failure'" class="statu">已取消</span>

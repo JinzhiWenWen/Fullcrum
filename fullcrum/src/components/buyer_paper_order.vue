@@ -7,13 +7,14 @@
       <span style="margin-left:534px;">订单状态</span>
       <span style="margin-left:82px;">操作 </span>
     </p>
-    <ul class="note_lists">
+    <ul class="note_lists" v-loading="loaDingBuyerPaper">
       <li v-for="(item,index) in noteLists">
-        <span class="num">{{item.orderNum}}</span>
+        <span class="num">{{item.orderNumber}}</span>
         <span class="time">{{item.data}}</span>
-        <span class="much">{{item.amount}}</span>
-        <span class="statu">{{item.status}}</span>
-        <button type="button" name="button">{{item.chose}}</button>
+        <span class="much">{{item.billPrice}}.00 FC</span>
+        <span class="statu" style="color:#5277cc;" v-show="item.billSellerOrder.status==='trading'">交易中</span>
+        <span class="statu" style="color:#009944" v-show="item.billSellerOrder.status==='successful'">已成交</span>
+        <button type="button" name="button">查看</button>
       </li>
     </ul>
     <Pager/>
@@ -25,36 +26,18 @@ import {getCookie} from '@/assets/util'
 export default {
   data(){
     return{
-      noteLists:[
-        {
-          orderNum:'2018050300001',
-          data:'2018/4/28',
-          amount:'15,000CNY',
-          status:'已成交',
-          chose:'查看'
-        },
-        {
-          orderNum:'2018050300001',
-          data:'2018/5/3',
-          amount:'8,000CNY',
-          status:'已成交',
-          chose:'查看'
-        },
-        {
-          orderNum:'2018050300001',
-          data:'2018/2/12',
-          amount:'200,000CNY',
-          status:'已成交',
-          chose:'查看'
-        },
-      ]
+      noteLists:[],
+      loaDingBuyerPaper:false
     }
   },
   methods:{
   	order(){
   		var Id=getCookie('mes')
+      this.loaDingBuyerPaper=true;
   		this.axios.get(this.oUrl+'/fcexchange/bill/buyerorders/'+Id).then((res)=>{
         console.log(res)
+        this.noteLists=res.data.value
+        this.loaDingBuyerPaper=false
       })
   	}
   },
@@ -94,7 +77,7 @@ export default {
     }
     .much{
       position: absolute;
-      left:29.2%;
+      left:28.8%;
     }
     .statu{
       position: absolute;

@@ -392,6 +392,9 @@ export default {
       padding-left:10px;
       padding-right:10px;
       margin-left: 0;
+      .por{
+        left:6px;
+      }
       .oper{
         top:26px;
         right:12px;
@@ -438,6 +441,7 @@ export default {
   width: 300px;
   height:150px;
   position: fixed;
+  border-radius: 12px;
   top:300px;
   left:50%;
   margin-left: -150px;

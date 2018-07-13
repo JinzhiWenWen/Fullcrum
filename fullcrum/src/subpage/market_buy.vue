@@ -141,7 +141,7 @@ export default {
                     .call()
                     .then(result=>{
                         //sample_user_wallet允许sample_groupon_ctr_addr使用的额度
-                        console.log("sample_user_wallet 允许 sample_groupon_ctr_addr 使用的额度:"+result*0.000000000000000001);
+                        console.log("派大星 允许 海绵宝宝 使用的额度:"+result*0.000000000000000001);
                         resolve();
                     })
                     .catch(error => {
@@ -293,7 +293,7 @@ export default {
                                   ).then((res)=>{
                                   console.log(res)
                                   _this.loadingPlace=false;
-                                  this.$notify({
+                                  _this.$notify({
                                     title: '成功',
                                     message: '支付成功！',
                                     type: 'success',
@@ -301,7 +301,7 @@ export default {
                                   });
                                 }).catch((error)=>{
                                   console.log(error)
-                                  this.$notify.error({
+                                  _this.$notify.error({
                                     title: '错误',
                                     message: '支付失败，请检查您的账户余额或稍后再试！',
                                     offset:100

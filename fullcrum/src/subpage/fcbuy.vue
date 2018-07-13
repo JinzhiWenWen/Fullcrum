@@ -7,9 +7,9 @@
       <p class="base">
         <span style="font-size:3rem;">您正向天王盖地虎购买{{this.turnMuch}}.00FC</span>
         <br>
-        <span style="color:#999;font-size:1.6rem;;margin-top:20px;margin-bottom:14px;">单价：0.99CNY</span>
+        <span style="color:#999;font-size:1.6rem;;margin-top:20px;margin-bottom:14px;">单价：1CNY</span>
         <br>
-        <span style="color:#999;font-size:1.6rem;">总价：<span style="color:#639c79;">45,900.00FC</span></span>
+        <span style="color:#999;font-size:1.6rem;">总价：<span style="color:#639c79;">{{this.turnMuch}}.00FC</span></span>
         </p>
       <p class="pay">
         <span style="color:black;font-size:1.6rem;margin-bottom:24px;">收款账户</span>
@@ -39,10 +39,15 @@
       <p class="tions">待支付，请于
         <span style="color:#e60012;">19分58秒</span>
         内向天王盖地虎支付
-        <span style="color:#53936c;">45,900.00CNY。</span>
+        <span style="color:#53936c;">{{this.turnMuch}}.00CNY。</span>
         </p>
       <p class="submit">
-        <button type="button" name="button">标为已付款</button>
+        <button type="button" name="button" @click="placeFc()"
+        v-loading="loaDingFcPlace"
+        element-loading-text="请稍后"
+        element-loading-spinner="el-icon-loading"
+        element-loading-background="#5277cc"
+        >标为已付款</button>
         <span class="title">
           <img src="../img/icon_fcbuy.png" alt="">
           付款成功后，请点击按钮告知对方
@@ -64,10 +69,12 @@
 
 <script>
 import HeaderBuyer from '@/components/header-user'
+import {getCookie} from '@/assets/util'
 export default {
   data(){
     return{
-      turnMuch:null
+      turnMuch:null,
+      loaDingFcPlace:false
     }
   },
   components:{
@@ -76,6 +83,26 @@ export default {
   methods:{
     getParamsOrder(){
       this.turnMuch=this.$route.query.much;
+      console.log(this.turnMuch)
+    },
+    placeFc(){
+      var res=getCookie('ress');//用户钱包地址
+      var mu=this.$route.query.much//购买数量
+      this.loaDingFcPlace=true;
+      // 创建axios
+      this.axios.post(this.oUrl+'/fcexchange/fcorder',
+      {
+        "fcCounts": mu,
+        "orderType": "buy",
+        "feWalletAddress":res
+      },
+      {header:{
+        'Content-Type':'application/json'
+      }}
+    ).then((res)=>{
+      this.loaDingFcPlace=false;
+      console.log(res)
+    })
     }
   },
   created(){
