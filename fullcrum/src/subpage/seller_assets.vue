@@ -7,8 +7,8 @@
       <p class="title">累计销售：2500000FC   在线票据：700000（元） 可提现金额：300000（元）
         累计提现：520000（元）
       </p>
-      <div class="fc" ref="fc">
-        <p class="spec_fc">订单号：13240891337
+      <div class="fc" ref="fc"  v-for="(item,index) in orderList">
+        <p class="spec_fc">订单号：{{item.orderNumber}}
           <span
           style="color:#5570c7;font-size:1.2rem;
           text-decoration: underline;cursor:pointer;
@@ -19,8 +19,8 @@
         <p class="blance">
           <span class="num">
             发布日期：20180501
-            <span style="margin-left:18px;">票面金额：100000.00FC</span>
-            <span style="margin-left:18px;">利率(年化)：4.5%</span>
+            <span style="margin-left:18px;">票面金额：{{item.fcCounts}}.00FC</span>
+            <span style="margin-left:18px;">利率(年化)：{{item.interest/1000000000000000000}}%</span>
           </span>
           <router-link to="/with" tag="button" class="buy">提现</router-link>
         </p>
@@ -40,7 +40,13 @@
 
 <script>
 import HeaderSeller from '@/components/header-seller'
+import {getCookie} from '@/assets/util'
 export default {
+  data(){
+    return{
+      orderList:[]
+    }
+  },
   methods:{
     showPaper(){
       this.$refs.mask.style.display='block';
@@ -49,7 +55,17 @@ export default {
     closePic(){
       this.$refs.mask.style.display='none';
       this.$refs.paperPic.style.top="-500px";
+    },
+    getSellerOrder(){
+      var Id=getCookie('mes')
+      this.axios.get(this.oUrl+'/fcexchange/bill/sellerorders/sellerorder/'+Id).then((res)=>{
+        console.log(res)
+        this.orderList=res.data.value;
+      })
     }
+  },
+  created(){
+    this.getSellerOrder()
   },
   components:{
     HeaderSeller
@@ -64,7 +80,6 @@ export default {
   position: absolute;
   left:50%;
   margin-left: -378px;
-  padding-top:64px;
   .title{
     font-size:1.4rem;
     color:#999;
@@ -79,6 +94,9 @@ export default {
     box-shadow: 0 5px 10px #ddd;
     padding-left:34px;
     padding-right:34px;
+    box-sizing: border-box;
+    overflow: hidden;
+    margin-top:64px;
     .spec_fc{
       padding-top:26px;
       padding-bottom:24px;
@@ -87,21 +105,28 @@ export default {
     }
     .blance{
       padding-top:20px;
+      min-width: 450px;
+      position: absolute;
+      width: 100%;
       button{
-        width: 120px;
+        width: 15vh;
         height:40px;
         border-radius: 5px;
         background: white;
         font-size: 1.8rem;
+        min-width:55px;
       }
       .num{
         font-size: 1.2rem;
         color:#999;
+        margin-top: 1%;
       }
       .buy{
-        margin-left: 120px;
+        position: absolute;
         background: #5277cc;
         color:white;
+        right:15%;
+        top:38%;
       }
     }
   }
