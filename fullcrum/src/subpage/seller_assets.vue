@@ -4,8 +4,8 @@
       <p class="slot-mine">资产</p>
     </HeaderSeller>
     <div class="person_content" v-loading="loaDingSellerAss">
-      <p class="title">累计销售：2500000FC   在线票据：700000（元） 可提现金额：300000（元）
-        累计提现：520000（元）
+      <p class="title">Fc余额：{{sellerBalance/1000000000000000000}}.00FC   在线票据：0（元） 可提现金额：0（元）
+        累计提现：0（元）
       </p>
       <div class="fc" ref="fc"  v-for="(item,index) in orderList">
         <p class="spec_fc">订单号：{{item.orderNumber}}
@@ -45,7 +45,8 @@ export default {
   data(){
     return{
       orderList:[],
-      loaDingSellerAss:false
+      loaDingSellerAss:false,
+      sellerBalance:null
     }
   },
   methods:{
@@ -89,7 +90,7 @@ export default {
                   console.log(number)
                   console.log("decimalAppend$$$$$$$$$$$$$$$$$$$$$")
                   //console.log(decimalAppend(35.12345))
-                  _this.balance=number
+                  _this.sellerBalance=number
                 })
 
               })

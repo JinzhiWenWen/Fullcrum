@@ -58,7 +58,6 @@ export default {
       console.log(this.$route.params)
     },
     Markplace(){
-
         var _this=this;
       _this.loadingPlace=true;
       let ress=getCookie('ress')
@@ -292,11 +291,11 @@ export default {
                                   }}
                                   ).then((res)=>{
                                   console.log(res)
-                                  
-                                  
+
+
                                 }).catch((error)=>{
                                   console.log(error)
-                                  
+
                                 })
                                 console.log("Purchase transaction hash: "+hash);
                             })

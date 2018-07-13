@@ -98,7 +98,6 @@ export default {
       var _this=this;
       _this.loaDingSellerMark=true;
       _this.axios.get(_this.oUrl+'/fcexchange/bill/sellerorders/availableorders/').then((res)=>{
-        console.log(res);
         _this.loaDingSellerMark=false;
         _this.roteList=res.data.value;
       }).catch((error)=>{
