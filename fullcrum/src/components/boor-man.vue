@@ -142,33 +142,27 @@ export default {
             }
             ,{headers:{'Content-Type':'application/json'}}
             ).then((res)=>{
+              console.log(res.data)
               var sta=res.status;
-              var iden=res.data.value.identity;
-              var id=res.data.value.id;
-              var token=res.data.value.appToken;
-              var iden=res.data.value.identity;
+              var ress=res.data.value.feWalletAddress;
               var key=res.data.value.buyerPrivateKey;
-              var ress=res.data.value.feWalletAddress
-              sessionStorage.setItem('mes',id);
-              setCookie('mes',id);
-              setCookie('token',token);
-              setCookie('ide',iden)
-              if(sta==200){
-                this.$router.push({
-                  name:'LogiUoSuccess',
-                  params:{
-                    iden:this.ruleForm2.identity,//传递参数到注册完成页面   用户身份
-                    privateKey:key, //买家私钥
-                    ress:ress//用户钱包地址
-                  }
-                })
-              }
+              var mes=res.data.value.id;
+              setCookie('ress',ress);
+              setCookie('mes',mes)
+              this.$router.push({
+                name:'LogiUoSuccess',
+                params:{
+                  iden:this.ruleForm2.identity,//传递参数到注册完成页面   用户身份
+                  privateKey:key //买家私钥
+                }
+              })
             }).catch((error)=>{
               this.loadingBoor=false;
+              // console.log(error)
               if(error.response.data.code==0){
                 this.$notify.error({
                   title: '错误',
-                  message: '账号已注册或昵称已存在！',
+                  message: '账号已注册或昵称重复！',
                   offset:100
                 });
                 // alert('111')

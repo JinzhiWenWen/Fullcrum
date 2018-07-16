@@ -98,11 +98,13 @@ export default {
               var token=res.data.value.appToken;
               var iden=res.data.value.identity;
               var ress=res.data.value.feWalletAddress;
+              var phone=res.data.value.phone;
               sessionStorage.setItem('mes',id);
               setCookie('mes',id);
               setCookie('token',token);
               setCookie('ide',iden)
               setCookie('ress',ress)
+              setCookie('phone',phone)
               if(iden==='buyer'){
                 this.$router.push('/mark')
               }else if(iden==='seller'){

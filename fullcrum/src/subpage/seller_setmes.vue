@@ -26,11 +26,7 @@
           </p>
           <p class="user_pass">
             <span class="nick_pass">登录密码</span>
-            <span class="nick_pass_last" ref="nick_pass"></span>
-            <input type="text" name=""
-            ref="change_pass" value=""
-            placeholder="请输入登录密码"
-            class="change_btn">
+            <span class="nick_pass_last" ref="nick_pass">******</span>
           </p>
           <p class="user_trade">
             <span class="nick_trade">交易密码</span>
@@ -124,6 +120,7 @@
 import HeaderSeller from '@/components/header-seller'
 import {getCookie} from '@/assets/util'
 import {setCookie} from '@/assets/util'
+import {delCookie} from '@/assets/util'
 export default {
   data(){
     return{
@@ -139,8 +136,24 @@ export default {
       this.token=getCookie('token');
       var tradePass=this.$refs.change_trade.value;
       var phoneNum=this.$refs.change_phone.value;
+      var num=false;
       this.loadingMesset=true;
-      if(phone.test(phoneNum)){
+      if(phone.test(phoneNum))num=true;
+      if(num===false){
+        this.loadingMesset=false
+        this.$notify.error({
+          title: '错误',
+          message: '请输入正确的手机号',
+          offset:100
+        });
+      }else if(tradePass==''){
+        this.loadingMesset=false
+        this.$notify.error({
+          title: '错误',
+          message: '请输入交易密码',
+          offset:100
+        });
+      }else{
         this.axios.post(this.oUrl+'/fcexchange/feusers/updateFeUser',
         {
         "id":Id,
@@ -159,16 +172,9 @@ export default {
         "Authorization":this.token
       }}
       ).then((res)=>{
-        console.log(res.data)
+        delCookie('phone')
         this.$router.push('/seller')
       })
-      }else{
-        this.loadingMesset=false
-        this.$notify.error({
-          title: '错误',
-          message: '请输入正确的手机号',
-          offset:100
-        });
       }
     },
     obUser(){
@@ -232,141 +238,133 @@ export default {
           font-size: 1.4rem;
         }
       }
-      .account_message{
-        padding-left:32px;
-        .user_name{
-          width:100%;
-          height:50px;
-          border-bottom:1px solid #eee;
-          line-height: 50px;
-          position: relative;
-          .nick_name{
-            font-size: 1.4rem;
-            color:#a1a1a1;
-          }
-          .nick_name_last{
-            @include public-name;
-            font-size: 1.2rem;
-            color:#333;
-          }
-          .nick_mod{
-            @include public-btn;
-          }
-          .change_btn{
-            color:#7ea8f5;
-            position:absolute;
-            top: 10px;
-            left:25%;
-            height:26px;
-            width: 200px;
-          }
+
+    }
+    .account_message{
+      padding-left:32px;
+      .user_name{
+        width:100%;
+        height:50px;
+        border-bottom:1px solid #eee;
+        line-height: 50px;
+        position: relative;
+        .nick_name{
+          font-size: 1.4rem;
+          color:#a1a1a1;
         }
-        .user_email{
-          width:100%;
-          height:50px;
-          border-bottom:1px solid #eee;
-          line-height: 50px;
-          position: relative;
-          .nick_email{
-            font-size: 1.4rem;
-            color:#a1a1a1;
-          }
-          .nick_email_last{
-            @include public-name;
-            font-size: 1.2rem;
-            color:#b0b0b0;
-          }
-          .nick_mod{
-            @include public-btn;
-          }
-          .change_btn{
-            color:#7ea8f5;
-            position:absolute;
-            top: 10px;
-            left:25%;
-            height:26px;
-            width: 200px;
-          }
+        .nick_name_last{
+          font-size: 1.2rem;
+          color:#333;
+          position: absolute;
+          left:25%;
         }
-        .user_phone{
-          width:100%;
-          height:50px;
-          border-bottom:1px solid #eee;
-          line-height: 50px;
-          position: relative;
-          .nick_phone{
-            font-size: 1.4rem;
-            color:#a1a1a1;
-          }
-          .nick_phone_last{
-            @include public-name;
-            font-size: 1.2rem;
-            color:#b0b0b0;
-          }
-          .nick_mod{
-            @include public-btn;
-          }
-          .change_btn{
-            color:#7ea8f5;
-            position:absolute;
-            top: 10px;
-            left:25%;
-            height:26px;
-            width: 200px;
-          }
+        .change_btn{
+          position:absolute;
+          top: 10px;
+          left:25%;
+          height:26px;
+          width: 200px;
         }
-        .user_pass{
-          width:100%;
-          height:50px;
-          border-bottom:1px solid #eee;
-          line-height: 50px;
-          position: relative;
-          .nick_pass{
-            font-size: 1.4rem;
-            color:#a1a1a1;
-          }
-          .nick_pass_last{
-            margin-left:124px;
-            font-size: 1.2rem;
-            color:#333;
-          }
-          .nick_mod{
-            @include public-btn;
-          }
-          .change_btn{
-            color:#7ea8f5;
-            position:absolute;
-            top: 10px;
-            left:25%;
-            height:26px;
-            width: 200px;
-          }
+      }
+      .user_email{
+        width:100%;
+        height:50px;
+        border-bottom:1px solid #eee;
+        line-height: 50px;
+        position: relative;
+        .nick_email{
+          font-size: 1.4rem;
+          color:#a1a1a1;
         }
-        .user_trade{
-          width:100%;
-          height:50px;
-          line-height: 50px;
-          position: relative;
-          .nick_trade{
-            font-size: 1.4rem;
-            color:#a1a1a1;
-          }
-          .nick_trade_last{
-            margin-left:124px;
-            font-size: 1.2rem;
-            color:#b0b0b0;
-          }
-          .nick_mod{
-            @include public-btn;
-          }
-          .change_trade{
-            color:#7ea8f5;
-            position:absolute;
-            top: 10px;
-            left:25%;
-            height:26px;
-            width: 200px;
-          }
+        .nick_email_last{
+          font-size: 1.2rem;
+          color:#b0b0b0;
+          position: absolute;
+          left:25%;
+        }
+        .change_btn{
+          position:absolute;
+          top: 10px;
+          left:25%;
+          height:26px;
+          width: 200px;
+        }
+      }
+      .user_phone{
+        width:100%;
+        height:50px;
+        border-bottom:1px solid #eee;
+        line-height: 50px;
+        position: relative;
+        .nick_phone{
+          font-size: 1.4rem;
+          color:#a1a1a1;
+        }
+        .nick_phone_last{
+          @include public-name;
+          font-size: 1.2rem;
+          color:#b0b0b0;
+        }
+        .nick_mod{
+          @include public-btn;
+        }
+        .change_btn{
+          position:absolute;
+          top: 10px;
+          left:25%;
+          height:26px;
+          width: 200px;
+        }
+      }
+      .user_pass{
+        width:100%;
+        height:50px;
+        border-bottom:1px solid #eee;
+        line-height: 50px;
+        position: relative;
+        .nick_pass{
+          font-size: 1.4rem;
+          color:#a1a1a1;
+        }
+        .nick_pass_last{
+          margin-left:124px;
+          font-size: 1.2rem;
+          color:#333;
+        }
+        .nick_mod{
+          @include public-btn;
+        }
+        .change_btn{
+          position:absolute;
+          top: 10px;
+          left:25%;
+          height:26px;
+          width: 200px;
+        }
+      }
+      .user_trade{
+        width:100%;
+        height:50px;
+        line-height: 50px;
+        position: relative;
+        .nick_trade{
+          font-size: 1.4rem;
+          color:#a1a1a1;
+        }
+        .nick_trade_last{
+          margin-left:124px;
+          font-size: 1.2rem;
+          color:#b0b0b0;
+        }
+        .nick_mod{
+          @include public-btn;
+        }
+        .change_trade{
+          position:absolute;
+          top: 10px;
+          left:25%;
+          height:26px;
+          width: 200px;
         }
       }
     }

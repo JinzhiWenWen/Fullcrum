@@ -142,21 +142,13 @@ export default {
     },
     getMe(){
       var Id=getCookie('mes');
-      var phone = null;
-      if (phone ==null) {
-        alert("==33333333");
-        console.log("phone is :")
-        console.log(phone)
-        console.log("null");
+      var phone=getCookie('phone');
+      if(phone=="null"){
+        this.$router.push('/personSet')
       }else{
-         this.axios.get(this.oUrl+'/fcexchange/feuser/'+Id).then((res)=>{
-        console.log(res)
-        this.userMessage=res.data.value
-        // if(res.data.value.tradePassword==null){
-        //   this.$router.push('/personSet')
-        // }
-      });
-         console.log("phone is not null ..................")
+        this.axios.get(this.oUrl+'/fcexchange/feuser/'+Id).then((res)=>{
+          this.userMessage=res.data.value
+        });
       }
      
     },
@@ -166,6 +158,7 @@ export default {
           qrcode.makeCode(ress_addr)
           console.log("here is in qrcode ")
           console.log(qrcode)
+
     }
   },
   created(){

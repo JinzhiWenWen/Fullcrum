@@ -103,7 +103,7 @@ export default {
     }
     .right{
       position:absolute;
-      right:20vh;
+      right:14vh;
       top:.5%;
       display:flex;
       .user_pic{
@@ -123,7 +123,7 @@ export default {
       height:140px;
       position: absolute;
       top: 36px;
-      right:3.7%;
+      right:11.5vh;
       ul{
         display: flex;
         -webkit-flex-wrap:wrap;

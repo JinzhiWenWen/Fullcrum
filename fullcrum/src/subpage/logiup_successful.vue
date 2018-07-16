@@ -10,8 +10,7 @@
         <p class="wallet_address">{{ress}}</p>
         <p>这是系统为您生成的数字钱包地址，可在个人中心查看。</p>
       </div>
-      <button class="personal" type="button" name="button" @click="personal()">进入个人中心</button>
-      <button class="succ_market" type="button" name="button" @click="market()">进入票据市场</button>
+      <button class="personal" type="button" name="button" @click="signUp()">立即登录</button>
     </div>
     <div class="showKey" ref="showKey">
       <p>这是系统为您自动生成平台数字钱包的秘钥，请妥善保存！</p>
@@ -41,39 +40,24 @@ export default {
     SginUpHeader
   },
   methods:{
-    //判断用户身份进入页面
-    personal(){
-      var iden=this.mes;
-      console.log(iden)
-      if(iden==='buyer'){
-        window.open(window.location.origin + '/person')
-      }else{
-        window.open(window.location.origin + '/seller')
-      }
-    },
-    market(){
-      var iden=this.mes;
-      console.log(iden)
-      if(iden==='buyer'){
-        window.open(window.location.origin + '/mark')
-      }else{
-        window.open(window.location.origin + '/sellerma')
-      }
+    signUp(){
+      alert('111')
     },
     //接收传参
     getParams(){
       this.mes=this.$route.params.iden;//用户身份
-      this.ress=this.$route.params.ress;//用户钱包地址
       this.privateKey=this.$route.params.privateKey;//买家私钥
-      console.log(this.$route.params)
+      this.ress=getCookie('ress')
     },
     showKey(){
       var _this=this;
-      setTimeout(()=>{
-        _this.maskSucc=true
-        _this.$refs.showKey.style.top='30%';
-        _this.$refs.showKey.style.opacity='1';
-      },500)
+      if(this.mes==='buyer'){
+        setTimeout(()=>{
+          _this.maskSucc=true
+          _this.$refs.showKey.style.top='30%';
+          _this.$refs.showKey.style.opacity='1';
+        },500)
+      }
     },
     closeMaskSucc(){
       this.maskSucc=false;

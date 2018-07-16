@@ -40,6 +40,7 @@ import Paperorder from '@/components/buyer_paper_order'
 import PersonalSet from '@/subpage/personal_setmes'
 import SellerSet from '@/subpage/seller_setmes'
 import MarketBuy from '@/subpage/market_buy'
+import Login from '@/subpage/login'
 import {getCookie} from '@/assets/util'
 import {delCookie} from '@/assets/util'
 Vue.use(Router)
@@ -68,6 +69,7 @@ const router = new Router({
       },
       {path:'/vendor',name:'Vendor',component:Vendor},
       {path:'/buyer',name:'Buyer',component:Buyer},
+      {path:'/login',name:'Login',component:Login},
       {
         path:'/logiup',
         name:'LogiUp',
