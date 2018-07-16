@@ -103,7 +103,7 @@
       <div class="account_wallt">
         <p class="wallt_title">数字钱包</p>
         <span class="wallt_qr"><div id="qrcode"></div></span><br>
-        <span class="wallt_address">GYgvuyt5763GVJHVUGY26VJH43<span style="cursor:pointer;color:#98b8f7;text-decoration: underline;">复制</span></span>
+        <span class="wallt_address">{{ress}}<span style="cursor:pointer;color:#98b8f7;text-decoration: underline;">复制</span></span>
       </div>
     </div>
   </div>
@@ -116,6 +116,7 @@ import {getCookie} from '@/assets/util'
 export default {
   data(){
     return{
+      ress:null,
       isShowName:false,
       isShowEmail:false,
       isShowPhone:false,
@@ -143,6 +144,7 @@ export default {
     getMe(){
       var Id=getCookie('mes');
       var phone=getCookie('phone');
+      
       if(phone=="null"){
         this.$router.push('/personSet')
       }else{
@@ -153,11 +155,12 @@ export default {
      
     },
     _getQrcode(){
+          this.ress = getCookie('ress');
           var qrcode = new QRCode(document.getElementById("qrcode"), {width : 200,height : 200});
-          let ress_addr = '0x'+getCookie('ress');
+          let ress_addr = '0x'+this.ress;
           qrcode.makeCode(ress_addr)
           console.log("here is in qrcode ")
-          console.log(qrcode)
+          console.log(this.ress)
 
     }
   },
