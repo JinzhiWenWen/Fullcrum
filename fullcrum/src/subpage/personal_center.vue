@@ -142,13 +142,14 @@ export default {
     },
     getMe(){
       var Id=getCookie('mes');
-      this.axios.get(this.oUrl+'/fcexchange/feuser/'+Id).then((res)=>{
-        console.log(res)
-        this.userMessage=res.data.value
-        if(res.data.value.tradePassword===null){
-          this.$router.push('/personSet')
-        }
-      });
+      var phone=getCookie('phone');
+      if(phone=="null"){
+        this.$router.push('/personSet')
+      }else{
+        this.axios.get(this.oUrl+'/fcexchange/feuser/'+Id).then((res)=>{
+          this.userMessage=res.data.value
+        });
+      }
     }
   },
   created(){

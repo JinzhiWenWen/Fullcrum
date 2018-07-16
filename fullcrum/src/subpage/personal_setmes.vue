@@ -18,7 +18,6 @@
           </p>
           <p class="user_phone">
             <span class="nick_phone">手机</span>
-            <span class="nick_phone_last" ref="nick_phone"></span>
             <input type="text" name=""
             ref="change_phone" value=""
             placeholder="请输入手机号"
@@ -30,7 +29,6 @@
           </p>
           <p class="user_trade">
             <span class="nick_trade">交易密码</span>
-            <span class="nick_trade_last" ref="nick_trade"></span>
             <input type="text" name=""
             ref="change_trade" value=""
             placeholder="请输入交易密码"
@@ -98,6 +96,7 @@
 <script>
 import HeaderUser from '@/components/header-user'
 import {getCookie} from '@/assets/util'
+import {delCookie} from '@/assets/util'
 export default {
   data(){
     return{
@@ -124,8 +123,24 @@ export default {
       this.token=getCookie('token');
       var tradePass=this.$refs.change_trade.value;
       var phoneNum=this.$refs.change_phone.value;
+      var num=false;
+      if(phone.test(phoneNum))num=true;
       this.loadingMesset=true;
-      if(phone.test(phoneNum)){
+      if(num===false){
+        this.loadingMesset=false
+        this.$notify.error({
+          title: '错误',
+          message: '请输入正确的手机号',
+          offset:100
+        });
+      }else if(tradePass==''){
+        this.loadingMesset=false
+        this.$notify.error({
+          title: '错误',
+          message: '请输入交易密码',
+          offset:100
+        });
+      }else{
         this.axios.post(this.oUrl+'/fcexchange/feusers/updateFeUser',
         {
         "id":Id,
@@ -145,15 +160,9 @@ export default {
       }}
       ).then((res)=>{
         console.log(res)
+        delCookie('phone')
         this.$router.push('/person')
       })
-      }else{
-        this.loadingMesset=false
-        this.$notify.error({
-          title: '错误',
-          message: '请输入正确的手机号',
-          offset:100
-        });
       }
     }
   },

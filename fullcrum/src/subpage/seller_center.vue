@@ -10,7 +10,7 @@
         <div class="account_message">
           <p class="user_name">
             <span class="nick_name">昵称</span>
-            <span class="nick_name_last">{{userMessage.userName}}</span>
+            <span class="nick_name_last">{{userMessage.username}}</span>
             <span class="nick_mod" @click="change_name">修改</span>
             <input type="text" name=""
             ref="change_name" value=""
@@ -28,7 +28,7 @@
           </p>
           <p class="user_phone">
             <span class="nick_phone">手机</span>
-            <span class="nick_phone_last" ref="nick_phone"></span>
+            <span class="nick_phone_last" ref="nick_phone">{{userMessage.phone}}</span>
             <span class="nick_mod" @click="change_phone">修改</span>
             <input type="text" name=""
             ref="change_phone" value=""
@@ -37,7 +37,7 @@
           </p>
           <p class="user_pass">
             <span class="nick_pass">登录密码</span>
-            <span class="nick_pass_last" ref="nick_pass"></span>
+            <span class="nick_pass_last" ref="nick_pass">******</span>
             <span class="nick_mod" @click="change_pass">修改</span>
             <input type="text" name=""
             ref="change_pass" value=""
@@ -46,7 +46,7 @@
           </p>
           <p class="user_trade">
             <span class="nick_trade">交易密码</span>
-            <span class="nick_trade_last" ref="nick_trade"></span>
+            <span class="nick_trade_last" ref="nick_trade">******</span>
             <span class="nick_mod" @click="change_trade">设置</span>
             <input type="text" name=""
             ref="change_trade" value=""
@@ -414,11 +414,11 @@ export default {
     },
     obUser(){
       var Id=getCookie('mes');
+      var phone=getCookie('phone')
       this.axios.get(this.oUrl+'/fcexchange/feuser/'+Id).then((res)=>{
         this.userMessage=res.data.value
-
         console.log(res)
-        if(this.userMessage.tradePassword===null){
+        if(phone=='null'){
           this.$router.push('/sellerSet')
         }
       });

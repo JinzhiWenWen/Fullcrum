@@ -4,7 +4,6 @@
       <Loge/>
       <More/>
       <div class="logo" ref="logo">
-
       </div>
   </div>
   <div class="title">
