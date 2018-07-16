@@ -19,6 +19,7 @@
 
 <script>
 import HeaderLogin from '@/components/header-sginUp'
+import {setCookie} from '@/assets/util'
 export default {
   data(){
     return{
@@ -49,6 +50,7 @@ export default {
           'Accept':'application'
         }}
       ).then((res)=>{
+        console.log(res)
         var id=res.data.value.id;
         var token=res.data.value.appToken;
         var iden=res.data.value.identity;
@@ -62,9 +64,9 @@ export default {
         setCookie('phone',phone)
         _this.loadingLogin=false;
         if(res.data.value.identity=='buyer'){
-          _this.$router.push('/person')
+          this.$router.push('/person')
         }else{
-          _this.$outer.push('/seller')
+          this.$router.push('/seller')
         }
       }).catch((error)=>{
         console.log(error.response)
