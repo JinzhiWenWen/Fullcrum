@@ -155,10 +155,11 @@ export default {
         }
       };
       setTimeout(()=>{
-        this.picIs=img.src
+        // this.picIs=img.src
         var Is=this.picIs.split('');
         var IsStr=Is.splice(0,22);
         this.picSub=Is.join('');
+        localStorage('is',img.src)
       },500)
     },
     uploadThe(e){
