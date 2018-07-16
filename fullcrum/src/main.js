@@ -12,6 +12,7 @@ import 'jquery'
 import './index.css'
 import Web3 from '@/assets/web3/web3.js'
 import {getCookie} from '@/assets/util'
+import QRcode from '@/assets/js/qrcode.js'
 Vue.config.productionTip = false;
 Vue.use(ElementUI);
 Vue.use(VueResource);

@@ -5,7 +5,8 @@
       <p class="statu_title">恭喜，您的FULCRUM账号已成功开通！</p>
       <span class="statu_alt">欢迎来到世界票据交易市场！</span>
       <div class="qr_code">
-        <img src="../img/qr.png" alt="">
+        <!-- <img id="imgSrc" src="../img/qr.png" alt=""> -->
+        <div id="qrcode" ref="qrcode"></div>
         <p class="wallet_address">{{ress}}</p>
         <p>这是系统为您生成的数字钱包地址，可在个人中心查看。</p>
       </div>
@@ -26,6 +27,7 @@
 import SginUpHeader from '@/components/header-sginUp'
 import {setCookie} from '@/assets/util'
 import {getCookie} from '@/assets/util'
+
 export default {
   data(){
     return{
@@ -77,12 +79,23 @@ export default {
       this.maskSucc=false;
       this.$refs.showKey.style.top='15%';
       this.$refs.showKey.style.opacity='0';
+    },
+    _getQrcode(){
+
+
+          var qrcode = new QRCode(document.getElementById("qrcode"), {width : 200,height : 200});
+          let ress_addr = '0x'+this.ress;
+          //let ress_addr = '0x76092c67fec2f8df8b0e7b0557bdbd6de38fdee5';
+          qrcode.makeCode(ress_addr)
+          console.log("here is in qrcode ")
+          /*console.log(qrcode._oDrawing._elImage)*/
     }
   },
   created(){
     this.getParams();
   },
   mounted(){
+    this._getQrcode()
     this.showKey()
   },
   //检测路由变化
@@ -96,7 +109,7 @@ export default {
 .logiup_successful{
   width: 100%;
   height:100%;
-  // position: relative;
+    // position: relative;
   text-align: center;
   .succ{
     width:684px;
@@ -119,6 +132,11 @@ export default {
       color:#6d6d6d;
       margin-top:28px;
       margin-bottom: 28px;
+    }
+    #qrcode{
+      height: 200px;
+        width: 200px;
+        margin: auto; 
     }
     .qr_code{
       width: 500px;

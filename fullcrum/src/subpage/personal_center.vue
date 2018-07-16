@@ -102,7 +102,7 @@
       </div>
       <div class="account_wallt">
         <p class="wallt_title">数字钱包</p>
-        <span class="wallt_qr"><img src="../img/qr.png" alt="" title=""></span><br>
+        <span class="wallt_qr"><div id="qrcode"></div></span><br>
         <span class="wallt_address">GYgvuyt5763GVJHVUGY26VJH43<span style="cursor:pointer;color:#98b8f7;text-decoration: underline;">复制</span></span>
       </div>
     </div>
@@ -142,17 +142,37 @@ export default {
     },
     getMe(){
       var Id=getCookie('mes');
-      this.axios.get(this.oUrl+'/fcexchange/feuser/'+Id).then((res)=>{
+      var phone = null;
+      if (phone ==null) {
+        alert("==33333333");
+        console.log("phone is :")
+        console.log(phone)
+        console.log("null");
+      }else{
+         this.axios.get(this.oUrl+'/fcexchange/feuser/'+Id).then((res)=>{
         console.log(res)
         this.userMessage=res.data.value
-        if(res.data.value.tradePassword===null){
-          this.$router.push('/personSet')
-        }
+        // if(res.data.value.tradePassword==null){
+        //   this.$router.push('/personSet')
+        // }
       });
+         console.log("phone is not null ..................")
+      }
+     
+    },
+    _getQrcode(){
+          var qrcode = new QRCode(document.getElementById("qrcode"), {width : 200,height : 200});
+          let ress_addr = '0x'+getCookie('ress');
+          qrcode.makeCode(ress_addr)
+          console.log("here is in qrcode ")
+          console.log(qrcode)
     }
   },
   created(){
     this.getMe();
+  },
+  mounted(){
+      this._getQrcode();
   },
   components:{
     HeaderUser

@@ -192,6 +192,7 @@ export default {
     release(){
       var Id=getCookie('mes')
       var ress=getCookie('ress')
+      //var billNumber = this.$refs.billNumber.value;
       var orderOn=this.$refs.orderOn.value;
       var amount=this.$refs.amount.value;
       var rate=this.$refs.rate.value;
@@ -222,7 +223,7 @@ export default {
         this.axios.post(this.oUrl+'/fcexchange/bill/sellerorders',{
           "billSellerOrder":{
             "fcCounts": amount,
-            "billNumber":"MonthFuck",
+            "billNumber":orderOn,
             "expiredAt": "1530226624556",
             "bankId":orderOn,
             "interest":turnrate,
