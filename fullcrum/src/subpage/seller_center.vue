@@ -116,7 +116,7 @@
             <div class="busi">
               <div class="" style="">
                 <div class="inMask" v-show="isShowIn" @mouseleave="hideIn()">
-                  <input type="file" accept="image/*" class="upload" name="" @change="Upload">
+                  <input type="file" accept="image/jpg" class="upload" name="" @change="Upload">
                   <i class="el-icon-plus"></i>
                   <br>
                   <span  class="in_title">点击添加图片</span>
@@ -127,7 +127,7 @@
                 element-loading-spinner="el-icon-loading"
                 element-loading-background="rgba(0,0,0,.8)"
                 >
-                  <img src="../img/Banner.png" alt="">
+                  <img src="../img/Banner.png" alt="" ref="license">
                 </div>
               </div>
               <p class="busi_title">营业执照</p>
@@ -135,7 +135,7 @@
             <div class="idc">
               <div class="" style="">
                 <div class="inMaskId"  v-show="isShow" @mouseleave="hideUpId()">
-                  <input type="file" accept="image/*" class="uploadId" name="" @change="UploadIde">
+                  <input type="file" accept="image/jpg" class="uploadId" name="" @change="UploadIde">
                   <i class="el-icon-plus"></i>
                   <br>
                   <span  class="in_title">点击添加图片</span>
@@ -147,13 +147,13 @@
                 element-loading-spinner="el-icon-loading"
                 element-loading-background="rgba(0,0,0,.8)"
                 >
-                  <img src="../img/Banner.png" alt="">
+                  <img src="../img/Banner.png" alt="" ref="IdIs">
                 </div>
               </div>
               <p class="tive_title">法人身份证正面</p>
               <div class="" style="">
                 <div class="inMaskIdT" v-show="isShowUpT"  @mouseleave="hideUpIdT()">
-                  <input type="file" accept="image/*" class="uploadIdT" name="" @change="UploadIdeT">
+                  <input type="file" accept="image/jpg" class="uploadIdT" name="" @change="UploadIdeT">
                   <i class="el-icon-plus"></i>
                   <br>
                   <span  class="in_title">点击添加图片</span>
@@ -165,7 +165,7 @@
                 element-loading-spinner="el-icon-loading"
                 element-loading-background="rgba(0,0,0,.8)"
                 >
-                  <img src="../img/Banner.png" alt="">
+                  <img src="../img/Banner.png" alt="" ref="IdThe">
                 </div>
               </div>
               <p class="reve_title">法人身份证背面</p>
@@ -243,6 +243,7 @@ export default {
         this.isShowTrade=!this.isShowTrade;
     },
     Upload(e){
+      let _this=this;
       this.selLoading=true
       this.isShowIn=false
       var that=this;
@@ -253,7 +254,58 @@ export default {
       // var result=reader.result
       var img=new Image;
       reader.onload=function(e){
-        var width=img.width,
+        var width=200,
+        quality=0.1,//图片质量
+        canvas=document.createElement("canvas"),
+        drawer=canvas.getContext("2d");
+        img.src=this.result;
+        img.onload=()=>{
+          canvas.width=width;
+          canvas.height=width*(img.height/img.width);
+          drawer.drawImage(img,0,0,canvas.width,canvas.height);
+          img.src=canvas.toDataURL('image/png',quality);
+        }
+        _this.$refs.license.src=img.src;
+      };
+      setTimeout(()=>{
+        var License=img.src.split('');
+        var TheStr=License.splice(0,22);
+        //创建axios
+        this.token= getCookie('token')
+        var Id=getCookie('mes')
+        this.axios.post(this.oUrl+'/fcexchange/feusers/document',
+          [{
+            uid:Id,
+            file:License,
+            documentType:'1',
+            mimeType:'jpg'
+          }],
+          {headers:{
+            'Content-Type':'application/json',
+            'Accept':'application/json',
+            'Authorization':this.token
+          }}
+        ).then((res)=>{
+          this.selLoading=false
+        }).catch((error)=>{
+          this.selLoading=false
+          console.log(error.response)
+        })
+      })
+    },
+    UploadIde(e){
+      var _this=this;
+      this.selIdLoading=true;
+      this.isShow=false
+      var that=this;
+      let file = e.target.files[0];
+      //通过canvas压缩图片
+      var reader=new FileReader();
+      reader.readAsDataURL(file);
+      // var result=reader.result
+      var img=new Image;
+      reader.onload=function(e){
+        var width=200,
         quality=0.1,
         canvas=document.createElement("canvas"),
         drawer=canvas.getContext("2d");
@@ -265,64 +317,17 @@ export default {
           img.src=canvas.toDataURL('image/png',quality);
         }
       };
+      _this.$refs.IdIs.src=img.src;
       setTimeout(()=>{
-        console.log(img.src)
+        var License=img.src.split('');
+        var TheStr=License.splice(0,22);
         //创建axios
         this.token= getCookie('token')
         var Id=getCookie('mes')
         this.axios.post(this.oUrl+'/fcexchange/feusers/document',
           [{
             uid:Id,
-            file:img.src,
-            documentType:'1',
-            mimeType:'jpg'
-          }],
-          {headers:{
-            'Content-Type':'application/json',
-            'Accept':'application/json',
-            'Authorization':this.token
-          }}
-        ).then((res)=>{
-          this.selLoading=false
-          console.log(img.src)
-        }).catch((error)=>{
-          this.selLoading=false
-          console.log(error.response)
-        })
-      })
-    },
-    UploadIde(e){
-      this.selIdLoading=true;
-      this.isShow=false
-      var that=this;
-      let file = e.target.files[0];
-      //通过canvas压缩图片
-      var reader=new FileReader();
-      reader.readAsDataURL(file);
-      // var result=reader.result
-      var img=new Image;
-      reader.onload=function(e){
-        var width=1080,
-        quality=0.3,
-        canvas=document.createElement("canvas"),
-        drawer=canvas.getContext("2d");
-        img.src=this.result;
-        img.onload=()=>{
-          canvas.width=width;
-          canvas.height=width*(img.height/img.width);
-          drawer.drawImage(img,0,0,canvas.width,canvas.height);
-          img.src=canvas.toDataURL('image/png',quality);
-        }
-      };
-      setTimeout(()=>{
-        // console.log(img.src)
-        //创建axios
-        this.token= getCookie('token')
-        var Id=getCookie('mes')
-        this.axios.post(this.oUrl+'/fcexchange/feusers/document',
-          [{
-            uid:Id,
-            file:img.src,
+            file:License,
             documentType:'2',
             mimeType:'jpg'
           }],
@@ -352,6 +357,7 @@ export default {
       })
     },
     UploadIdeT(e){
+      let _this=this;
       this.selIdTLoading=true;
       this.isShowUpT=false;
       var that=this;
@@ -362,8 +368,8 @@ export default {
       // var result=reader.result
       var img=new Image;
       reader.onload=function(e){
-        var width=1080,
-        quality=0.3,
+        var width=200,
+        quality=0.1,
         canvas=document.createElement("canvas"),
         drawer=canvas.getContext("2d");
         img.src=this.result;
@@ -374,15 +380,17 @@ export default {
           img.src=canvas.toDataURL('image/png',quality);
         }
       };
+      _this.$refs.IdThe.src=img.src;
       setTimeout(()=>{
-        // console.log(img.src)
+        var License=img.src.split('');
+        var TheStr=License.splice(0,22);
         //创建axios
         this.token= getCookie('token')
         var Id=getCookie('mes')
         this.axios.post(this.oUrl+'/fcexchange/feusers/document',
           [{
             uid:Id,
-            file:img.src,
+            file:License,
             documentType:'3',
             mimeType:'jpg'
           }],

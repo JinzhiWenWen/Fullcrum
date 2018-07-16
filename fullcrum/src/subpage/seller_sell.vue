@@ -7,24 +7,34 @@
       <div class="seller_sell_loader">
         <div class="" style="">
           <div class="inMask"  @mouseleave="hideIn()" v-show="isShowIn">
-            <input type="file" accept="image/*" class="uploadIdT" name="" @change="uploadIs">
+            <input type="file" accept="image/jpg" class="uploadIdT" name="" @change="uploadIs">
             <i class="el-icon-plus"></i>
             <br>
             <span  class="in_title">点击添加票据正面图片</span>
           </div>
-          <div class="showImT"  @mouseenter="showIn()">
-            <img src="../img/Banner.png" alt="">
+          <div class="showImT"  @mouseenter="showIn()"
+          v-loading="loaDingIs"
+          element-loading-text="请稍后"
+          element-loading-spinner="el-icon-loading"
+          element-loading-background="rgba(0,0,0,.8)"
+          >
+            <img src="../img/Banner.png" alt="" ref="imgIs">
           </div>
         </div>
         <div class="" style="">
           <div class="inMaskR"  @mouseleave="hideInR()" v-show="isShowInR">
-            <input type="file" accept="image/*" class="uploadIdR" name="" @change="uploadThe">
+            <input type="file" accept="image/jpg" class="uploadIdR" name="" @change="uploadThe">
             <i class="el-icon-plus"></i>
             <br>
             <span  class="in_title">点击添加票据反面图片</span>
           </div>
-          <div class="showImR"  @mouseenter="showInR()">
-            <img src="../img/Banner.png" alt="">
+          <div class="showImR"  @mouseenter="showInR()"
+          v-loading="loaDingThe"
+          element-loading-text="请稍后"
+          element-loading-spinner="el-icon-loading"
+          element-loading-background="rgba(0,0,0,.8)"
+          >
+            <img src="../img/Banner.png" alt="" ref="imgThe">
           </div>
         </div>
       </div>
@@ -114,7 +124,9 @@ export default {
       picSub:null,
       pciSubThe:null,
       orderId:null,
-      loadingRelease:false
+      loadingRelease:false,
+      loaDingThe:false,
+      loaDingIs:false
     };
   },
   methods: {
@@ -135,6 +147,7 @@ export default {
     },
     uploadIs(e){
       var that=this;
+      that.loaDingIs=true;
       let file = e.target.files[0];
       //通过canvas压缩图片
       var reader=new FileReader();
@@ -142,7 +155,7 @@ export default {
       // var result=reader.result
       var img=new Image;
       reader.onload=function(e){
-        var width=400,
+        var width=200,
         quality=0.1,
         canvas=document.createElement("canvas"),
         drawer=canvas.getContext("2d");
@@ -154,16 +167,20 @@ export default {
           img.src=canvas.toDataURL('image/png',quality);
         }
       };
+
       setTimeout(()=>{
         // this.picIs=img.src
-        var Is=this.picIs.split('');
+        var Is=img.src.split('');
         var IsStr=Is.splice(0,22);
-        this.picSub=Is.join('');
-        localStorage('is',img.src)
+        window.localStorage.setItem('is',Is.join(''))
+        console.log(this.$refs.imgIs.src)
+        this.$refs.imgIs.src=img.src;
+        that.loaDingIs=false;
       },500)
     },
     uploadThe(e){
       var that=this;
+      that.loaDingThe=true;
       let file = e.target.files[0];
       //通过canvas压缩图片
       var reader=new FileReader();
@@ -171,8 +188,8 @@ export default {
       // var result=reader.result
       var img=new Image;
       reader.onload=function(e){
-        var width=1080,//图片大小
-        quality=0.3,//图片质量
+        var width=200,//图片大小
+        quality=0.1,//图片质量
         canvas=document.createElement("canvas"),
         drawer=canvas.getContext("2d");
         img.src=this.result;
@@ -184,10 +201,11 @@ export default {
         }
       };
       setTimeout(()=>{
-        this.picThe=img.src
-        var The=this.picThe.split('');
+        var The=img.src.split('');
         var TheStr=The.splice(0,22);
-        this.pciSubThe=The.join('');
+        window.localStorage.setItem('the',The.join(''))
+        this.$refs.imgThe.src=img.src;
+        that.loaDingThe=false;
       },500)
     },
     release(){
@@ -221,6 +239,9 @@ export default {
         let n_str = String(rate);
         let d_len = n_str.split('.')[1].length;
         var turnrate=n_str.split('.')[0] + n_str.split('.')[1] + const_str.slice(d_len);
+        // console.log(window.localStorage.getItem('is'))
+        let imgIs=window.localStorage.getItem('is');
+        let imgThe=window.localStorage.getItem('the')
         this.axios.post(this.oUrl+'/fcexchange/bill/sellerorders',{
           "billSellerOrder":{
             "fcCounts": amount,
@@ -232,8 +253,8 @@ export default {
             "feWalletAddress":ress
             },
             "documentRequest":[{
-            "uid":Id,"file":this.picSub,"documentType":"1","mimeType":"jpg"},
-            {"uid":Id,"file":this.pciSubThe,"documentType":"2","mimeType":"jpg"}
+            "uid":Id,"file":imgIs,"documentType":"1","mimeType":"jpg"},
+            {"uid":Id,"file":imgThe,"documentType":"2","mimeType":"jpg"}
             ]
           //1为票据正面，2为票据反面
            },
@@ -242,6 +263,7 @@ export default {
              'Accept':'application'
                }}
              ).then((res)=>{
+               window.localStorage.clear()
               console.log("生成票据订单：")
                console.log(res)
                this.orderId=res.data.value.billSellerOrder.orderNumber
