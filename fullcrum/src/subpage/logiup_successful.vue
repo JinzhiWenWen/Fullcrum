@@ -41,7 +41,7 @@ export default {
   },
   methods:{
     signUp(){
-      alert('111')
+      this.$router.push('/login')
     },
     //接收传参
     getParams(){
@@ -120,7 +120,7 @@ export default {
     #qrcode{
       height: 200px;
         width: 200px;
-        margin: auto; 
+        margin: auto;
     }
     .qr_code{
       width: 500px;
