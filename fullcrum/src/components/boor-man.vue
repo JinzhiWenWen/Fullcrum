@@ -142,7 +142,6 @@ export default {
             }
             ,{headers:{'Content-Type':'application/json'}}
             ).then((res)=>{
-              console.log(res.data)
               var sta=res.status;
               var ress=res.data.value.feWalletAddress;
               var key=res.data.value.buyerPrivateKey;

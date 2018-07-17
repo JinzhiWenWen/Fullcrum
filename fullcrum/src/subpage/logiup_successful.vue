@@ -67,8 +67,8 @@ export default {
     _getQrcode(){
 
 
-          var qrcode = new QRCode(document.getElementById("qrcode"), {width : 200,height : 200});
-          let ress_addr = '0x'+this.ress;
+          var qrcode = new QRCode(document.getElementById("qrcode"), {width : 150,height : 150});
+          let ress_addr =this.ress;
           //let ress_addr = '0x76092c67fec2f8df8b0e7b0557bdbd6de38fdee5';
           qrcode.makeCode(ress_addr)
           console.log("here is in qrcode ")
@@ -118,8 +118,8 @@ export default {
       margin-bottom: 28px;
     }
     #qrcode{
-      height: 200px;
-        width: 200px;
+      height: 150px;
+        width: 150px;
         margin: auto;
     }
     .qr_code{
