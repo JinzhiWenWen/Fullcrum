@@ -14,7 +14,8 @@
         <span class="much">{{item.billPrice}}.00 FC</span>
         <span class="statu" style="color:#5277cc;" v-show="item.billSellerOrder.status==='trading'">交易中</span>
         <span class="statu" style="color:#009944" v-show="item.billSellerOrder.status==='successful'">已成交</span>
-        <button type="button" name="button">查看</button>
+        <span class="statu" style="color:red;" v-show="item.billSellerOrder.status==='failure'">已取消</span>
+        <button type="button" name="button" @click="buyerDetails(index)">查看</button>
       </li>
     </ul>
     <Pager/>
@@ -35,11 +36,18 @@ export default {
   		var Id=getCookie('mes')
       this.loaDingBuyerPaper=true;
   		this.axios.get(this.oUrl+'/fcexchange/bill/buyerorders/'+Id).then((res)=>{
-        console.log(res)
         this.noteLists=res.data.value
         this.loaDingBuyerPaper=false
       })
-  	}
+  	},
+    buyerDetails(index){
+      this.$router.push({
+        name:'PersonalDet',
+        query:{
+          number:this.noteLists[index].billSellerOrder.orderNumber
+        }
+      })
+    }
   },
   created(){
   	this.order()
