@@ -31,7 +31,7 @@ export default {
       this.axios.get(this.oUrl+'/fcexchange/bill/sellerorders/'+this.orderNumber).then((res)=>{
         console.log(res)
         this.billNumber=res.data.bankId;
-        this.counts=res.data.fcCounts
+        this.counts=res.data.fcCounts;
       })
     }
   },

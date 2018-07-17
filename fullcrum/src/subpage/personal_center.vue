@@ -91,13 +91,38 @@
           <p class="user_trepay">
             <span class="nick_trepay">支付宝</span>
             <span class="nick_trepay_last" ref="nick_trepay">{{userMessage.userTrePay}}</span>
-            <span class="nick_mod">修改</span>
+            <span class="nick_mod" @click="trepayQr()">添加</span>
           </p>
           <p class="user_wecpay">
             <span class="nick_wecpay">微信</span>
             <span class="nick_wecpay_last" ref="nick_wecpay">{{userMessage.userWecPay}}</span>
-            <span class="nick_mod">添加</span>
+            <span class="nick_mod" @click="wecahtQr()">添加</span>
           </p>
+          <div class="upLoadPay" ref="upLoadPay">
+            <div class="" style="">
+              <div class="inMask" v-show="isShow" @mouseleave="hideIn()">
+                <input type="file" accept="image/jpg" class="upload" name="" @change="upQr">
+                <i class="el-icon-plus"></i>
+                <br>
+                <span  class="in_title">点击添加图片</span>
+              </div>
+              <div class="showIm" @mouseenter="showIn()"
+              v-loading="selLoading"
+              element-loading-text="请稍后"
+              element-loading-spinner="el-icon-loading"
+              element-loading-background="rgba(0,0,0,.8)"
+              >
+                <img src="../img/Banner.png" alt="" ref="Qr">
+              </div>
+            </div>
+            <p class="turnUp"><button type="button" class="" @click="turnUp()"
+              v-loading="loadingUpQr"
+              element-loading-text="上传中"
+              element-loading-spinner="el-icon-loading"
+              element-loading-background="#5277cc"
+              >确定</button></p>
+            <span class="closeIcon" @click="closeUp()">X</span>
+          </div>
         </div>
       </div>
       <div class="account_wallt">
@@ -105,6 +130,9 @@
         <span class="wallt_qr"><div id="qrcode"></div></span><br>
         <span class="wallt_address">{{ress}}<span style="cursor:pointer;color:#98b8f7;text-decoration: underline;">复制</span></span>
       </div>
+    </div>
+    <div class="personCen_mask" v-show="personShow" @click="closeUp()">
+
     </div>
   </div>
 </template>
@@ -122,6 +150,11 @@ export default {
       isShowPhone:false,
       isShowPass:false,
       isShowTrade:false,
+      isShow:false,
+      selLoading:false,
+      personShow:false,
+      loadingUpQr:false,
+      imgType:0,//1为支付宝二维码，2为微信二维码
       userMessage:{}
     }
   },
@@ -144,7 +177,7 @@ export default {
     getMe(){
       var Id=getCookie('mes');
       var phone=getCookie('phone');
-      
+
       if(phone=="null"){
         this.$router.push('/personSet')
       }else{
@@ -152,23 +185,101 @@ export default {
           this.userMessage=res.data.value
         });
       }
-     
+
     },
     _getQrcode(){
-          this.ress = getCookie('ress');
-          var qrcode = new QRCode(document.getElementById("qrcode"), {width : 200,height : 200});
-          let ress_addr = '0x'+this.ress;
-          qrcode.makeCode(ress_addr)
-          console.log("here is in qrcode ")
-          console.log(this.ress)
-
+      this.ress = getCookie('ress');
+      var qrcode = new QRCode(document.getElementById("qrcode"), {width : 150,height : 150});
+      let ress_addr =this.ress;
+      qrcode.makeCode(ress_addr)
+    },
+    trepayQr(){
+      // alert('111')
+      this.personShow=true;
+      this.$refs.upLoadPay.style.top="30%";
+      this.$refs.upLoadPay.style.opacity="1";
+      this.imgType=1;
+    },
+    wecahtQr(){
+      this.personShow=true;
+      this.$refs.upLoadPay.style.top="30%";
+      this.$refs.upLoadPay.style.opacity="1";
+      this.imgType=2;
+    },
+    closeUp(){
+      this.$refs.upLoadPay.style.top="15%";
+      this.$refs.upLoadPay.style.opacity="0"
+      setTimeout(()=>{
+        this.personShow=false;
+      },300)
+    },
+    turnUp(){
+      this.loadingUpQr=true;
+      let imgQr=window.localStorage.getItem('Qr');
+      let Id=getCookie('mes');
+      let tok=getCookie('token');
+      this.axios.post(this.oUrl+'/fcexchange/feusers/document',[{
+        uid:Id,
+        file:imgQr,
+        documentType:this. imgType,
+        mimeType:'jpg'
+      }],
+      {headers:{
+        'Content-Type':'application/json',
+        'Accept':'application/json',
+        'Authorization':tok
+      }}
+    ).then((res)=>{
+      console.log(res)
+      this.loadingUpQr=false;
+      window.localStorage.clear()
+    }).catch((error)=>{
+      console.log(error.response)
+    })
+    },
+    upQr(e){
+      var _this=this;
+      _this.selLoading=true;
+      let file = e.target.files[0];
+      //通过canvas压缩图片
+      var reader=new FileReader();
+      reader.readAsDataURL(file);
+      // var result=reader.result
+      var img=new Image;
+      reader.onload=function(e){
+        var width=400,
+        quality=0.1,
+        canvas=document.createElement("canvas"),
+        drawer=canvas.getContext("2d");
+        img.src=this.result;
+        img.onload=()=>{
+          canvas.width=width;
+          canvas.height=width*(img.height/img.width);
+          drawer.drawImage(img,0,0,canvas.width,canvas.height);
+          img.src=canvas.toDataURL('image/png',quality);
+        }
+      };
+      setTimeout(()=>{
+        // this.picIs=img.src
+        var Is=img.src.split('');
+        var IsStr=Is.splice(0,22);
+        window.localStorage.setItem('Qr',Is.join(''))
+        this.$refs.Qr.src=img.src;
+        _this.selLoading=false;
+      },500)
+    },
+    showIn(){
+      this.isShow=true
+    },
+    hideIn(){
+      this.isShow=false
     }
   },
   created(){
     this.getMe();
   },
   mounted(){
-      this._getQrcode();
+    this._getQrcode();
   },
   components:{
     HeaderUser
@@ -178,6 +289,15 @@ export default {
 
 <style lang="scss" scoped>
 .personal_center{
+  .personCen_mask{
+    width: 100%;
+    height:100%;
+    background: rgba(0,0,0,.5);
+    position:fixed;
+    top:0;
+    left:0;
+    z-index: 500;
+  }
   width: 100%;
   height:100%;
   .content{
@@ -218,141 +338,142 @@ export default {
           font-size: 1.4rem;
         }
       }
-      .account_message{
-        padding-left:32px;
-        .user_name{
-          width:100%;
-          height:50px;
-          border-bottom:1px solid #eee;
-          line-height: 50px;
-          position: relative;
-          .nick_name{
-            font-size: 1.4rem;
-            color:#a1a1a1;
-          }
-          .nick_name_last{
-            @include public-name;
-            font-size: 1.2rem;
-            color:#333;
-          }
-          .nick_mod{
-            @include public-btn;
-          }
-          .change_btn{
-            color:#7ea8f5;
-            position:absolute;
-            top: 10px;
-            left:25%;
-            height:26px;
-            width: 200px;
-          }
+
+    }
+    .account_message{
+      padding-left:32px;
+      .user_name{
+        width:100%;
+        height:50px;
+        border-bottom:1px solid #eee;
+        line-height: 50px;
+        position: relative;
+        .nick_name{
+          font-size: 1.4rem;
+          color:#a1a1a1;
         }
-        .user_email{
-          width:100%;
-          height:50px;
-          border-bottom:1px solid #eee;
-          line-height: 50px;
-          position: relative;
-          .nick_email{
-            font-size: 1.4rem;
-            color:#a1a1a1;
-          }
-          .nick_email_last{
-            @include public-name;
-            font-size: 1.2rem;
-            color:#b0b0b0;
-          }
-          .nick_mod{
-            @include public-btn;
-          }
-          .change_btn{
-            color:#7ea8f5;
-            position:absolute;
-            top: 10px;
-            left:25%;
-            height:26px;
-            width: 200px;
-          }
+        .nick_name_last{
+          @include public-name;
+          font-size: 1.2rem;
+          color:#333;
         }
-        .user_phone{
-          width:100%;
-          height:50px;
-          border-bottom:1px solid #eee;
-          line-height: 50px;
-          position: relative;
-          .nick_phone{
-            font-size: 1.4rem;
-            color:#a1a1a1;
-          }
-          .nick_phone_last{
-            @include public-name;
-            font-size: 1.2rem;
-            color:#b0b0b0;
-          }
-          .nick_mod{
-            @include public-btn;
-          }
-          .change_btn{
-            color:#7ea8f5;
-            position:absolute;
-            top: 10px;
-            left:25%;
-            height:26px;
-            width: 200px;
-          }
+        .nick_mod{
+          @include public-btn;
         }
-        .user_pass{
-          width:100%;
-          height:50px;
-          border-bottom:1px solid #eee;
-          line-height: 50px;
-          position: relative;
-          .nick_pass{
-            font-size: 1.4rem;
-            color:#a1a1a1;
-          }
-          .nick_pass_last{
-            margin-left:124px;
-            font-size: 1.2rem;
-            color:#333;
-          }
-          .nick_mod{
-            @include public-btn;
-          }
-          .change_btn{
-            color:#7ea8f5;
-            position:absolute;
-            top: 10px;
-            left:25%;
-            height:26px;
-            width: 200px;
-          }
+        .change_btn{
+          color:#7ea8f5;
+          position:absolute;
+          top: 10px;
+          left:25%;
+          height:26px;
+          width: 200px;
         }
-        .user_trade{
-          width:100%;
-          height:50px;
-          line-height: 50px;
-          position: relative;
-          .nick_trade{
-            font-size: 1.4rem;
-            color:#a1a1a1;
-          }
-          .nick_trade_last{
-            margin-left:124px;
-            font-size: 1.2rem;
-            color:#b0b0b0;
-          }
-          .nick_mod{
-            @include public-btn;
-          }
-          .change_trade{
-            color:#7ea8f5;
-            position:absolute;
-            top: 10px;
-            left:25%;
-            height:26px;
-            width: 200px;
-          }
+      }
+      .user_email{
+        width:100%;
+        height:50px;
+        border-bottom:1px solid #eee;
+        line-height: 50px;
+        position: relative;
+        .nick_email{
+          font-size: 1.4rem;
+          color:#a1a1a1;
+        }
+        .nick_email_last{
+          @include public-name;
+          font-size: 1.2rem;
+          color:#b0b0b0;
+        }
+        .nick_mod{
+          @include public-btn;
+        }
+        .change_btn{
+          color:#7ea8f5;
+          position:absolute;
+          top: 10px;
+          left:25%;
+          height:26px;
+          width: 200px;
+        }
+      }
+      .user_phone{
+        width:100%;
+        height:50px;
+        border-bottom:1px solid #eee;
+        line-height: 50px;
+        position: relative;
+        .nick_phone{
+          font-size: 1.4rem;
+          color:#a1a1a1;
+        }
+        .nick_phone_last{
+          @include public-name;
+          font-size: 1.2rem;
+          color:#b0b0b0;
+        }
+        .nick_mod{
+          @include public-btn;
+        }
+        .change_btn{
+          color:#7ea8f5;
+          position:absolute;
+          top: 10px;
+          left:25%;
+          height:26px;
+          width: 200px;
+        }
+      }
+      .user_pass{
+        width:100%;
+        height:50px;
+        border-bottom:1px solid #eee;
+        line-height: 50px;
+        position: relative;
+        .nick_pass{
+          font-size: 1.4rem;
+          color:#a1a1a1;
+        }
+        .nick_pass_last{
+          margin-left:124px;
+          font-size: 1.2rem;
+          color:#333;
+        }
+        .nick_mod{
+          @include public-btn;
+        }
+        .change_btn{
+          color:#7ea8f5;
+          position:absolute;
+          top: 10px;
+          left:25%;
+          height:26px;
+          width: 200px;
+        }
+      }
+      .user_trade{
+        width:100%;
+        height:50px;
+        line-height: 50px;
+        position: relative;
+        .nick_trade{
+          font-size: 1.4rem;
+          color:#a1a1a1;
+        }
+        .nick_trade_last{
+          margin-left:124px;
+          font-size: 1.2rem;
+          color:#b0b0b0;
+        }
+        .nick_mod{
+          @include public-btn;
+        }
+        .change_trade{
+          color:#7ea8f5;
+          position:absolute;
+          top: 10px;
+          left:25%;
+          height:26px;
+          width: 200px;
         }
       }
     }
@@ -461,6 +582,7 @@ export default {
           .nick_mod{
             @include public-btn;
           }
+
         }
         .user_trepay{
           width:100%;
@@ -500,6 +622,105 @@ export default {
             @include public-btn;
           }
         }
+        .upLoadPay{
+          width: 20%;
+          height:30%;
+          min-height: 285px;
+          min-width:380px;
+          background: white;
+          position: fixed;
+          top:15%;
+          opacity: 0;
+          left:50%;
+          margin-left: -10%;
+          border-radius: 5px;
+          z-index: 505;
+          transition: all 1s;
+          .inMask{
+            width: 40%;
+            height:50%;
+            background: rgba(0,0,0,.5);
+            text-align: center;
+            box-sizing: border-box;
+            position: absolute;
+            top:15%;
+            left:30%;
+            border-radius:5px;
+            z-index: 1;
+            .upload{
+              width: 100%;
+              height:100%;
+              cursor:pointer;
+              opacity:0;
+              z-index: 100;
+            }
+            .el-icon-plus{
+              font-size:6rem;
+              color:white;
+              opacity:.9;
+              position: absolute;
+              left:33%;
+              top:20%;
+              z-index: -1;
+            }
+            .in_title{
+              width: 100%;
+              margin-top:10px;
+              color:white;
+              opacity:.9;
+              font-size: 1.4rem;
+              position: absolute;
+              left:0;
+              top:60%;
+              z-index: 1;
+            }
+          }
+          .showIm{
+            width: 40%;
+            height:50%;
+            position: absolute;
+            left:30%;
+            background: rgba(0,0,0,.8);
+            top:15%;
+            border-radius:5px;
+            img{
+              width: 100%;
+              height:100%;
+              border-radius: 5px;
+            }
+          }
+          .turnUp{
+            width: 100%;
+            text-align: center;
+            position: absolute;
+            bottom:0;
+            padding-bottom: 3%;
+            height:13%;
+            button{
+              width: 20%;
+              height:100%;
+              border-radius:5px;
+              background: #5277cc;
+              color:white;
+            }
+          }
+          .closeIcon{
+            position:absolute;
+            right:5%;
+            top:5%;
+            width: 7%;
+            height:8%;
+            background: #5277cc;
+            text-align: center;
+            border-radius:50%;
+            padding-top:.5%;
+            font-size: 1.3rem;
+            box-sizing: border-box;
+            color:white;
+            cursor: pointer;
+          }
+        }
+
       }
     }
     .account_wallt{
