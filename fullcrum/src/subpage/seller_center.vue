@@ -254,7 +254,7 @@ export default {
       // var result=reader.result
       var img=new Image;
       reader.onload=function(e){
-        var width=200,
+        var width=400,
         quality=0.1,//图片质量
         canvas=document.createElement("canvas"),
         drawer=canvas.getContext("2d");
@@ -305,7 +305,7 @@ export default {
       // var result=reader.result
       var img=new Image;
       reader.onload=function(e){
-        var width=200,
+        var width=400,
         quality=0.1,
         canvas=document.createElement("canvas"),
         drawer=canvas.getContext("2d");
@@ -368,7 +368,7 @@ export default {
       // var result=reader.result
       var img=new Image;
       reader.onload=function(e){
-        var width=200,
+        var width=400,
         quality=0.1,
         canvas=document.createElement("canvas"),
         drawer=canvas.getContext("2d");
