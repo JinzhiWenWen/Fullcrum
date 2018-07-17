@@ -155,7 +155,7 @@ export default {
       // var result=reader.result
       var img=new Image;
       reader.onload=function(e){
-        var width=200,
+        var width=400,
         quality=0.1,
         canvas=document.createElement("canvas"),
         drawer=canvas.getContext("2d");
@@ -173,7 +173,6 @@ export default {
         var Is=img.src.split('');
         var IsStr=Is.splice(0,22);
         window.localStorage.setItem('is',Is.join(''))
-        console.log(this.$refs.imgIs.src)
         this.$refs.imgIs.src=img.src;
         that.loaDingIs=false;
       },500)
@@ -188,7 +187,7 @@ export default {
       // var result=reader.result
       var img=new Image;
       reader.onload=function(e){
-        var width=200,//图片大小
+        var width=400,//图片大小
         quality=0.1,//图片质量
         canvas=document.createElement("canvas"),
         drawer=canvas.getContext("2d");
@@ -211,7 +210,7 @@ export default {
     release(){
       var Id=getCookie('mes')
       var ress=getCookie('ress')
-      //var billNumber = this.$refs.billNumber.value;
+      var billNumber = this.$refs.billNumber.value;
       var orderOn=this.$refs.orderOn.value;
       var amount=this.$refs.amount.value;
       var rate=this.$refs.rate.value;
