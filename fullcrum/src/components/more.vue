@@ -161,8 +161,10 @@ export default {
         message: '请先登录！',
         offset:100
       });
-    }else{
+    }else if(getCookie('ide')==='buyer'){
       this.$router.push('/mark')
+    }else{
+      this.$router.push('/sellerma')
     }
    },
     query(){

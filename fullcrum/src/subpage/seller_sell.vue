@@ -61,14 +61,18 @@
           <input
           style="margin-left:140px;"
           type="text" placeholder="点击输入"
-          name="" value="">
+          name="" value=""
+          ref="expiredAt"
+          >
           </span>
         <span>
           兑现日期
           <input
           style="margin-left:128px;"
-          type="text" placeholder="例：20180804"
-          name="" value="">
+          type="text" placeholder="例：2018/08/04"
+          name="" value=""
+          ref="maturityDate"
+          >
           </span>
         <span>
           上一家备书企业
@@ -210,10 +214,11 @@ export default {
     release(){
       var Id=getCookie('mes')
       var ress=getCookie('ress')
-      var billNumber = this.$refs.billNumber.value;
-      var orderOn=this.$refs.orderOn.value;
-      var amount=this.$refs.amount.value;
-      var rate=this.$refs.rate.value;
+      var expiredAt=this.$refs.expiredAt.value;//付款行
+      var orderOn=this.$refs.orderOn.value;//票据编号
+      var amount=this.$refs.amount.value;//票据金额
+      var rate=this.$refs.rate.value;//利率
+      var maturityDate=this.$refs.maturityDate.value;//兑现日期
       if(orderOn===''){
         this.$notify.error({
           title: '错误',
@@ -230,6 +235,18 @@ export default {
         this.$notify.error({
           title: '错误',
           message: '请输入利率！',
+          offset:100
+        });
+      }else if(expiredAt===''){
+        this.$notify.error({
+          title: '错误',
+          message: '请输入付款银行！',
+          offset:100
+        });
+      }else if(maturityDate===''){
+        this.$notify.error({
+          title: '错误',
+          message: '请输入兑现银行！',
           offset:100
         });
       }else{

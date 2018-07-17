@@ -1,9 +1,9 @@
 <template lang="html">
-  <div class="personal_details">
-    <HeaderUser>
+  <div class="seller_details">
+    <HeaderSeller>
       <p class="slot-mine">订单详情</p>
-    </HeaderUser>
-    <div class="personal_details_con">
+    </HeaderSeller>
+    <div class="seller_details_con">
       <p>票据编号：{{billNumber}}</p>
       <p>票据总额：{{counts}}.00 FC</p>
     </div>
@@ -11,7 +11,7 @@
 </template>
 
 <script>
-import HeaderUser from '@/components/header-user'
+import HeaderSeller from '@/components/header-seller'
 export default {
   data(){
     return{
@@ -40,16 +40,16 @@ export default {
     this.getOrderBuyer()
   },
   components:{
-    HeaderUser
+    HeaderSeller
   }
 }
 </script>
 
 <style lang="scss" scoped>
-.personal_details{
+.seller_details{
   width: 100%;
   height:100%;
-  .personal_details_con{
+  .seller_details_con{
     width: 70%;
     height:80%;
     position: absolute;

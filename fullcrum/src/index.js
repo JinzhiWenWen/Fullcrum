@@ -40,6 +40,7 @@ import Paperorder from '@/components/buyer_paper_order'
 import PersonalSet from '@/subpage/personal_setmes'
 import PersonalDet from '@/subpage/personal_details'
 import SellerSet from '@/subpage/seller_setmes'
+import SellerDet from '@/subpage/seller_details'
 import MarketBuy from '@/subpage/market_buy'
 import Login from '@/subpage/login'
 import {getCookie} from '@/assets/util'
@@ -150,7 +151,8 @@ const router = new Router({
       {path:'/sellerma',name:'Sellerma',component:Sellerma},
       {path:'/selleror',name:'SellerOr',component:SellerOr},
       {path:'/sellerse',name:'SellerSe',component:SellerSe},
-      {path:'/sellerSet',name:'sellerSet',component:SellerSet}
+      {path:'/sellerSet',name:'sellerSet',component:SellerSet},
+      {path:'/sellerdet',name:'sellerDet',component:SellerDet}
     ]
 })
 router.beforeEach((to, from, next) => {
