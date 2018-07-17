@@ -224,8 +224,8 @@ export default {
         this.axios.post(this.oUrl+'/fcexchange/bill/sellerorders',{
           "billSellerOrder":{
             "fcCounts": amount,
-            "billNumber":orderOn,
             "expiredAt": "1530226624556",
+            "billNumber":orderOn,
             "bankId":orderOn,
             "interest":turnrate,
             "maturityDate":1538819416043,
