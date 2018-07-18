@@ -52,7 +52,7 @@
           金额
           <input
           style="margin-left:152px;"
-          type="text" placeholder="单位（FC）"
+          type="text" placeholder="单位（1CNY=1FC）"
           ref="amount"
           name="" value="">
           </span>
@@ -66,9 +66,9 @@
           >
           </span>
         <span>
-          兑现日期
+          票据到期日
           <input
-          style="margin-left:128px;"
+          style="margin-left:116px;"
           type="text" placeholder="例：2018/08/04"
           name="" value=""
           ref="maturityDate"
@@ -94,6 +94,13 @@
           ref="rate"
           type="text" placeholder="例：4.5%" name="" value="">
           </span>
+          <span>
+            限额
+            <input
+            style="margin-left:157px;"
+            ref="limit"
+            type="text" placeholder="例：5000" name="" value="">
+            </span>
       </div>
       <p class="seller_sell_chose">
         <button type="button"
@@ -191,8 +198,8 @@ export default {
       // var result=reader.result
       var img=new Image;
       reader.onload=function(e){
-        var width=400,//图片大小
-        quality=0.1,//图片质量
+        var width=700,//图片大小
+        quality=0.8,//图片质量
         canvas=document.createElement("canvas"),
         drawer=canvas.getContext("2d");
         img.src=this.result;
@@ -219,6 +226,7 @@ export default {
       var amount=this.$refs.amount.value;//票据金额
       var rate=this.$refs.rate.value;//利率
       var maturityDate=this.$refs.maturityDate.value;//兑现日期
+      var limit=this.$refs.limit.value;//限额
       if(orderOn===''){
         this.$notify.error({
           title: '错误',
@@ -231,12 +239,6 @@ export default {
           message: '请输入票据金额！',
           offset:100
         });
-      }else if(rate===''){
-        this.$notify.error({
-          title: '错误',
-          message: '请输入利率！',
-          offset:100
-        });
       }else if(expiredAt===''){
         this.$notify.error({
           title: '错误',
@@ -246,7 +248,19 @@ export default {
       }else if(maturityDate===''){
         this.$notify.error({
           title: '错误',
-          message: '请输入兑现银行！',
+          message: '请输入票据到期日！',
+          offset:100
+        });
+      }else if(rate===''){
+        this.$notify.error({
+          title: '错误',
+          message: '请输入利率！',
+          offset:100
+        });
+      }else if(limit===''){
+        this.$notify.error({
+          title: '错误',
+          message: '请输入限额！',
           offset:100
         });
       }else{
@@ -255,17 +269,16 @@ export default {
         let n_str = String(rate);
         let d_len = n_str.split('.')[1].length;
         var turnrate=n_str.split('.')[0] + n_str.split('.')[1] + const_str.slice(d_len);
-        // console.log(window.localStorage.getItem('is'))
         let imgIs=window.localStorage.getItem('is');
         let imgThe=window.localStorage.getItem('the')
         this.axios.post(this.oUrl+'/fcexchange/bill/sellerorders',{
           "billSellerOrder":{
             "fcCounts": amount,
-            "expiredAt": "1530226624556",
+            "expiredAt": expiredAt,
             "billNumber":orderOn,
             "bankId":orderOn,
             "interest":turnrate,
-            "maturityDate":1538819416043,
+            "maturityDate":123456,
             "feWalletAddress":ress
             },
             "documentRequest":[{
@@ -295,7 +308,12 @@ export default {
                   console.log("票据订单上链")
                    this.loadingRelease=false;
                    console.log(res)
-
+                   this.$notify({
+                   title: '成功',
+                   message: '发布成功！',
+                   type: 'success',
+                   offset:100
+                 });
                    console.log("the end .........")
                  })
                })
@@ -312,12 +330,18 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.seller_sell{
+  width: 100%;
+  height:100%;
+  min-width: 80%;
+}
 .seller_sell_con{
-  width: 750px;
+  width: 39%;
+  min-width: 750px;
   height:auto;
   position: absolute;
   left:50%;
-  margin-left: -375px;
+  margin-left: -19.5%;
   padding-top:80px;
   padding-bottom:80px;
   .seller_sell_loader{
@@ -433,7 +457,7 @@ export default {
   }
   .seller_sell_mess{
     width: 100%;
-    height:474px;
+    height:514px;
     border-radius: 12px;
     margin-top:60px;
     box-shadow: 0 5px 10px #ddd;

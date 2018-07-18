@@ -15,27 +15,6 @@
         <li ref="more_about" @click="moreAbout()">关于我们</li>
       </ul>
     </div>
-    <!-- <div class="login_fill" ref="login_fill">
-      <div class="table">
-        <ul class="chose_table">
-          <router-link
-          to='/page/pass' tag='li'
-          @click.native="pass"
-          class="password_login" ref="pass_style"
-          :class="{active:color==1}"
-          >账号密码登录</router-link>
-          <router-link
-          to='/page/auth' @click.native="auth"
-          name='auth'
-          ref="auth" tag='li' class="auth_login"
-          :class="{active:color==2}"
-          >手机验证码登录</router-link>
-        </ul>
-      </div>
-      <div class="view_input">
-        <router-view></router-view>
-      </div>
-    </div> -->
     <div class="mask" ref="mask" @click="close()">
 
     </div>
@@ -119,21 +98,7 @@ export default {
       this.$refs.login_fill.style.top='-100%';
     },
     moreLogin(){
-      this.$refs.icon_close.style.transform='rotate(-45deg)';
-      this.$refs.icon.style.transform='rotate(0)';
-      setTimeout(()=>{
-        this.$refs.icon_close.style.display='none';
-      },303)
-      setTimeout(()=>{
-        this.$refs.icon.style.display='block';
-      },304)
-      this.$refs.side_navigation.style.left='-20%';
-      this.$refs.more_login.style.transform='translateX(-150px)';
-      this.$refs.more_page.style.transform='translateX(-150px)';
-      this.$refs.more_center.style.transform='translateX(-150px)';
-      this.$refs.more_market.style.transform='translateX(-150px)';
-      this.$refs.more_about.style.transform='translateX(-150px)';
-      this.$refs.login_fill.style.top='30%';
+      this.$router.push('/login')
     },
     morePage(){
       this.$router.push('/')
@@ -186,15 +151,16 @@ export default {
 .more{
   width: 100%;
   height:100%;
+  min-width: 1080px;
   overflow: hidden;
-  z-index: 60;
+  position: relative;
   .active{
     background: white!important;
     color:#4f8ef3!important;
   }
   .icon{
     position: absolute;
-    right:2vh;
+    right:2%;
     top:16px;
     transition: .3s;
     font-size: 3.4rem;
@@ -204,7 +170,7 @@ export default {
   }
   .icon_close{
     position: absolute;
-    right:2vh;
+    right:2%;
     top:16px;
     display: none;
     font-size: 3.4rem;

@@ -132,7 +132,7 @@ const router = new Router({
         ],
         redirect:'/fcshop/pur'
       },
-      {path:'personaldet',name:'PersonalDet',component:PersonalDet},
+      {path:'/personaldet',name:'PersonalDet',component:PersonalDet},
       {path:'/sellerass',name:'SellerAss',component:SellerAss},
       {path:'/with',name:'WithDrawal',component:WithDrawal},
       {path:'/rele',name:'Release',component:Release},
@@ -171,22 +171,22 @@ router.beforeEach((to, from, next) => {
   let mes=getCookie('mes')   //获取登陆之后的CooKie
   let iden=getCookie('ide')
   // 未登录状态；当路由到nextRoute指定页时，跳转至login
-  if (nextRoute.indexOf(to.name) >= 0) {
-    if (mes===null) {
-      console.log('Surprise MonthFucker');
-      router.push({ name: 'Page' })
-    }
-  }else if(nextRouteBuyer.indexOf(to.name)>=0){
-    if (iden==='buyer') {
-      console.log('Surprise MonthFucker!!!');
-      router.push({ name: 'Personal' })
-    }
-  }else if (nextRouteSeller.indexOf(to.name)>=0){
-    if(iden==='seller'){
-      console.log('Surprise MonthFucker!!!!!!');
-      router.push({ name: 'Seller' })
-    }
-  }
+  // if (nextRoute.indexOf(to.name) >= 0) {
+  //   if (mes===null) {
+  //     console.log('Surprise MonthFucker');
+  //     router.push({ name: 'Page' })
+  //   }
+  // }else if(nextRouteBuyer.indexOf(to.name)>=0){
+  //   if (iden==='buyer') {
+  //     console.log('Surprise MonthFucker!!!');
+  //     router.push({ name: 'Personal' })
+  //   }
+  // }else if (nextRouteSeller.indexOf(to.name)>=0){
+  //   if(iden==='seller'){
+  //     console.log('Surprise MonthFucker!!!!!!');
+  //     router.push({ name: 'Seller' })
+  //   }
+  // }
   // 判断用户身份
   //
   next();

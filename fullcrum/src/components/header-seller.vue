@@ -3,18 +3,20 @@
       <div class="loge" ref="loge">
         <Loge/>
         <More/>
-        <router-link class="left" to="/sellerma" tag='p'>票据市场</router-link>
-        <div class="right">
-          <p @mouseenter="malists()" @mouseleave="hidemali()">票据管理</p>
-          <div class="ma_lists" v-show="isShowMa"  @mouseenter="malists()" @mouseleave="hidemali()">
-            <ul >
-              <li></li>
-              <router-link to='/sellerse' tag='li'>票据发布</router-link>
-              <router-link to='/selleror' tag="li">票据列表</router-link>
-            </ul>
+        <div class="" style="width:100%;height:80px;position:absolute;top:0;min-width:1080px;">
+          <router-link class="left" to="/sellerma" tag='p'>票据市场</router-link>
+          <div class="right">
+            <p @mouseenter="malists()" @mouseleave="hidemali()">票据管理</p>
+            <div class="ma_lists" v-show="isShowMa"  @mouseenter="malists()" @mouseleave="hidemali()">
+              <ul >
+                <li></li>
+                <router-link to='/sellerse' tag='li'>票据发布</router-link>
+                <router-link to='/selleror' tag="li">票据列表</router-link>
+              </ul>
+            </div>
+            <router-link to='/sellerass' tag='p'>资产</router-link>
+            <span class="user_pic" @click="backCenter()"></span>
           </div>
-          <router-link to='/sellerass' tag='p'>资产</router-link>
-          <span class="user_pic" @click="backCenter()"></span>
         </div>
       </div>
       <div class="banner">
@@ -81,6 +83,7 @@ export default {
 .header_user{
   width: 100%;
   height:280px;
+  min-width: 1080px;
   background:url('../img/banner_center.png');
   background-size: 100% 100%;
   .loge{

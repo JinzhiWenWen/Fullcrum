@@ -1,7 +1,7 @@
 <template lang="html">
   <div class="market_buy">
     <HeaderPerson>
-      <p class="slot-mine">票价购买</p>
+      <p class="slot-mine">票据购买</p>
     </HeaderPerson>
     <div class="marketBuy_cen">
       <p class="marketBuy_title">您正在向海绵海绵我是大星购买票据</p>
@@ -16,7 +16,7 @@
         element-loading-text="支付中"
         element-loading-spinner="el-icon-loading"
         element-loading-background="#5277cc"
-        >预支付</button>
+        >{{payInner}}</button>
         <button type="button" name="button" style="color:#5277cc;background:white;border:2px solid #5277cc;margin-left:5%;" @click="Buyback()">取消订单</button>
       </p>
       <p class="marketBuy_alt">1、您的数字货币将暂时被冻结由平台保管，交易达成后系统将自动将其划转到卖方的数字钱包内，如交易失效将为您解冻。</p>
@@ -38,7 +38,8 @@ export default {
       much:null,//用户购买份额
       contract:null,//合约地址
       orderNumber:null,//票据订单编号
-      orderNumberBuyer:null//买家订单号码
+      orderNumberBuyer:null,//买家订单号码
+      payInner:'预支付'
     }
   },
   components:{
@@ -292,7 +293,6 @@ export default {
                                   ).then((res)=>{
                                   console.log(res)
 
-
                                 }).catch((error)=>{
                                   console.log(error)
 
@@ -306,12 +306,14 @@ export default {
                                     console.log("purchase successful");
                                     console.log(fccoin_ctr_instance.methods.balanceOf(getCookie('ress')).call())
                                     _this.loadingPlace=false;
+                                    _this.payInner='已支付'
                                     _this.$notify({
                                     title: '成功',
                                     message: '支付成功！',
                                     type: 'success',
                                     offset:100
                                   });
+                                    _this.$router.push('/personalor/paperor')
                                     resolve();
                                 }
                                 else throw "Approval failed";

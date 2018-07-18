@@ -64,9 +64,9 @@ export default {
         setCookie('phone',phone)
         _this.loadingLogin=false;
         if(res.data.value.identity=='buyer'){
-          this.$router.push('/person')
+          this.$router.push('/mark')
         }else{
-          this.$router.push('/seller')
+          this.$router.push('/sellerma')
         }
       }).catch((error)=>{
         console.log(error.response)
@@ -111,7 +111,7 @@ export default {
     }
     .login_btn{
       width: 8%;
-      height:90%;
+      height:70%;
       background: #5277cc;
       border-radius: 5px;
       color:white;
