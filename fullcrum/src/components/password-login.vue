@@ -12,10 +12,7 @@
           <el-button
            class="elBtn_one"  style="font-size:1.8rem;margin-top:18px;width:112px;height:54px;"
            type="primary" @click="submitForm('ruleForm2')"
-           v-loading="loadingLogin"
-           element-loading-text="登录中"
-           element-loading-spinner="el-icon-loading"
-           element-loading-background="#5277cc"
+           :loading="loadingLogin"
            >登录</el-button>
           <el-button class="elBtn_two"  style="font-size:1.2rem;margin-top:-18px;width:70px;height:36px;" type="primary" @click="submitForm('ruleForm2')">登录</el-button>
         </el-form-item>
