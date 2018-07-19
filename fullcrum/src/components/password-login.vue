@@ -13,7 +13,7 @@
            class="elBtn_one"  style="font-size:1.8rem;margin-top:18px;width:112px;height:54px;"
            type="primary" @click="submitForm('ruleForm2')"
            :loading="loadingLogin"
-           >登录</el-button>
+           >{{LoginInner}}</el-button>
           <el-button class="elBtn_two"  style="font-size:1.2rem;margin-top:-18px;width:70px;height:36px;" type="primary" @click="submitForm('ruleForm2')">登录</el-button>
         </el-form-item>
       </el-form>
@@ -60,6 +60,7 @@ export default {
     return {
         tiShi:false,
         loadingLogin:false,
+        LoginInner:'登录',
         ruleForm2: {
           pass: '',
           phoneNum: ''
@@ -78,17 +79,18 @@ export default {
       submitForm(formName) {
         this.$refs[formName].validate((valid) => {
           if (valid) {
-          this.loadingLogin=true
+          this.loadingLogin=true;
+          this.LoginInner=''
           this.axios.post(this.oUrl+'/fcexchange/login',{
             "email":this.ruleForm2.phoneNum,
             "passcode":this.ruleForm2.pass
           },
-            {headers:{
+            {header:{
               'Content-Type':'application/json',
               'Accept':'application/json'
             }}
           ).then((res)=>{
-            console.log(res)
+            this.LoginInner='登录'
             var iden=res.data.value.identity;
             var id=res.data.value.id;
             var token=res.data.value.appToken;

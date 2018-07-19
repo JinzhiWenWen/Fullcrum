@@ -29,11 +29,20 @@ export default {
   },
   methods:{
     Buy(){
-      this.radio='1'
+      this.radio='1';
     },
     Sell(){
       this.radio='2'
+    },
+    getQuery(){
+      this.radio=this.$route.query.radio;//接收默认选填参数
+      if(this.radio==undefined){ //判断是否从购买完成页面进入
+        this.radio='1'
+      }
     }
+  },
+  created(){
+    this.getQuery();
   },
   components:{
     HeaderPerson

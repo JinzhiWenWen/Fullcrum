@@ -24,6 +24,7 @@ export default {
     margin:0;
     padding:0;
     min-width: 1080px!important;
+    overflow-x: hidden;
   }
   .btn{
     position: fixed;

@@ -26,13 +26,10 @@
         <div class="next_btn">
           <el-form-item>
             <el-button
-            v-loading="loadingInve"
-            element-loading-text="注册中"
-            element-loading-spinner="el-icon-loading"
-            element-loading-background="#5277cc"
+            :loading="loadingInve"
             style="font-size:2.2rem;width:170px;height:60px;color:white;" type="primary"
             @click="submitForm('ruleForm2')"
-            >下一步</el-button>
+            >{{NextInveInner}}</el-button>
           </el-form-item>
         </div>
         <!-- </router-link> -->
@@ -92,6 +89,7 @@ export default {
         time:10,
         disabled:false,
         loadingInve:false,
+        NextInveInner:'下一步',
         ruleForm2: {
           pass: '',
           phoneNum: '',
@@ -134,6 +132,7 @@ export default {
         this.$refs[formName].validate((valid) => {
           if (valid) {
             this.loadingInve=true;
+            this.NextInveInner='';
             this.axios.post(this.oUrl+'/fcexchange/register',{
               "identity":this.ruleForm2.identity,
               "username":this.ruleForm2.userName,
@@ -142,6 +141,7 @@ export default {
             }
             ,{headers:{'Content-Type':'application/json'}}
             ).then((res)=>{
+              this.NextInveInner='下一步';
               var ress=res.data.value.feWalletAddress;
               var mes=res.data.value.id;
               setCookie('ress',ress);
