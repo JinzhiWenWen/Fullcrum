@@ -22,14 +22,15 @@
         <span style="margin-left:130px;">限额 </span>
         <span style="margin-left:270px;">操作</span>
         </p>
+      <p class="hasOrder" v-show="nothing">暂无可用票据</p>
       <ul class="note_lists" v-loading="loaDingMark">
         <li v-for="(item,index) in roteList"
         @mouseleave="CancelMove(index)"
         ref='noteList'
         >
-          <span class="vendor_name">中国银行浙江省分行</span>
+          <span class="vendor_name">中国平安银行</span>
           <span class="rete">{{item.interest/1000000000000000000}}%</span>
-          <span class="time">2019/01/09</span>
+          <span class="time">{{item.maturityDate}}</span>
           <span class="total">{{item.billBalance}}.00&nbsp;&nbsp;FC</span>
           <span class="limit">5000.00FC</span>
           <span class="oper">
@@ -78,6 +79,7 @@ export default {
         much:null,
         toBuy:null,
         loaDingMark:false,
+        nothing:false,
         options: [
           {
             value: '选项1',
@@ -97,7 +99,8 @@ export default {
         contract:null,
         orderNumberMarket:null,
         orderNumberBuyer:null,
-        turnKey:null
+        turnKey:null,
+        time:null,
       }
     },
   methods:{
@@ -151,7 +154,6 @@ export default {
       }else{
         var key=this.$refs.tradePass.value;
         var Atanisi = Math.floor(Math.random() * 999999);
-        console.log(Atanisi);
         var myDate = new Date();
        	var tY = myDate.getFullYear();//年
        	var tM = myDate.getMonth()+1;//月
@@ -179,33 +181,43 @@ export default {
     getlist(){
       var _this=this;
       _this.loaDingMark=true;
-      this.axios.get(this.oUrl+'/fcexchange/bill/sellerorders/availableorders/').then((res)=>{
+      this.axios.get(_this.oUrl+'/fcexchange/bill/sellerorders/availableorders/').then((res)=>{
         _this.loaDingMark=false;
-        this.roteList=res.data.value;
+        _this.roteList=res.data.value;
+        for(var v in _this.roteList){
+          var Time=_this.roteList[v].maturityDate;//获取每条数据的时间戳
+          var Data=new Date(Time)//创建时间对象，传入时间戳
+          var Y = Data.getFullYear() + '/';
+          var M = (Data.getMonth()+1 < 10 ? '0'+(Data.getMonth()+1) : Data.getMonth()+1) + '/';
+          var D ='0'+Data.getDate() + ' ';
+          if(D>=10){ //天数超过两位减掉拼接  '0'
+            var D=Data.getDate() + ' ';
+          }
+          _this.roteList[v].maturityDate=Y+M+D
+        }
         let httpProvider = "http://testnet.nebula-ai.com:8545";
         let web3 = new Web3(httpProvider);
-       console.log(this.roteList)
-       for (let i in this.roteList){
-        const groupon_ctr_addr=this.roteList[i].contractAddress;//合约地址
-        this.$http.get('../../static/json/groupon_erc20_abi.json').then((response)=>{
+       if(_this.roteList.length<=0){
+         _this.nothing=true;
+       }else{
+         _this.nothing=false;
+       }
+       for (let i in _this.roteList){
+        const groupon_ctr_addr=_this.roteList[i].contractAddress;//合约地址
+        _this.$http.get('../../static/json/groupon_erc20_abi.json').then((response)=>{
               return response.body;
             }).then((groupon_ctr_abi)=>{
               return new web3.eth.Contract(groupon_ctr_abi, groupon_ctr_addr);
             }).then((groupon_ctr_instance)=>{
               return new Promise((resolve,reject)=>{
                 groupon_ctr_instance.methods.fcRaised().call().then(result=>{
-                    console.log("FcRaised : "+result);
                     _this.roteList[i].billBalance-result
                     resolve();
-                }).catch(reject);
+                  }).catch(reject);
+              })
             })
-          })
-       }
-
-
+        }
       });
-
-
     }
   },
   created(){
@@ -266,6 +278,14 @@ export default {
       font-size: 1.6rem;
       color:#999;
     }
+  }
+  .hasOrder{
+    width: 100%;
+    text-align: center;
+    color:#999;
+    font-size: 1.5rem;
+    position: absolute;
+    top:20%;
   }
   .note_lists{
     width: 100%;

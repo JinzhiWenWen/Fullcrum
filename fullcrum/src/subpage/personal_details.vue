@@ -17,15 +17,15 @@
       </p>
       <p class="personal_details_con_alt">
         <span style="margin-top:-.8%;">
-          <span>110433105129620</span>
+          <span>{{billNumber}}</span>
           <br>
-          <span>180712222419804</span>
+          <span>{{billNumberLast}}</span>
         </span>
-        <span>1000000.00FC</span>
-        <span style="margin-right:3%;">中国银行浙江省分行</span>
-        <span style="margin-right:4.5%;">2019/01/09</span>
-        <span style="margin-right:7%;">青岛庆泰农业科技有限公司</span>
-        <span>9.8%</span>
+        <span>{{counts}}.00FC</span>
+        <span style="margin-right:2.5%;">中国银行浙江省分行</span>
+        <span style="margin-right:3.8%;">{{date}}</span>
+        <span style="margin-right:6%;">青岛庆泰农业科技有限公司</span>
+        <span>{{interest/1000000000000000000}}%</span>
       </p>
       <p class="personal_details_con_alt_back"><button type="button"  @click="aaa()">返回</button></p>
     </div>
@@ -37,9 +37,12 @@ import HeaderUser from '@/components/header-user'
 export default {
   data(){
     return{
-        orderNUmber:null,
+        orderNumber:null,
         billNumber:null,
-        counts:null
+        counts:null,
+        billNumberLast:null,
+        interest:null,
+        date:null
     }
   },
   methods:{
@@ -52,8 +55,22 @@ export default {
       //获取订单详情数据
       this.axios.get(this.oUrl+'/fcexchange/bill/sellerorders/'+this.orderNumber).then((res)=>{
         console.log(res)
-        this.billNumber=res.data.bankId;
+        let numberFirst=res.data.billNumber;
+        let a=numberFirst.split('');
+        let numberLast=a.splice(0,15);
+        this.billNumberLast=a.join('');
+        this.billNumber=numberLast.join('');
         this.counts=res.data.fcCounts;
+        this.interest=res.data.interest;
+        var time=res.data.maturityDate;
+        var data=new Date(time);
+        var Y=data.getFullYear()+'/';
+        var M = (data.getMonth()+1 < 10 ? '0'+(data.getMonth()+1) : data.getMonth()+1) + '/';
+        var D ='0'+data.getDate() + ' ';
+        if(D>=10){ //天数超过两位减掉拼接  '0'
+            var D=data.getDate() + ' ';
+        }
+        this.date=Y+M+D;
       })
     },
     aaa(){
@@ -76,6 +93,7 @@ export default {
   width: 100%;
   height:100%;
   // overflow-x: hidden;
+  min-width: 1080px;
   .personal_details_con{
     width: 62%;
     height:80%;

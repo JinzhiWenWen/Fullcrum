@@ -5,7 +5,7 @@
     </HeaderPerson>
     <div class="marketBuy_cen">
       <p class="marketBuy_title">您正在向海绵海绵我是大星购买票据</p>
-      <p class="marketBuy_much">购买份额：<span>{{much}}.00FC</span>CNY</p>
+      <p class="marketBuy_much">购买份额：<span>{{much}}.00</span>CNY</p>
       <p class="marketBuy_amount">总价：<span style="color:#53936C;">{{much}}.00FC</span></p>
       <p class="marketBuy_status">待支付，请于<span style="color:#e60012;">19分58秒</span>内确认预支付<span style="color:#53936c;">{{much}}.00FC</span></p>
       <p class="marketBuy_oper">
@@ -313,7 +313,12 @@ export default {
                                     type: 'success',
                                     offset:100
                                   });
-                                    _this.$router.push('/personalor/paperor')
+                                    _this.$router.push({
+                                      name:'Paperorder',
+                                      query:{
+                                        radio:'2'
+                                      }
+                                    })
                                     resolve();
                                 }
                                 else throw "Approval failed";

@@ -25,15 +25,16 @@
         <span style="margin-left:130px;">限额 </span>
         <span style="margin-left:270px;">操作</span>
         </p>
+        <p class="sellerHasOrder" v-show="sellerNothing">暂无可用票据</p>
       <ul class="seller_lists"
       v-loading="loaDingSellerMark"
       >
         <li
         v-for="(item,index) in roteList"
         >
-          <span class="vendor_name">中国银行浙江省分行</span>
+          <span class="vendor_name">中国平安银行</span>
           <span class="rete">{{item.interest/1000000000000000000}}%</span>
-          <span class="time">2019/01/09</span>
+          <span class="time">{{item.maturityDate}}</span>
           <span class="total">{{item.fcCounts}}.00 FC</span>
           <span class="limit">5000.00FC</span>
           <span class="oper">
@@ -64,6 +65,7 @@ export default {
       value:null,
       much:null,
       loaDingSellerMark:false,
+      sellerNothing:true,
       options: [
         {
           value: '选项1',
@@ -97,6 +99,22 @@ export default {
       _this.axios.get(_this.oUrl+'/fcexchange/bill/sellerorders/availableorders/').then((res)=>{
         _this.loaDingSellerMark=false;
         _this.roteList=res.data.value;
+        for(var v in _this.roteList){
+          var Time=_this.roteList[v].maturityDate;//获取每条数据的时间戳
+          var Data=new Date(Time)//创建时间对象，传入时间戳
+          var Y = Data.getFullYear() + '/';
+          var M = (Data.getMonth()+1 < 10 ? '0'+(Data.getMonth()+1) : Data.getMonth()+1) + '/';
+          var D ='0'+Data.getDate() + ' ';
+          if(D>=10){ //天数超过两位减掉拼接  '0'
+            var D=Data.getDate() + ' ';
+          }
+          _this.roteList[v].maturityDate=Y+M+D
+        }
+        if(_this.roteList.length<=0){
+          _this.sellerNothing=true;
+        }else{
+          _this.sellerNothing=false;
+        }
       }).catch((error)=>{
         console.log(error.response)
       })
@@ -172,6 +190,14 @@ export default {
         font-size: 1.6rem;
         color:#999;
       }
+    }
+    .sellerHasOrder{
+      width: 100%;
+      text-align: center;
+      color:#999;
+      font-size: 1.5rem;
+      position: absolute;
+      top:27%;
     }
     .seller_lists{
       width: 100%;

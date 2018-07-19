@@ -265,6 +265,17 @@ export default {
         });
       }else{
         this.loadingRelease=true;
+        let time = new Date(maturityDate).getTime();
+        let data=new Date(time)
+        console.log(time)
+        var Y = data.getFullYear() + '/';
+        var M = (data.getMonth()+1 < 10 ? '0'+(data.getMonth()+1) : data.getMonth()+1) + '/';
+        var D ='0'+data.getDate() + ' ';
+        if(D>=10){
+          var D=data.getDate() + ' ';
+        }
+        console.log(Y+M+D)
+        console.log(data)
         let const_str = '000000000000000000';
         let n_str = String(rate);
         let d_len = n_str.split('.')[1].length;
@@ -274,11 +285,10 @@ export default {
         this.axios.post(this.oUrl+'/fcexchange/bill/sellerorders',{
           "billSellerOrder":{
             "fcCounts": amount,
-            "expiredAt": expiredAt,
             "billNumber":orderOn,
-            "bankId":orderOn,
+            "bankId":expiredAt,
             "interest":turnrate,
-            "maturityDate":123456,
+            "maturityDate":time,
             "feWalletAddress":ress
             },
             "documentRequest":[{
