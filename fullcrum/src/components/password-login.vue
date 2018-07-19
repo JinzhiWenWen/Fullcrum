@@ -12,10 +12,7 @@
           <el-button
            class="elBtn_one"  style="font-size:1.8rem;margin-top:18px;width:112px;height:54px;"
            type="primary" @click="submitForm('ruleForm2')"
-           v-loading="loadingLogin"
-           element-loading-text="登录中"
-           element-loading-spinner="el-icon-loading"
-           element-loading-background="#5277cc"
+           :loading="loadingLogin"
            >登录</el-button>
           <el-button class="elBtn_two"  style="font-size:1.2rem;margin-top:-18px;width:70px;height:36px;" type="primary" @click="submitForm('ruleForm2')">登录</el-button>
         </el-form-item>
@@ -86,34 +83,33 @@ export default {
             "email":this.ruleForm2.phoneNum,
             "passcode":this.ruleForm2.pass
           },
-            {header:{
+            {headers:{
               'Content-Type':'application/json',
               'Accept ':'application/json'
             }}
           ).then((res)=>{
             console.log(res)
-            if(res.status==200){
-              var iden=res.data.value.identity;
-              var id=res.data.value.id;
-              var token=res.data.value.appToken;
-              var iden=res.data.value.identity;
-              var ress=res.data.value.feWalletAddress;
-              var phone=res.data.value.phone;
-              sessionStorage.setItem('mes',id);
-              setCookie('mes',id);
-              setCookie('token',token);
-              setCookie('ide',iden)
-              setCookie('ress',ress)
-              setCookie('phone',phone)
-              if(iden==='buyer'){
-                this.$router.push('/mark')
-              }else if(iden==='seller'){
-                this.$router.push('/sellerma')
-              }else if(iden==='merchants'){
-                this.tiShi=true;
-              }
+            var iden=res.data.value.identity;
+            var id=res.data.value.id;
+            var token=res.data.value.appToken;
+            var iden=res.data.value.identity;
+            var ress=res.data.value.feWalletAddress;
+            var phone=res.data.value.phone;
+            sessionStorage.setItem('mes',id);
+            setCookie('mes',id);
+            setCookie('token',token);
+            setCookie('ide',iden)
+            setCookie('ress',ress)
+            setCookie('phone',phone)
+            if(iden==='buyer'){
+              this.$router.push('/mark')
+            }else if(iden==='seller'){
+              this.$router.push('/sellerma')
+            }else if(iden==='merchants'){
+              this.tiShi=true;
             }
           }).catch((error)=>{
+            console.log(error)
             if(error.response.data.code==0){
               this.loadingLogin=false
               this.$notify.error({

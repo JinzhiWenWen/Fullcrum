@@ -3,14 +3,16 @@
       <div class="loge" ref="loge">
         <Loge/>
         <More/>
-        <div class="left">
-          <router-link to="/mark" tag='p'>票据市场</router-link>
-          <router-link to="/fcshop" tag='p'>FC市场</router-link>
-        </div>
-        <div class="right">
-          <router-link to='/personalor' tag="p">订单</router-link>
-          <router-link to='/personass' tag='p'>资产</router-link>
-          <span class="user_pic" @mouseenter="lists()" @mouseleave="nolist()"></span>
+        <div class="" style="width:100%;height:80px;position:absolute;top:0;min-width:1080px;">
+          <div class="left">
+            <router-link to="/mark" tag='p'>票据市场</router-link>
+            <router-link to="/fcshop" tag='p'>FC市场</router-link>
+          </div>
+          <div class="right">
+            <router-link to='/personalor' tag="p">订单</router-link>
+            <router-link to='/personass' tag='p'>资产</router-link>
+            <span class="user_pic" @mouseenter="lists()" @mouseleave="nolist()"></span>
+          </div>
         </div>
         <div class="chose_lists" v-show="isShow">
           <ul @mouseenter="lists()" @mouseleave="nolist()">
@@ -79,10 +81,12 @@ export default {
 .header_user{
   width: 100%;
   height:280px;
+  min-width: 1080px;
   background:url('../img/banner_center.png');
   background-size: 100% 100%;
   .loge{
     width: 100%;
+    min-width: 100%;
     height:80px;
     position: fixed;
     top:0;
@@ -103,7 +107,7 @@ export default {
     }
     .right{
       position:absolute;
-      right:14vh;
+      right:8%;
       top:.5%;
       display:flex;
       .user_pic{
@@ -123,7 +127,7 @@ export default {
       height:140px;
       position: absolute;
       top: 36px;
-      right:11.5vh;
+      right:6.5%;
       ul{
         display: flex;
         -webkit-flex-wrap:wrap;

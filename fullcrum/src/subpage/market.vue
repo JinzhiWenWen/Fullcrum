@@ -15,26 +15,23 @@
         </el-select>
         </p>
       <p class="mark_title">
-        <span>商家（成单数 | 完成率）</span>
-        <span style="margin-left:112px;">年化收益率</span>
-        <span style="margin-left:74px;">期限</span>
+        <span>承兑银行</span>
+        <span style="margin-left:152px;">年化收益率</span>
+        <span style="margin-left:74px;">票据到期日</span>
         <span style="margin-left:126px;">总价</span>
         <span style="margin-left:130px;">限额 </span>
-        <span style="margin-left:230px;">操作</span>
+        <span style="margin-left:270px;">操作</span>
         </p>
       <ul class="note_lists" v-loading="loaDingMark">
         <li v-for="(item,index) in roteList"
         @mouseleave="CancelMove(index)"
         ref='noteList'
         >
-          <span class="por">
-            <span class="status"></span>
-          </span>
-          <span class="vendor_name"></span>
+          <span class="vendor_name">中国银行浙江省分行</span>
           <span class="rete">{{item.interest/1000000000000000000}}%</span>
-          <span class="time"></span>
+          <span class="time">2019/01/09</span>
           <span class="total">{{item.billBalance}}.00&nbsp;&nbsp;FC</span>
-          <span class="limit"></span>
+          <span class="limit">5000.00FC</span>
           <span class="oper">
             <button type="button" name="button" class="prev" @click="showPaper()">预览</button>
             <button type="button" name="button" class="buy" @click="buyChase(index)">购买</button>
@@ -107,7 +104,6 @@ export default {
     showPaper(){
       this.$refs.mask.style.display='block';
       this.$refs.paperPic.style.top="50%";
-      console.log(this.$refs.mask);
     },
     closePic(){
       setTimeout(()=>{
@@ -117,20 +113,20 @@ export default {
       this.$refs.pass.style.top="-300px";
     },
     buyChase(index){
-      this.$refs.noteList[index].childNodes[12].style.display='none'
-      this.$refs.noteList[index].childNodes[14].style.display='block'
+      this.$refs.noteList[index].childNodes[10].style.display='none'
+      this.$refs.noteList[index].childNodes[12].style.display='block'
       this.much='';
       this.contract=this.roteList[index].contractAddress;
       this.orderNumberMarket=this.roteList[index].orderNumber;
     },
     Cancel(index){
-      this.$refs.noteList[index].childNodes[12].style.display='block'
-      this.$refs.noteList[index].childNodes[14].style.display='none'
+      this.$refs.noteList[index].childNodes[10].style.display='block'
+      this.$refs.noteList[index].childNodes[12].style.display='none'
       this.much='';
     },
     CancelMove(index){
-      this.$refs.noteList[index].childNodes[12].style.display='block'
-      this.$refs.noteList[index].childNodes[14].style.display='none'
+      this.$refs.noteList[index].childNodes[10].style.display='block'
+      this.$refs.noteList[index].childNodes[12].style.display='none'
     },
     place(index){
       if(this.much===''){
@@ -305,27 +301,26 @@ export default {
       .vendor_name{
         color:#4a78bf;
         position: absolute;
-        left:50px;
         top:24px;
       }
       .rete{
         position: absolute;
-        left:310px;
+        left:246px;
         top:24px;
       }
       .time{
         position: absolute;
-        left:444px;
+        left:380px;
         top:24px;
       }
       .total{
         position:absolute;
-        left:584px;
+        left:564px;
         top:24px;
       }
       .limit{
         position: absolute;
-        left:744px;
+        left:738px;
         top:24px;
       }
       .oper{
@@ -400,23 +395,23 @@ export default {
         right:12px;
       }
       .vendor_name{
-        left:62px;
+        left:16px;
         top:34px;
       }
       .rete{
-        left:324px;
+        left:262px;
         top:34px;
       }
       .time{
-        left:460px;
+        left:397px;
         top:34px;
       }
       .total{
-        left:600px;
+        left:580px;
         top:34px;
       }
       .limit{
-        left:760px;
+        left:754px;
         top:34px;
       }
       .order{

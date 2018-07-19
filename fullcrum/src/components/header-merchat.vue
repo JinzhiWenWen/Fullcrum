@@ -3,11 +3,13 @@
       <div class="loge" ref="loge">
         <Loge/>
         <More/>
-        <router-link class="left" to="/merchatma" tag='p'>FC市场</router-link>
-        <div class="right">
-          <router-link to='/merchator' tag="p">订单</router-link>
-          <router-link to='/merchatass' tag='p'>资产</router-link>
-          <span class="user_pic" @mouseenter="merlists()" @mouseleave="mernolist()"></span>
+        <div class="" style="width:100%;height:80px;position:absolute;top:0;min-width:1080px;">
+          <router-link class="left" to="/merchatma" tag='p'>FC市场</router-link>
+          <div class="right">
+            <router-link to='/merchator' tag="p">订单</router-link>
+            <router-link to='/merchatass' tag='p'>资产</router-link>
+            <span class="user_pic" @mouseenter="merlists()" @mouseleave="mernolist()"></span>
+          </div>
         </div>
         <div class="chose_lists" v-show="isShow">
           <ul  @mouseenter="merlists()" @mouseleave="mernolist()">
@@ -78,6 +80,7 @@ export default {
 .header_user{
   width: 100%;
   height:280px;
+  min-width: 1080px;
   background:url('../img/banner_center.png');
   background-size: 100% 100%;
   .loge{

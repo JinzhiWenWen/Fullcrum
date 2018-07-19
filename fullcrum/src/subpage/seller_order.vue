@@ -50,6 +50,7 @@
             <button
              type="button"
              name="button"
+             @click="sellerDetails(index)"
              >查看</button>
             <button
              class="dis"
@@ -174,12 +175,19 @@ export default {
         console.log(this.note_lists);
         this.loaDingSellerOrder=false;
       })
+    },
+    sellerDetails(index){
+      this.$router.push({
+        name:'sellerDet',
+        query:{
+          number:this.note_lists[index].orderNumber
+        }
+      })
     }
   },
   created(){
     var _this=this;
     this.getOrder()
-
   },
   components:{
     HeaderSeller,
@@ -188,7 +196,7 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .seller_order_con{
   width: 1128px;
   height:1000px;

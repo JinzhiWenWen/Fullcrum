@@ -18,12 +18,12 @@
         </span> -->
         </p>
       <p class="seller_title">
-        <span>商家（成单数 | 完成率）</span>
-        <span style="margin-left:116px;">年化收益率</span>
-        <span style="margin-left:70px;">期限</span>
-        <span style="margin-left:120px;">总价</span>
-        <span style="margin-left:142px;">限额 </span>
-        <span style="margin-left:300px;">操作</span>
+        <span>承兑银行</span>
+        <span style="margin-left:152px;">年化收益率</span>
+        <span style="margin-left:74px;">票据到期日</span>
+        <span style="margin-left:126px;">总价</span>
+        <span style="margin-left:130px;">限额 </span>
+        <span style="margin-left:270px;">操作</span>
         </p>
       <ul class="seller_lists"
       v-loading="loaDingSellerMark"
@@ -31,14 +31,11 @@
         <li
         v-for="(item,index) in roteList"
         >
-          <span class="por">
-            <span class="status"></span>
-          </span>
-          <span class="vendor_name"></span>
+          <span class="vendor_name">中国银行浙江省分行</span>
           <span class="rete">{{item.interest/1000000000000000000}}%</span>
-          <span class="time">{{item.time}}</span>
+          <span class="time">2019/01/09</span>
           <span class="total">{{item.fcCounts}}.00 FC</span>
-          <span class="limit">{{item.limit}}</span>
+          <span class="limit">5000.00FC</span>
           <span class="oper">
             <button type="button" name="button" class="buy" @click="view(index)">预览</button>
           </span>
@@ -117,7 +114,7 @@ export default {
 
 <style lang="scss" scoped>
   .mark{
-    width: 1128px;
+    width: 1142px;
     height:1000px;
     position: absolute;
     left:50%;
@@ -172,7 +169,7 @@ export default {
       border-bottom: 2px solid #eee;
       padding-left:18px;
       span{
-        font-size: 1.4rem;
+        font-size: 1.6rem;
         color:#999;
       }
     }
@@ -210,27 +207,26 @@ export default {
         .vendor_name{
           color:#4a78bf;
           position: absolute;
-          left:50px;
           top:24px;
         }
         .rete{
           position: absolute;
-          left:290px;
+          left:246px;
           top:24px;
         }
         .time{
           position: absolute;
-          left:414px;
+          left:380px;
           top:24px;
         }
         .total{
           position:absolute;
-          left:540px;
+          left:564px;
           top:24px;
         }
         .limit{
           position: absolute;
-          left:710px;
+          left:738px;
           top:24px;
         }
         .oper{
@@ -261,23 +257,23 @@ export default {
           right:12px;
         }
         .vendor_name{
-          left:62px;
+          left:16px;
           top:34px;
         }
         .rete{
-          left:306px;
+          left:262px;
           top:34px;
         }
         .time{
-          left:430px;
+          left:397px;
           top:34px;
         }
         .total{
-          left:555px;
+          left:580px;
           top:34px;
         }
         .limit{
-          left:726px;
+          left:754px;
           top:34px;
         }
       }

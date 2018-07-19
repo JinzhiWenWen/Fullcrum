@@ -1,8 +1,8 @@
 <template lang="html">
   <div class="personal_details">
-    <HeaderUser>
+    <HeaderSeller>
       <p class="slot-mine">订单详情</p>
-    </HeaderUser>
+    </HeaderSeller>
     <div class="personal_details_con">
       <div class="personal_details_con_peperImg">
         <img src="../img/Banner.png" alt="" ref="peperImg">
@@ -33,7 +33,7 @@
 </template>
 
 <script>
-import HeaderUser from '@/components/header-user'
+import HeaderSeller from '@/components/header-seller'
 export default {
   data(){
     return{
@@ -57,7 +57,7 @@ export default {
       })
     },
     aaa(){
-      this.$refs.peperImg.src='data:image/png;base64,'+localStorage.getItem('the')
+      this.$refs.peperImg.src='data:image/png;base64,'+localStorage.getItem('the');
       window.history.back();
     }
   },
@@ -66,7 +66,7 @@ export default {
     this.getOrderBuyer()
   },
   components:{
-    HeaderUser
+    HeaderSeller
   }
 }
 </script>
@@ -111,7 +111,6 @@ export default {
       box-sizing: border-box;
       padding-left:3%;
       padding-top:1%;
-      padding-right:.5%;
       color:#9a9a9a;
     }
     .personal_details_con_alt_back{
