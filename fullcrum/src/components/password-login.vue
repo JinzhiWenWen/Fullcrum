@@ -85,7 +85,7 @@ export default {
           },
             {headers:{
               'Content-Type':'application/json',
-              'Accept ':'application/json'
+              'Accept':'application/json'
             }}
           ).then((res)=>{
             console.log(res)
@@ -109,6 +109,7 @@ export default {
               this.tiShi=true;
             }
           }).catch((error)=>{
+            console.log("error")
             console.log(error)
             if(error.response.data.code==0){
               this.loadingLogin=false
