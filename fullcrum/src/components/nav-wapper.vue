@@ -25,8 +25,8 @@ export default {
       }
     }
   },
-  destroyed(){
-    window.addEventListener('scroll',this.handleScroll())
+  beforeDestroy(){
+    window.removeEventListener('scroll',this.handleScroll)
   },
   components:{
     Loge,

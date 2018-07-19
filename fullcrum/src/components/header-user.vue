@@ -66,8 +66,8 @@ export default {
     window.addEventListener('scroll',this.handleScroll);
     this.buyerMe()
   },
-  destroyed(){
-    window.addEventListener('scroll',this.handleScroll());
+  beforeDestroy(){
+    window.removeEventListener('scroll',this.handleScroll);
   },
   components:{
     Loge,

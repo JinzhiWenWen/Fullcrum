@@ -7,7 +7,7 @@
       <p class="marketBuy_title">您正在向海绵海绵我是大星购买票据</p>
       <p class="marketBuy_much">购买份额：<span>{{much}}.00</span>CNY</p>
       <p class="marketBuy_amount">总价：<span style="color:#53936C;">{{much}}.00FC</span></p>
-      <p class="marketBuy_status">待支付，请于<span style="color:#e60012;">19分58秒</span>内确认预支付<span style="color:#53936c;">{{much}}.00FC</span></p>
+      <p class="marketBuy_status">待支付，请于<span style="color:#e60012;">{{time}}</span>内确认预支付<span style="color:#53936c;">{{much}}.00FC</span></p>
       <p class="marketBuy_oper">
         <button
         type="button" name="button"
@@ -39,7 +39,10 @@ export default {
       contract:null,//合约地址
       orderNumber:null,//票据订单编号
       orderNumberBuyer:null,//买家订单号码
-      payInner:'预支付'
+      payInner:'预支付',
+      m:1,
+      s:10,
+      time:null
     }
   },
   components:{
@@ -345,10 +348,32 @@ export default {
 
 
 
+    },
+    Pour(){
+      if(this.s>0){
+        this.s--;
+        this.time=this.m+'分'+this.s+'秒';
+        setTimeout(this.Pour,1000)
+        if(this.s<10){
+          this.time=this.m+'分'+'0'+this.s+'秒';
+          if(this.s<1){
+            this.m--;
+            this.s=10
+            if(this.m<0||this.s<1){
+              this.$router.push('/mark')
+              // alert('111')
+            }
+          }
+        }
+      }
     }
   },
   mounted(){
-    this.getWal()
+    this.getWal();
+    this.Pour()
+  },
+  beforeDestory(){
+    clearTimeout(this.Pour)
   }
 }
 </script>
