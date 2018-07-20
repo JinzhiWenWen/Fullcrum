@@ -372,8 +372,8 @@ export default {
     this.getWal();
     this.Pour()
   },
-  beforeDestory(){
-    clearTimeout(this.Pour)
+  beforeDestroy(){
+    window.clearTimeout(this.Pour)
   }
 }
 </script>

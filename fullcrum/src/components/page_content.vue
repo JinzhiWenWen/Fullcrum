@@ -138,9 +138,8 @@ export default {
       this.$refs.hov_left.style.left='28.8%'
     }
   },
-  destroyed(){
-    let self=this;
-    window.addEventListener('scroll',self.handleScroll());
+  beforeDestroy(){
+    window.removeEventListener('scroll',self.handleScroll);
   }
 }
 </script>
