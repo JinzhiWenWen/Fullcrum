@@ -111,6 +111,7 @@ export default {
               this.tiShi=true;
             }
           }).catch((error)=>{
+            console.log("error")
             console.log(error)
             if(error.response.data.code==0){
               this.loadingLogin=false
