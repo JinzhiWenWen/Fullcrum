@@ -5,7 +5,7 @@
     </HeaderBuyer>
     <div class="buyer_message">
       <p class="base">
-        <span style="font-size:3rem;">您正向天王盖地虎购买{{this.turnMuch}}.00FC</span>
+        <span style="font-size:3rem;">您正向海绵海绵购买{{this.turnMuch}}.00FC</span>
         <br>
         <span style="color:#999;font-size:1.6rem;;margin-top:20px;margin-bottom:14px;">单价：1CNY</span>
         <br>
@@ -38,7 +38,7 @@
         </p>
       <p class="tions">待支付，请于
         <span style="color:#e60012;">{{timePur}}</span>
-        内向天王盖地虎支付
+        内向海绵海绵支付
         <span style="color:#53936c;">{{this.turnMuch}}.00CNY。</span>
         </p>
       <p class="submit">

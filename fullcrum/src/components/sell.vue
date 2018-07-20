@@ -27,8 +27,8 @@
             <span class="status"></span>
           </span>
           <span class="vendor_name">{{item.VendorName}}</span>
-          <span class="rete">{{item.Num}}</span>
-          <span class="time">{{item.Limit}}</span>
+          <span class="rete">{{item.Num}}.00 FC</span>
+          <span class="time">{{item.Limit}}.00 FC</span>
           <span class="total">{{item.Per}}</span>
           <span class="pay_way" v-show="item.isShowPay">
             <i class="iconfont icon-bank icon-iconfontjikediancanicon20"></i>
@@ -42,7 +42,7 @@
             <span class="icon"></span>
             <input type="text" name="" ref="aaa" value="item.val" v-model="much" style="padding-left:10px;margin-bottom:6px;">
             <span class="unit">FC</span>
-            <input type="text" name="" value="1" style="padding-left:10px;color:#ccc;">
+            <input type="text" disabled="disabled" name="" placeholder="1" v-model="much" style="padding-left:10px;color:#ccc;">
             <span class="cnyt">CNY</span>
             <button type="button" name="button" class="firm" @click="place()">下单</button>
             <button type="button" name="button" class="cancel" @click="Cancel(index)">取消</button>
@@ -54,8 +54,8 @@
 
       </div>
       <div class="pass_pur" ref="pass_pur">
-        <span>交易密码：</span>
-        <input type="password" ref="tradePass" name=""  value="">
+        <span>私钥：</span>
+        <input type="text" ref="tradePass" name=""  value="">
         <button type="button" name="button" @click="turnPlace()">确认</button>
         <button type="button" name="button" style="margin-left:94px;"  @click="closePic()">取消</button>
       </div>
@@ -64,6 +64,7 @@
 
 <script>
 import Pager from '@/components/pager'
+import {getCookie} from '@/assets/util'
 export default {
   data() {
       return {
@@ -84,8 +85,18 @@ export default {
           }],
         value: '',
         much:'',
-        loaDingFcSell:true,
-        roteList:[]
+        loaDingFcSell:false,
+        roteList:[
+          {
+            VendorName:'大星大星我是海绵（123 | 97%）',
+            Num:'10000',
+            Limit:'10000',
+            Per:'1CNY',
+            isShowOper:true,
+            isShowOrder:false,
+            isShowPay:true
+          }
+        ]
       }
     },
   methods:{
@@ -133,27 +144,22 @@ export default {
       }
     },
     turnPlace(){
+      var _this=this
       var tradePass=this.$refs.tradePass.value;
         if(tradePass===''){
-          this.$notify.error({
+          _this.$notify.error({
             title: '错误',
-            message: '请输入交易密码',
+            message: '请输入私钥！',
             offset:100
           });
         }else{
-          this.axios.post(this.oUrl+'/fcexchange/fcorder',
-          {header:{'Content-Type':'application/json'}},
-          {
-            'fcCounts':this.much,
-            'orderType':'buy',
-            'feWallet':{
-              'id':'',
-              'address':''
+          _this.$router.push({
+            name:'Fcsell',
+            params:{
+              key:tradePass,
+              much:_this.much
             }
-          }
-        ).then((res)=>{
-          console.log(res)
-        })
+          })
         }
     }
   },
@@ -264,7 +270,8 @@ export default {
         width: 36px;
         height:36px;
         border-radius: 50%;
-        background: #999;
+        background: url('../img/spon.png');
+        background-size:100% 100%;
         position: relative;
         .status{
           width:8px;
@@ -284,7 +291,7 @@ export default {
       }
       .rete{
         position: absolute;
-        left:286px;
+        left:292px;
         top:24px;
       }
       .time{
@@ -411,7 +418,7 @@ export default {
         top:34px;
       }
       .rete{
-        left:302px;
+        left:310px;
         top:34px;
       }
       .time{

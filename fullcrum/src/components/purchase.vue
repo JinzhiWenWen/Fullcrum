@@ -42,7 +42,7 @@
             <span class="icon"></span>
             <input type="text" name="" ref="aaa" value="item.val" v-model="much" style="padding-left:10px;margin-bottom:6px;">
             <span class="unit">FC</span>
-            <input type="text" name="" v-model="much" placeholder="1" style="padding-left:10px;color:#ccc;">
+            <input type="text" name="" disabled="disabled" v-model="much" placeholder="1" style="padding-left:10px;color:#ccc;">
             <span class="cnyt">CNY</span>
             <button type="button" name="button" class="firm" @click="place(index)">下单</button>
             <button type="button" name="button" class="cancel" @click="Cancel(index)">取消</button>
@@ -300,7 +300,7 @@ export default {
         width: 36px;
         height:36px;
         border-radius: 50%;
-        background: url('../img/UserPic.png');
+        background: url('../img/bigstar.png');
         background-size: 100% 100%;
         position: relative;
         .status{

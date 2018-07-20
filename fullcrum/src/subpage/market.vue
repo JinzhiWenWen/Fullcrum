@@ -57,7 +57,7 @@
       </span>
     </div>
     <div class="pass" ref="pass">
-      <span>秘钥：</span>
+      <span>私钥：</span>
       <input type="text" ref="tradePass" name=""  value="">
       <button type="button" name="button" @click="turnPlace()">确认</button>
       <button type="button" name="button" style="margin-left:94px;"  @click="closePic()">取消</button>
@@ -148,7 +148,7 @@ export default {
       if(tradePass===''){
         this.$notify.error({
           title: '错误',
-          message: '请输入交易密码！',
+          message: '请输入私钥！',
           offset:100
         });
       }else{
