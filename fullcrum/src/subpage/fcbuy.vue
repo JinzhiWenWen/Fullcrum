@@ -37,7 +37,7 @@
         </span>
         </p>
       <p class="tions">待支付，请于
-        <span style="color:#e60012;">19分58秒</span>
+        <span style="color:#e60012;">{{timePur}}</span>
         内向天王盖地虎支付
         <span style="color:#53936c;">{{this.turnMuch}}.00CNY。</span>
         </p>
@@ -74,7 +74,10 @@ export default {
   data(){
     return{
       turnMuch:null,
-      loaDingFcPlace:false
+      loaDingFcPlace:false,
+      purm:19,
+      purs:60,
+      timePur:null
     }
   },
   components:{
@@ -83,7 +86,6 @@ export default {
   methods:{
     getParamsOrder(){
       this.turnMuch=this.$route.query.much;
-      console.log(this.turnMuch)
     },
     placeFc(){
       var res=getCookie('ress');//用户钱包地址
@@ -101,12 +103,35 @@ export default {
       }}
     ).then((res)=>{
       this.loaDingFcPlace=false;
-      console.log(res)
     })
+    },
+    PourPur(){
+      if(this.purs>0){
+        this.purs--;
+        this.timePur=this.purm+'分'+this.purs+'秒';
+        setTimeout(this.PourPur,1000)
+        if(this.purs<10){
+          this.timePur=this.purm+'分'+'0'+this.purs+'秒';
+          if(this.purs<1){
+            this.purm--;
+            this.purs=60;
+            if(this.purm<0||this.purs<1){
+              this.$router.push('/fcshop/pur')
+            }
+          }
+        }
+      }
     }
   },
   created(){
-    this.getParamsOrder()
+    this.getParamsOrder();
+    this.PourPur();
+  },
+  beforeRouteLeave(to,from,next){
+    if(from.path=='/fcbuy'){
+      this.PourPur=null;
+    }
+    next()
   }
 }
 </script>

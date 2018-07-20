@@ -94,7 +94,7 @@ export default {
         ress:null,
         token:null,
         turnPass:null,
-        loaDingFcBuy:true,
+        loaDingFcBuy:false,
         roteList:[
           {
             VendorName:'海绵海绵我是大星（123 | 97%）',
@@ -190,7 +190,7 @@ export default {
           }
       })
 
-        }
+    }
   },
   components:{
     Pager

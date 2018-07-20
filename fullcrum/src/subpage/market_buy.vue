@@ -40,8 +40,8 @@ export default {
       orderNumber:null,//票据订单编号
       orderNumberBuyer:null,//买家订单号码
       payInner:'预支付',
-      m:1,
-      s:10,
+      m:19,
+      s:60,
       time:null
     }
   },
@@ -357,10 +357,9 @@ export default {
           this.time=this.m+'分'+'0'+this.s+'秒';
           if(this.s<1){
             this.m--;
-            this.s=10
+            this.s=60
             if(this.m<0||this.s<1){
               this.$router.push('/mark')
-              // alert('111')
             }
           }
         }
@@ -370,10 +369,13 @@ export default {
   mounted(){
     this.getWal();
     this.Pour()
+  },
+  beforeRouteLeave(to,from,next){
+    if(from.path=='/marketbuy'){
+      this.Pour=null;
+    }
+    next()
   }
-  // beforeRouteLeave(){
-  //   this.Pour=null;
-  // }
 }
 </script>
 
