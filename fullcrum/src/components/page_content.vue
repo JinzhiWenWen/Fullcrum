@@ -139,7 +139,7 @@ export default {
     }
   },
   beforeDestroy(){
-    window.removeEventListener('scroll',self.handleScroll);
+    window.removeEventListener('scroll',this.handleScroll);
   }
 }
 </script>

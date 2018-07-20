@@ -59,7 +59,6 @@ export default {
       this.contract=this.$route.params.contract;
       this.orderNumber=this.$route.params.orderNumber;
       this.orderNumberBuyer=this.$route.params.orderNumberBuyer;
-      console.log(this.$route.params)
     },
     Markplace(){
         var _this=this;
@@ -371,10 +370,10 @@ export default {
   mounted(){
     this.getWal();
     this.Pour()
-  },
-  beforeDestroy(){
-    window.clearTimeout(this.Pour)
   }
+  // beforeRouteLeave(){
+  //   this.Pour=null;
+  // }
 }
 </script>
 
