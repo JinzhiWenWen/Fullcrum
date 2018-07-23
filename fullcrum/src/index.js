@@ -156,13 +156,16 @@ const router = new Router({
     ]
 })
 router.beforeEach((to, from, next) => {
+  //登录权限页面
   const nextRoute = ['Personal', 'Seller', 'Sellerma', 'Mark', 'Personass','LogiUoSuccess','Merchat',
   'MerchatAss','MerchatOr','MerchatSub','PersonalSet','Merchatap','MerchatMess','MarketBuy','SellerAss',
   'WithDrawal','Release','Fcbuy','Fcsell','SellerOr','SellerSe','sellerSet'
 ];
+//卖家权限页面
   const nextRouteBuyer=['Merchat','MerchatAss','MerchatOr','MerchatSub','Merchatap','MerchatMess',
   'Seller','SellerAss','WithDrawal','Release','Sellerma','SellerOr','SellerSe','sellerSet'
 ]
+//买家权限页面
   const nextRouteSeller=['Personal','Merchat','MerchatAss','MerchatOr','MerchatSub','PersonalSet',
   'Merchatap','MerchatMess','Mark','MarketBuy','Personass','Fcbuy','fcsell'
 ]

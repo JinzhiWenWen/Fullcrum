@@ -312,7 +312,6 @@ export default {
                                     offset:100
                                   });
                                     web3.eth.getBalance(from_addr).then(console.log);
-                                    _this.$router.push('/personalor/paperor')
                                     resolve();
                                 }
                                 else throw "Approval failed";

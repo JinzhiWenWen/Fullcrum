@@ -95,7 +95,6 @@ export default {
       this.$refs.more_center.style.transform='translateX(-150px)';
       this.$refs.more_market.style.transform='translateX(-150px)';
       this.$refs.more_about.style.transform='translateX(-150px)';
-      this.$refs.login_fill.style.top='-100%';
     },
     moreLogin(){
       this.$router.push('/login')
