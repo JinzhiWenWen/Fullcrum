@@ -182,6 +182,7 @@ export default {
         this.$router.push('/personSet')
       }else{
         this.axios.get(this.oUrl+'/fcexchange/feuser/'+Id).then((res)=>{
+          console.log(res)
           this.userMessage=res.data.value
         });
       }
@@ -232,7 +233,7 @@ export default {
     ).then((res)=>{
       console.log(res)
       this.loadingUpQr=false;
-      window.localStorage.clear()
+      localStorage.clear()
     }).catch((error)=>{
       console.log(error.response)
     })

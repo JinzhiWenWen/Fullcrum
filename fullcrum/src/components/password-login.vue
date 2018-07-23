@@ -98,7 +98,7 @@ export default {
             var ress=res.data.value.feWalletAddress;
             var phone=res.data.value.phone;
             sessionStorage.setItem('mes',id);
-            setCookie('mes',id);
+            setCookie('mes',id)
             setCookie('token',token);
             setCookie('ide',iden)
             setCookie('ress',ress)
@@ -111,8 +111,7 @@ export default {
               this.tiShi=true;
             }
           }).catch((error)=>{
-            console.log("error")
-            console.log(error)
+            this.LoginInner='登录'
             if(error.response.data.code==0){
               this.loadingLogin=false
               this.$notify.error({

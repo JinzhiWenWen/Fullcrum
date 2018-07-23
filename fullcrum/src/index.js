@@ -46,7 +46,6 @@ import Login from '@/subpage/login'
 import {getCookie} from '@/assets/util'
 import {delCookie} from '@/assets/util'
 Vue.use(Router)
-
 const router = new Router({
     mode:'history',
     routes:[
@@ -169,7 +168,6 @@ router.beforeEach((to, from, next) => {
   const nextRouteSeller=['Personal','Merchat','MerchatAss','MerchatOr','MerchatSub','PersonalSet',
   'Merchatap','MerchatMess','Mark','MarketBuy','Personass','Fcbuy','fcsell'
 ]
-  // let isLogin = global.isLogin;  // 是否登录
   // console.log(getCookie('mes'))
   let mes=getCookie('mes')   //获取登陆之后的CooKie
   let iden=getCookie('ide')
@@ -178,7 +176,7 @@ router.beforeEach((to, from, next) => {
     if (mes===null) {
       console.log('Surprise MonthFucker');
       router.push({ name: 'Page' })
-    }
+    }  // 判断用户身份
   }else if(nextRouteBuyer.indexOf(to.name)>=0){
     if (iden==='buyer') {
       console.log('Surprise MonthFucker!!!');
@@ -190,8 +188,6 @@ router.beforeEach((to, from, next) => {
       router.push({ name: 'Seller' })
     }
   }
-  // 判断用户身份
-  //
   next();
 });
 export default router;
