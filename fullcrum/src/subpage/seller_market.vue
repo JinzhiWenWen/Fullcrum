@@ -47,7 +47,12 @@
 
       </div>
       <div class="paper_pic" ref="paperPic">
-        <p>根据卖家上传的电子信息生成相对应的信息内容</p>
+        <ul class="piclist">
+          <li ref="Is"><img src="../img/paper.png" title="" alt="" /></li>
+          <li ref="The"><img src="../img/timg.png" title="" alt="" /></li>
+        </ul>
+        <button type="button" name="button" class="be" @click="flag && be()">上一张</button>
+        <button type="button" name="button" class="ne" @click="flagne && ne()">下一张</button>
         <span class="close" @click="closePic">
           <i class="el-icon-close"></i>
         </span>
@@ -65,7 +70,9 @@ export default {
       value:null,
       much:null,
       loaDingSellerMark:false,
-      sellerNothing:true,
+      sellerNothing:false,
+      flag:true,
+      flagne:true,
       options: [
         {
           value: '选项1',
@@ -118,6 +125,14 @@ export default {
       }).catch((error)=>{
         console.log(error.response)
       })
+    },
+    be(){
+      this.$refs.Is.style.transform='translateX(0)'
+      this.$refs.The.style.transform='translateX(0)'
+    },
+    ne(){
+      this.$refs.Is.style.transform='translateX(-100%)'
+      this.$refs.The.style.transform='translateX(-100%)'
     }
   },
   created(){
@@ -344,6 +359,26 @@ export default {
         cursor: pointer;
         .el-icon-close{
           font-size: 2.4rem;
+        }
+      }
+      .piclist{
+        width: 100%;
+        height:100%;
+        overflow: hidden;
+        position: relative;
+        li{
+          width: 100%;
+          height:100%;
+          transition: all 1s;
+          img{
+            width: 100%;
+            height:100%;
+          }
+        }
+        li:nth-child(2){
+          position: absolute;
+          right:-100%;
+          top:0;
         }
       }
     }

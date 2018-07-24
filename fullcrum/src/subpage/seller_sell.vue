@@ -299,7 +299,7 @@ export default {
            },
            {header:{
              'Content-Type':'application/json',
-             'Accept':'application'
+             'Accept':'application/json'
                }}
              ).then((res)=>{
                window.localStorage.clear()

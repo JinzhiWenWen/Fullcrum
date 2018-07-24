@@ -40,9 +40,9 @@ export default {
       orderNumber:null,//票据订单编号
       orderNumberBuyer:null,//买家订单号码
       payInner:'预支付',
-      m:19,
-      s:60,
-      time:null
+      m:19,//倒计时分
+      s:60,//倒计时秒
+      time:null//倒计时
     }
   },
   components:{

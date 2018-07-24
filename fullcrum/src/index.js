@@ -176,7 +176,7 @@ router.beforeEach((to, from, next) => {
     if (!getCookie('mes')) {
       console.log('Surprise MonthFucker');
       setTimeout(()=>{
-        next('/page/pass')
+        next('/login')
       })
     }
   }

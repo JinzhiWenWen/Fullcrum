@@ -34,7 +34,7 @@
           <span class="total">{{item.billBalance}}.00&nbsp;&nbsp;FC</span>
           <span class="limit">5000.00FC</span>
           <span class="oper">
-            <button type="button" name="button" class="prev" @click="showPaper()">预览</button>
+            <button type="button" name="button" class="prev" @click="showPaper(index)">预览</button>
             <button type="button" name="button" class="buy" @click="buyChase(index)">购买</button>
           </span>
           <span class="order" ref="order" style="display:none">
@@ -51,10 +51,12 @@
         <img src="" alt="用户图片"/>
     </div>
     <div class="paper_pic" ref="paperPic">
-      <ul>
-        <li><img src="../img/paper.png" title="" alt="" /></li>
-        <li></li>
+      <ul class="piclist">
+        <li ref="Is"><img src="../img/paper.png" title="" alt="" /></li>
+        <li ref="The"><img src="../img/timg.png" title="" alt="" /></li>
       </ul>
+      <button type="button" name="button" class="be" @click="flag && be()">上一张</button>
+      <button type="button" name="button" class="ne" @click="flagne && ne()">下一张</button>
       <span class="close" @click="closePic">
         <i class="el-icon-close"></i>
       </span>
@@ -104,17 +106,19 @@ export default {
         orderNumberBuyer:null,
         turnKey:null,
         time:null,
+        flag:true,
+        flagne:true
       }
     },
   methods:{
-    showPaper(){
+    showPaper(index){
       this.$refs.mask.style.display='block';
       this.$refs.paperPic.style.top="50%";
     },
     closePic(){
       setTimeout(()=>{
         this.$refs.mask.style.display='none';
-      },500)
+      },300)
       this.$refs.paperPic.style.top="-500px";
       this.$refs.pass.style.top="-300px";
     },
@@ -188,15 +192,15 @@ export default {
         _this.loaDingMark=false;
         _this.roteList=res.data.value;
         for(var v in _this.roteList){
-          var Time=_this.roteList[v].maturityDate;//获取每条数据的时间戳
-          var Data=new Date(Time)//创建时间对象，传入时间戳
-          var Y = Data.getFullYear() + '/';
-          var M = (Data.getMonth()+1 < 10 ? '0'+(Data.getMonth()+1) : Data.getMonth()+1) + '/';
-          var D ='0'+Data.getDate() + ' ';
-          if(D>=10){ //天数超过两位减掉拼接  '0'
-            var D=Data.getDate() + ' ';
-          }
-          _this.roteList[v].maturityDate=Y+M+D
+            var Time=_this.roteList[v].maturityDate;//获取每条数据的时间戳
+            var Data=new Date(Time)//创建时间对象，传入时间戳
+              var Y = Data.getFullYear() + '/';
+              var M = (Data.getMonth()+1 < 10 ? '0'+(Data.getMonth()+1) : Data.getMonth()+1) + '/';
+              var D ='0'+Data.getDate() + ' ';
+              if(D>=10){ //天数超过两位减掉拼接  '0'
+                var D=Data.getDate() + ' ';
+              }
+            _this.roteList[v].maturityDate=Y+M+D
         }
         let httpProvider = "http://testnet.nebula-ai.com:8545";
         let web3 = new Web3(httpProvider);
@@ -207,7 +211,7 @@ export default {
        }
        for (let i in _this.roteList){
         const groupon_ctr_addr=_this.roteList[i].contractAddress;//合约地址
-        _this.$http.get('../../static/json/groupon_erc20_abi.json').then((response)=>{
+        _this.$http.get('../static/json/groupon_erc20_abi.json').then((response)=>{
               return response.body;
             }).then((groupon_ctr_abi)=>{
               return new web3.eth.Contract(groupon_ctr_abi, groupon_ctr_addr);
@@ -221,6 +225,14 @@ export default {
             })
         }
       });
+    },
+    be(){
+      this.$refs.Is.style.transform='translateX(0)'
+      this.$refs.The.style.transform='translateX(0)'
+    },
+    ne(){
+      this.$refs.Is.style.transform='translateX(-100%)'
+      this.$refs.The.style.transform='translateX(-100%)'
     }
   },
   created(){
@@ -513,6 +525,26 @@ export default {
     cursor: pointer;
     .el-icon-close{
       font-size: 2.4rem;
+    }
+  }
+  .piclist{
+    width: 100%;
+    height:100%;
+    overflow: hidden;
+    position: relative;
+    li{
+      width: 100%;
+      height:100%;
+      transition: all 1s;
+      img{
+        width: 100%;
+        height:100%;
+      }
+    }
+    li:nth-child(2){
+      position: absolute;
+      right:-100%;
+      top:0;
     }
   }
 }

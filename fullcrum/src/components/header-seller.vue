@@ -114,7 +114,7 @@ export default {
       .user_pic{
         width: 32px;
         height:32px;
-        background: url('../img/timg.png');
+        background: url('../img/UserPic.png');
         background-size: 100% 100%;
         border-radius:50%;
         margin-left:48px;

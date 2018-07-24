@@ -95,7 +95,7 @@ export default {
   height:100%;
   .login_con{
     width: 60%;
-    height:70%;
+    height:80%;
     position: absolute;
     left:50%;
     margin-left: -30%;
