@@ -1,7 +1,7 @@
 <template lang="html">
   <div class="query">
     <HeaderUser>
-      <p class="slot-mine">区块链浏览器</p>
+      <p class="slot-mine">交易查询</p>
     </HeaderUser>
     <div class="query_con">
       <p class="query_title"><input type="text" value="" placeholder="请输入交易Hash" /> <button type="butotn">查询</button> </p>
