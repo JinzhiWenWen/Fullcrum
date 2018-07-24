@@ -231,7 +231,6 @@ export default {
         'Authorization':tok
       }}
     ).then((res)=>{
-      console.log(res)
       this.loadingUpQr=false;
       localStorage.clear()
     }).catch((error)=>{

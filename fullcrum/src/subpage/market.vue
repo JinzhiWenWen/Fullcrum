@@ -51,7 +51,10 @@
         <img src="" alt="用户图片"/>
     </div>
     <div class="paper_pic" ref="paperPic">
-      <p>根据卖家上传的电子信息生成相对应的信息内容</p>
+      <ul>
+        <li><img src="../img/paper.png" title="" alt="" /></li>
+        <li></li>
+      </ul>
       <span class="close" @click="closePic">
         <i class="el-icon-close"></i>
       </span>
@@ -111,7 +114,7 @@ export default {
     closePic(){
       setTimeout(()=>{
         this.$refs.mask.style.display='none';
-      },300)
+      },500)
       this.$refs.paperPic.style.top="-500px";
       this.$refs.pass.style.top="-300px";
     },

@@ -43,6 +43,7 @@ import SellerSet from '@/subpage/seller_setmes'
 import SellerDet from '@/subpage/seller_details'
 import MarketBuy from '@/subpage/market_buy'
 import Login from '@/subpage/login'
+import Query from '@/subpage/query'
 import {getCookie} from '@/assets/util'
 import {delCookie} from '@/assets/util'
 Vue.use(Router)
@@ -151,7 +152,8 @@ const router = new Router({
       {path:'/selleror',name:'SellerOr',component:SellerOr},
       {path:'/sellerse',name:'SellerSe',component:SellerSe},
       {path:'/sellerSet',name:'sellerSet',component:SellerSet},
-      {path:'/sellerdet',name:'sellerDet',component:SellerDet}
+      {path:'/sellerdet',name:'sellerDet',component:SellerDet},
+      {path:'/query',name:'Query',component:Query}
     ]
 })
 router.beforeEach((to, from, next) => {
