@@ -47,7 +47,7 @@ import {getCookie} from '@/assets/util'
 import {delCookie} from '@/assets/util'
 Vue.use(Router)
 const router = new Router({
-    mode:'history',
+    // mode:'history',
     routes:[
       {path:'/',redirect: "/page"},
       {
@@ -168,24 +168,31 @@ router.beforeEach((to, from, next) => {
   const nextRouteSeller=['Personal','Merchat','MerchatAss','MerchatOr','MerchatSub','PersonalSet',
   'Merchatap','MerchatMess','Mark','MarketBuy','Personass','Fcbuy','fcsell'
 ]
-  // console.log(getCookie('mes'))
-  let mes=getCookie('mes')   //获取登陆之后的CooKie
-  let iden=getCookie('ide')
-  // 未登录状态；当路由到nextRoute指定页时，跳转至login
-  if (nextRoute.indexOf(to.name) >= 0) {
-    if (mes===null) {
+  let iden=getCookie('ide')//获取用户身份
+  // 未登录状态；当路由到nextRoute指定页时，跳转至首页
+  if (nextRoute.indexOf(to.name) > -1) {
+    if (!getCookie('mes')) {
       console.log('Surprise MonthFucker');
-      router.push({ name: 'Page' })
-    }  // 判断用户身份
-  }else if(nextRouteBuyer.indexOf(to.name)>=0){
+      setTimeout(()=>{
+        next('/page/pass')
+      })
+    }
+  }
+  // 判断用户身份
+   if(nextRouteBuyer.indexOf(to.name)>-1){
     if (iden==='buyer') {
       console.log('Surprise MonthFucker!!!');
-      router.push({ name: 'Personal' })
+      setTimeout(()=>{
+        next('/person')
+      })
     }
-  }else if (nextRouteSeller.indexOf(to.name)>=0){
+  }
+  if (nextRouteSeller.indexOf(to.name)>-1){
     if(iden==='seller'){
       console.log('Surprise MonthFucker!!!!!!');
-      router.push({ name: 'Seller' })
+      setTimeout(()=>{
+        next('/seller')
+      })
     }
   }
   next();
