@@ -51,8 +51,12 @@
           <li ref="Is"><img src="../img/paper.png" title="" alt="" /></li>
           <li ref="The"><img src="../img/timg.png" title="" alt="" /></li>
         </ul>
-        <button type="button" name="button" class="be" @click="flag && be()">上一张</button>
-        <button type="button" name="button" class="ne" @click="flagne && ne()">下一张</button>
+        <span class="market_icon_left"  @click="flag && be()"  ref="market_icon_left">
+           <img src="../img/market_icon_left.png" alt="">
+        </span>
+        <span class="market_icon_right"  @click="flagne && ne()">
+          <img src="../img/market_icon_right.png" alt="" ref="market_icon_right">
+        </span>
         <span class="close" @click="closePic">
           <i class="el-icon-close"></i>
         </span>
@@ -127,12 +131,20 @@ export default {
       })
     },
     be(){
-      this.$refs.Is.style.transform='translateX(0)'
-      this.$refs.The.style.transform='translateX(0)'
+      this.$refs.Is.style.transform='translateX(0)';
+      this.$refs.The.style.transform='translateX(0)';
+      setTimeout(()=>{
+        this.$refs.market_icon_right.style.opacity="1";
+        this.$refs.market_icon_left.style.opacity=".5";
+      },500)
     },
     ne(){
-      this.$refs.Is.style.transform='translateX(-100%)'
-      this.$refs.The.style.transform='translateX(-100%)'
+      this.$refs.Is.style.transform='translateX(-100%)';
+      this.$refs.The.style.transform='translateX(-100%)';
+      setTimeout(()=>{
+        this.$refs.market_icon_left.style.opacity="1"
+        this.$refs.market_icon_right.style.opacity=".5"
+      },500)
     }
   },
   created(){
@@ -380,6 +392,20 @@ export default {
           right:-100%;
           top:0;
         }
+      }
+      .market_icon_left{
+        position: absolute;
+        left:3%;
+        top:48%;
+        cursor:pointer;
+        opacity:.5;
+      }
+      .market_icon_right{
+        position: absolute;
+        right:3%;
+        top:48%;
+        cursor:pointer;
+        opacity:1;
       }
     }
   }
