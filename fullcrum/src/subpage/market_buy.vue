@@ -22,7 +22,15 @@
       <p class="marketBuy_alt">1、您的数字货币将暂时被冻结由平台保管，交易达成后系统将自动将其划转到卖方的数字钱包内，如交易失效将为您解冻。</p>
       <p class="marketBuy_alt">2、如果买方当日取消订单达3次，将会被限制当日的买入功能。</p>
     </div>
+    <div class="mask_mark_buy" v-show="mask_mark_buy" @click="closeHash()">
 
+    </div>
+    <div class="showHash" ref="showHash">
+      <p>交易Hash</p>
+      <span>（可以通过此Hash在区块链浏览器内实时查询订单信息）</span>
+      <p style="margin-top:3%;">{{hash}}</p>
+      <p style="text-align:right;padding-right:5%;margin-top:2%;"><button type="button" @click="closeHash()">确定</button></p>
+    </div>
   </div>
 </template>
 
@@ -42,7 +50,9 @@ export default {
       payInner:'预支付',
       m:19,//倒计时分
       s:60,//倒计时秒
-      time:null//倒计时
+      time:null,//倒计时
+      mask_mark_buy:false,
+      hash:null// 交易
     }
   },
   components:{
@@ -52,6 +62,18 @@ export default {
   methods:{
     Buyback(){
       window.history.back()
+    },
+    showHash(){
+      this.$refs.showHash.style.top="30%";
+      this.$refs.showHash.style.opacity="1";
+      this.mask_mark_buy=true;
+    },
+    closeHash(){
+      this.$refs.showHash.style.top="15%";
+      this.$refs.showHash.style.opacity="0";
+      setTimeout(()=>{
+        this.mask_mark_buy=false;
+      },400)
     },
     getWal(){
       this.key=this.$route.params.turnkey;
@@ -294,10 +316,10 @@ export default {
                                   }}
                                   ).then((res)=>{
                                   console.log(res)
-
+                                  _this.hash=hash;
+                                  _this.showHash();
                                 }).catch((error)=>{
                                   console.log(error)
-
                                 })
                                 console.log("Purchase transaction hash: "+hash);
                             })
@@ -369,12 +391,6 @@ export default {
   mounted(){
     this.getWal();
     this.Pour()
-  },
-  beforeRouteLeave(to,from,next){
-    if(from.path=='/marketbuy'){
-      this.Pour=null;
-    }
-    next()
   }
 }
 </script>
@@ -415,11 +431,54 @@ export default {
         height:100%;
         font-size:2rem;
         border-radius:5px;
+        min-height: 46px;
+        min-width: 98px;
       }
     }
     .marketBuy_alt{
       color:#999;
       font-size: 1.4rem;
+    }
+  }
+  .mask_mark_buy{
+    width: 100%;
+    height:100%;
+    background: rgba(0,0,0,.5);
+    position: fixed;
+    top:0;
+    left:0;
+    z-index: 600;
+  }
+  .showHash{
+    width: 35%;
+    height:18%;
+    border-radius: 5px;
+    position: absolute;
+    top:15%;
+    left:50%;
+    background: white;
+    margin-left: -17.5%;
+    z-index: 601;
+    padding-left:1%;
+    padding-top:1%;
+    min-width: 666px;
+    min-height: 156px;
+    opacity: 0;
+    transition: all 1s;
+    p{
+      font-size: 1.8rem;
+      button{
+        width: 12%;
+        height:34px;
+        background:#5277cc;
+        color:white;
+        border-radius: 5px;
+      }
+    }
+    span{
+      color:#999;
+      margin-top: 1%;
+      margin-left: -1%;
     }
   }
 }

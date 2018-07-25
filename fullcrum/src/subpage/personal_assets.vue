@@ -7,7 +7,7 @@
       <div class="fc" ref="fc">
         <p class="spec_fc">FC</p>
         <div class="blance">
-          <span class="num">账户余额：{{balance/1000000000000000000}}.00FC</span>
+          <span class="num">账户余额：{{balance*0.000000000000000001}}.00FC</span>
           <p class="oper_personAss">
             <router-link to="/fcshop" tag='button' class="buy">购买</router-link>
             <button type="button" name="button" class="sell">出售</button>
