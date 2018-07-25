@@ -7,6 +7,7 @@
           <div class="left">
             <router-link to="/mark" tag='p'>票据市场</router-link>
             <router-link to="/fcshop" tag='p'>FC市场</router-link>
+            <router-link to="/query" tag="p">区块链浏览器</router-link>
           </div>
           <div class="right">
             <router-link to='/personalor' tag="p">订单</router-link>

@@ -102,7 +102,18 @@ export default {
         'Content-Type':'application/json'
       }}
     ).then((res)=>{
+      console.log(res)
       this.loaDingFcPlace=false;
+      this.$notify({
+      title: '成功',
+      message: '支付成功！',
+      type: 'success',
+      offset:100
+    });
+    setTimeout(()=>{
+      this.$router.push('/mark')
+    },1000)
+
     })
     },
     PourPur(){

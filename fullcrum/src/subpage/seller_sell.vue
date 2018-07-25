@@ -324,6 +324,7 @@ export default {
                    type: 'success',
                    offset:100
                  });
+                 this.$router.push('/sellerma')
                    console.log("the end .........")
                  })
                })

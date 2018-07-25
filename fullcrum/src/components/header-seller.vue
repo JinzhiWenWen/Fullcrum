@@ -5,6 +5,7 @@
         <More/>
         <div class="" style="width:100%;height:80px;position:absolute;top:0;min-width:1080px;">
           <router-link class="left" to="/sellerma" tag='p'>票据市场</router-link>
+          <router-link class="left_two" to="/query" tag="p">区块链浏览器</router-link>
           <div class="right">
             <p @mouseenter="malists()" @mouseleave="hidemali()">票据管理</p>
             <div class="ma_lists" v-show="isShowMa"  @mouseenter="malists()" @mouseleave="hidemali()">
@@ -104,6 +105,11 @@ export default {
     .left{
       position: absolute;
       left:.5%;
+      top:.5%;
+    }
+    .left_two{
+      position: absolute;
+      left:6%;
       top:.5%;
     }
     .right{
