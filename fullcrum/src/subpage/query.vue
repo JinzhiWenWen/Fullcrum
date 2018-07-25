@@ -4,7 +4,7 @@
       <p class="slot-mine">区块链浏览器</p>
     </HeaderUser>
     <div class="query_con">
-      <p class="query_title"><input type="text" value="" placeholder="请输入交易Hash" /> <button type="butotn">查询</button> </p>
+      <p class="query_title"><input type="text" value="" ref="quHash" placeholder="请输入交易Hash" /> <button type="butotn" @click="hashscan()">查询</button> </p>
       <p class="query_alt">交易信息</p>
       <div class="query_mes">
         <div class="query_mes_left">
@@ -26,20 +26,20 @@
         </div>
         <div class="query_mes_right">
             <ul>
-              <li>0xc7511460d8c5fdcfc622a8e8e04ba728f10dbf2338ba92f7a1bac70e74171a5d</li>
-              <li style="color:green;">Success</li>
-              <li><span style="color:#5277cc;">6020894</span> (6 block confirmations)</li>
-              <li>1 min ago (Jul-24-2018 09:30:56 AM +UTC)</li>
-              <li style="color:#5277cc;">0x9c9159ad0c849098c73cb95ae921e78daa7776d7</li>
-              <li><span style="color:#5277cc;">0x3f5ce5fbfe3e9af3971dd833d26ba9b5c936f0be</span> (BinanceWallet)</li>
-              <li>1.984 Ether ($926.57)</li>
-              <li>42000</li>
-              <li>21000</li>
-              <li>0.00000002 Ether (20 Gwei)</li>
-              <li>0.00042 Ether ($0.20)</li>
-              <li>0 | {13}</li>
+              <li>{{Txhash}}</li>
+              <li style="color:green;">{{TxReceiptStatus}}</li>
+              <li><span style="color:#5277cc;"></span> (block confirmations)</li>
+              <li>{{TimeStamp}}</li>
+              <li style="color:#5277cc;">{{From}}</li>
+              <li><span style="color:#5277cc;">{{To}}</span> (BinanceWallet)</li>
+              <li>{{Value}}</li>
+              <li>{{GasLimit}}</li>
+              <li>{{GasUsedByTxn}}</li>
+              <li>{{GasPrice}}</li>
+              <li>{{ActualTxCostFee}}</li>
+              <li>{{Nonce}}</li>
               <li>
-                <textarea name="name" rows="8" cols="80" style="resize:none;outline:none;">0x</textarea>
+                <textarea name="name" rows="8" cols="80" style="resize:none;outline:none;">{{InputData}}</textarea>
               </li>
             </ul>
         </div>
@@ -50,9 +50,82 @@
 
 <script>
 import HeaderUser from '@/components/header-user'
+import {getCookie} from '@/assets/util'
 export default {
+  data(){
+    return{
+      Txhash:null,
+      TxReceiptStatus:null,
+      BlockHeight:null,
+      TimeStamp:null,
+      From:null,
+      To:null,
+      Value:null,
+      GasLimit:null,
+      GasUsedByTxn:null,
+      GasPrice:null,
+      ActualTxCostFee:null,
+      Nonce:null,
+      InputData:null
+    }
+  },
   components:{
     HeaderUser
+  },
+  methods:{
+    hashscan(){
+      let _this=this;
+      let ress = getCookie('ress')
+      let httpProvider = "http://testnet.nebula-ai.com:8545";
+      let web3 = new Web3(httpProvider);
+      let QueryHash=_this.$refs.quHash.value;
+      /**
+         * sign 签名验证例子
+         */
+        //let addr='0x04443827409B356555feF22F76Efb91996f47d3E'
+        let addr = ress;
+        // let addr = getCookie('ress')//已知用户的地址 this.address
+        //let pk = '0x'+this.key
+        //let pk = '0x637df8c55817926e7d38ad34dba0b0476a8a914bb61bad0b6760108582d225d6';//用户输入的私钥  this.key
+        let pk = '0xbd76ced88fe686f58831922b8cad0d7fcf067a9d039ec4654734e69f45937394';//tb002
+        let message = "Some data"; //自定义签名信息，随便是什么
+        let signedMessage = web3.eth.accounts.sign('Some data', pk);//签名过后的信息
+
+        let verifiedSender = web3.eth.accounts.recover(signedMessage);// verifiedSender 应该是addr
+
+        console.log("签名验证：",verifiedSender.toLowerCase()===addr.toLowerCase());
+
+
+        let bill_ctr_addr = '0x7e40298219754ac7102e6d79edb3608c862a796f';
+        let bill_ctr_instance = null;
+        this.$http.get('../../static/json/groupon_erc20_abi.json').then(response=>{
+          console.log("get bill abi >>>>>>>>>>")
+          return response.body;
+        }).then(groupon_abi=>{
+          bill_ctr_instance = new web3.eth.Contract(groupon_abi, bill_ctr_addr);
+          console.log("groupon   contract instance ")
+          console.log(bill_ctr_instance)
+        }).then(()=>{
+          console.log("transaction query from block chain")
+          web3.eth.getTransaction(QueryHash)
+          .then((res)=>{
+            console.log(res)
+            _this.From=res.from;
+            _this.To=res.to;
+            _this.Value=res.value;
+            _this.GasUsedByTxn=res.gas;
+            _this.GasPrice=res.gasPrice;
+            _this.Txhash=res.hash;
+            _this.InputData=res.input;
+            _this.TxReceiptStatus='Success';
+            _this.BlockHeight='6020894';
+            _this.TimeStamp='1 min ago (Jul-25-2018 13:30:56 AM +UTC)';
+            _this.GasLimit='42000';
+            _this.ActualTxCostFee='0.00042 Ether ($0.20)';
+            _this.Nonce='0 | {13}'
+          })
+        })
+    }
   }
 }
 </script>
